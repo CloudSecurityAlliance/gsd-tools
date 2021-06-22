@@ -1,0 +1,32 @@
+version: "3"
+services:
+  nginx:
+    image: "nginx"
+    volumes:
+      - ./nginx-config:/etc/nginx
+      - /etc/letsencrypt:/etc/letsencrypt
+    ports:
+      - 443:443
+      - 80:80
+  uvi-form:
+    #image: "ivu-form"
+    build: ../webform
+    expose:
+      - 3000
+    environment:
+      - SESSION_KEY
+      - GH_CLIENT_ID
+      - GH_TOKEN
+      - GH_OAUTH_SECRET
+      - GH_REPO
+      - GH_USERNAME
+  uvi-bot:
+    #image: "uvi-form"
+    build: ../uvi-bot
+    environment:
+      - SESSION_KEY
+      - GH_CLIENT_ID
+      - GH_TOKEN
+      - GH_USERNAME
+      - GH_REPO
+    restart: always
