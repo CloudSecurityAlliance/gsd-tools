@@ -263,77 +263,7 @@ class UVIRepo:
         # beginning. It will be fixed someday
         c = {}
         c["uvi"] = issue_data
-        c.update(self.get_mitre_json_format(uvi_id, issue_data))
         # Consider this the first proper namespace
         c["OSV"] = self.get_osv_json_format(uvi_id, issue_data)
-        return c
-
-    def get_mitre_json_format(self, uvi_id, issue_data):
-
-        # This data format is beyond terrible. Apologies if you found this. I am ashamed for the author of it.
-        # We will fix it someday, but not today. The initial goal is to be compatible
-
-        c = {};
-
-        # UVI namespace. We want this at the top because it's easy to read
-        # If there is any new data to add, do it here. The previous fields should be treated as legacy
-
-
-        # metadata
-            # Or CAN
-        if uvi_id.startswith("UVI"):
-            c["data_type"] = "UVI"
-        else:
-            c["data_type"] = "CAN"
-        c["data_format"] = "MITRE"
-        c["data_version"] = "4.0"
-        c["CVE_data_meta"] = {}
-        c["CVE_data_meta"]["ASSIGNER"] = "uvi"
-            # CAN ID
-        c["CVE_data_meta"]["ID"] = uvi_id
-        c["CVE_data_meta"]["STATE"] = "PUBLIC"
-
-        # affected
-        c["affects"] = {};
-        c["affects"]["vendor"] = {}
-        c["affects"]["vendor"]["vendor_data"] = []
-        c["affects"]["vendor"]["vendor_data"].append({})
-        c["affects"]["vendor"]["vendor_data"][0]["vendor_name"] = issue_data["vendor_name"]
-        c["affects"]["vendor"]["vendor_data"][0]["product"] = {}
-        c["affects"]["vendor"]["vendor_data"][0]["product"]["product_data"] = []
-        c["affects"]["vendor"]["vendor_data"][0]["product"]["product_data"].append({})
-        c["affects"]["vendor"]["vendor_data"][0]["product"]["product_data"][0]["product_name"] = issue_data["product_name"]
-        c["affects"]["vendor"]["vendor_data"][0]["product"]["product_data"][0]["version"] = {}
-        c["affects"]["vendor"]["vendor_data"][0]["product"]["product_data"][0]["version"]["version_data"] = []
-        c["affects"]["vendor"]["vendor_data"][0]["product"]["product_data"][0]["version"]["version_data"].append({})
-        # ಠ_ಠ
-        c["affects"]["vendor"]["vendor_data"][0]["product"]["product_data"][0]["version"]["version_data"][0]["version_value"] = issue_data["product_version"]
-
-        # problem
-        c["problemtype"] = {}
-        c["problemtype"]["problemtype_data"] = []
-        c["problemtype"]["problemtype_data"].append({})
-        c["problemtype"]["problemtype_data"][0]["description"] = []
-        c["problemtype"]["problemtype_data"][0]["description"].append({})
-        c["problemtype"]["problemtype_data"][0]["description"][0]["lang"] = "eng"
-        c["problemtype"]["problemtype_data"][0]["description"][0]["value"] = issue_data["vulnerability_type"]
-
-        # references
-        c["references"] = {}
-        c["references"]["reference_data"] = []
-        # This will be a loop, we can have multiple references
-        for i in issue_data["references"]:
-            c["references"]["reference_data"].append({})
-            c["references"]["reference_data"][-1]["url"] = i
-            c["references"]["reference_data"][-1]["refsource"] = "MISC"
-            c["references"]["reference_data"][-1]["name"] = i
-
-        # description
-        c["description"] = {}
-        c["description"]["description_data"] = []
-        c["description"]["description_data"].append({})
-        c["description"]["description_data"][0]["lang"] = "eng"
-        c["description"]["description_data"][0]["value"] = issue_data["description"]
-
         return c
 
