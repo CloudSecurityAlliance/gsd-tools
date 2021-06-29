@@ -122,13 +122,17 @@ def main():
             "reporter": "joshbressers",
             "reporter_id": 1692786,
             "notes": "",
-            "description": f"{commit_title}\n\nThis is an automated ID intended to aid in discovery of potential security vulnerabilities. The actual impact and attack plausibility have not yet been proven.\nThis ID is fixed in Linux Kernel version {fixed_version} by commit {fixed_hash}, it was introduced in version {introduced_version} by commit {introduced_hash}. For more details please see the references link."
         }
 
         # We need to delete the introduced data if it's blank
+        # Also use a different description based on introduced
         if introduced_hash == '' and introduced_version == '':
             del(json_data["references"][0])
             del(json_data["extended_references"][0])
+            json_data["description"] = f"{commit_title}\n\nThis is an automated ID intended to aid in discovery of potential security vulnerabilities. The actual impact and attack plausibility have not yet been proven.\nThis ID is fixed in Linux Kernel version {fixed_version} by commit {fixed_hash}. For more details please see the references link."
+
+        else:
+            json_data["description"] = f"{commit_title}\n\nThis is an automated ID intended to aid in discovery of potential security vulnerabilities. The actual impact and attack plausibility have not yet been proven.\nThis ID is fixed in Linux Kernel version {fixed_version} by commit {fixed_hash}, it was introduced in version {introduced_version} by commit {introduced_hash}. For more details please see the references link."
 
         json_output = json.dumps(json_data, indent=2)
 
@@ -164,4 +168,4 @@ def main():
             time.sleep(5)
 
 if __name__ == "__main__":
-	main()
+    main()
