@@ -82,7 +82,7 @@ def main():
 
 
         check_commit = repo.commit(fixed_hash)
-        check_version = re.search(r'(v\d+\.\d+\.\d+)\~', check_commit.name_rev)
+        check_version = re.search(r'(v[0-9a-z.-]+)[\~\^]', check_commit.name_rev)
 
         if not args.ignore:
             if fixed_version not in check_version.groups()[0]:
