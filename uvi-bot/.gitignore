@@ -3,4 +3,4 @@ DWF.egg-info/
 build/
 dist/
 dwf_bot.egg-info/
-
+.venv/
