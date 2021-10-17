@@ -23,6 +23,7 @@ Hello {{username}}
   <div class="row">
   <div class="col-6">
     <form action="/uviform/formsubmit" name="requestUVI" method="post" class="input-append">
+        <input type="hidden" name="_csrf" value="{{csrfToken}}">
         <label for="vendorName">Vendor Name</label>
         <input type="text" class="form-control" data-toggle="tooltip" data-placement="left" title="The name of the vendor or project who release the software affected" name="vendorName" id="vendorName" placeholder="Vendor"/>
         <label for="productName">Product Name</label>

@@ -21,7 +21,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     python_requires='>=3',
-    setup_requires=['pytest-runner'],
+    setup_requires=['pytest-runner', 'requests', 'gitpython'],
     tests_require=['pytest']
 )
 
