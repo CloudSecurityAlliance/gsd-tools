@@ -1,9 +1,12 @@
 var express = require('express');
 var axios = require('axios');
+var csrf = require('csurf');
 var router = express.Router();
 
+const csrfProtection = csrf({ cookie: true });
+
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', csrfProtection, function(req, res, next) {
 
 	const the_username = req.session.github_login || undefined;
 
@@ -13,11 +16,12 @@ router.get('/', function(req, res, next) {
 
 	res.render('uviform', {
 		title: 'Actual UVI Form',
-		username: the_username
+		username: the_username,
+		csrfToken: req.csrfToken()
 	});
 });
 
-router.post('/formsubmit', function(req, res, next) {
+router.post('/formsubmit', csrfProtection, function(req, res, next) {
 
 	if (process.env.UVI_VIEW_EDIT == "true") {
 		// form fiew only dev mode
