@@ -193,19 +193,31 @@ class UVIRepo:
         c = {};
 
         c["id"] = uvi_id
-
+        c["modified"] = the_time
+        c["published"] = the_time
 
         vuln_type = issue_data["vulnerability_type"]
         name = issue_data["product_name"]
         version = issue_data["product_version"]
         summary = f"{vuln_type} in {name} version {version}"
         c["summary"] = summary
-
         c["details"] = issue_data["description"]
-        c["package"] = {
-            "name": issue_data["product_name"],
-            "ecosystem": "UVI"
-        }
+
+        c["affected"] = [{
+            "package": {
+                "name": issue_data["product_name"],
+                "ecosystem": "UVI"
+            },
+            # We will need to remove a version or ranges below, there can
+            # be only one!
+            "ranges": [{
+                "type": "",
+                "repo": "",
+                "events": [{}, {}]
+            }],
+            "versions": []
+        }]
+
 
         # XXX: This needs to be done in a better way long term
         if issue_data["product_name"] == "Kernel" and \
@@ -217,43 +229,38 @@ class UVIRepo:
 
             # We are dealing with the kernel, skip references and use git
             # commits in the affected section
-            c["package"]["ecosystem"] = "Linux"
+            c["affected"][0]["package"]["ecosystem"] = "Linux"
 
-            c["affects"] = {
-                "ranges": [
-                    {
-                        "type": "GIT",
-                        "repo": "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/"
-                    }
-                ]
-            }
+            c["affected"][0]["ranges"][0]["type"] = "GIT"
+            c["affected"][0]["ranges"][0]["repo"] = "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/"
 
             # Find the kernel fixed and introduced fields
+            c["affected"][0]["ranges"][0]["events"][0]["introduced"] = "0"
+            c["affected"][0]["ranges"][0]["events"][1]["limit"] = ""
+            del(c["affected"][0]["versions"])
+
             for i in issue_data["extended_references"]:
                 if i["type"] != "commit":
                     # XXX We need some exceptions
                     raise Exception("Unknown kernel reference")
 
+
                 if i["note"] == "introduced":
-                    c["affects"]["ranges"][0]["introduced"] = i["value"]
+                    c["affected"][0]["ranges"][0]["events"][0]["introduced"] = i["value"]
                 elif i["note"] == "fixed":
-                    c["affects"]["ranges"][0]["fixed"] = i["value"]
+                    c["affected"][0]["ranges"][0]["events"][1]["limit"] = i["value"]
                 else:
                     raise Exception("Unknown kernel note")
 
         else:
             # We're not looking at kernel issues
-            c["affects"] = {
-                "versions": [
+            del(c["affected"][0]["ranges"])
+            c["affected"][0]["versions"] = [
                     issue_data["product_version"]
-                ]
-            }
+            ]
             c["references"] = []
             for i in issue_data["references"]:
                 c["references"].append({"type": "WEB", "url": i})
-
-        c["modified"] = the_time
-        c["published"] = the_time
 
         return c
 
