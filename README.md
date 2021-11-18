@@ -1,2 +1,3 @@
-# uvi-tools
-For details please see https://universalvulnerabilityidentifier.org/
+# gsd-tools
+
+GSD Tools
