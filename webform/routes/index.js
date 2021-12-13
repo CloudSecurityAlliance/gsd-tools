@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
 	const the_username = req.session.github_login || undefined;
 
 	res.render('index', {
-		title: 'UVI Form',
+		title: 'GSD Form',
 		client_id: process.env.GH_CLIENT_ID,
 		username: the_username
 	});

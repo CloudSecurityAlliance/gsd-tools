@@ -1,7 +1,7 @@
 
 import requests
 import os
-from .UVIIssue import Issue
+from .GSDIssue import Issue
 
 def get_new_issues(issues_url):
     auth = (os.environ['GH_USERNAME'], os.environ['GH_TOKEN'])

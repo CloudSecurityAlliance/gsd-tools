@@ -6,14 +6,14 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="UVI", # Replace with your own username
+    name="GSD", # Replace with your own username
     version="0.0.1",
     author="Josh Bressers",
     author_email="josh@bress.net",
-    description="The UVI python bot and helpers",
+    description="The GSD python bot and helpers",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/cloudsecurityalliance/uvi-tools",
+    url="https://github.com/cloudsecurityalliance/gsd-tools",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",

@@ -5,7 +5,7 @@ import os
 import json
 import datetime
 
-class UVIRepo:
+class GSDRepo:
     def __init__(self, repo_url, testing=False):
 
         self.testing = testing
@@ -22,22 +22,22 @@ class UVIRepo:
 
     def update_id(self, the_id, the_data):
 
-        # If we get a CAN, we want a UVI filename
+        # If we get a CAN, we want a GSD filename
         if 'CAN' in the_id:
-            the_id = the_id.replace("CAN", "UVI")
+            the_id = the_id.replace("CAN", "GSD")
 
         the_filename = self.get_file(the_id)
 
-        uvi_json = json.dumps(the_data, indent=2)
-        uvi_json = uvi_json + "\n"
+        gsd_json = json.dumps(the_data, indent=2)
+        gsd_json = gsd_json + "\n"
         # save the json
         with open(the_filename, 'w') as json_file:
-            json_file.write(uvi_json)
+            json_file.write(gsd_json)
         self.repo.index.add(the_filename)
 
-    def can_to_uvi(self, uvi_issue):
+    def can_to_gsd(self, gsd_issue):
 
-        can_id = uvi_issue.get_uvi_id()
+        can_id = gsd_issue.get_gsd_id()
         # Make sure the ID starts with CAN
         if not can_id.startswith('CAN-'):
             return None
@@ -46,8 +46,8 @@ class UVIRepo:
         year = can_id.split('-')[1]
         id_str = can_id.split('-')[2]
         namespace = "%sxxx" % id_str[0:-3]
-        uvi_id = "UVI-%s-%s" % (year, id_str)
-        filename = "%s.json" % (uvi_id)
+        gsd_id = "GSD-%s-%s" % (year, id_str)
+        filename = "%s.json" % (gsd_id)
 
         can_file = os.path.join(year, namespace, filename)
         git_file = os.path.join(self.repo.working_dir, can_file)
@@ -57,46 +57,46 @@ class UVIRepo:
                 # Read the json
                 can_data = json.loads(json_file.read())
 
-        # Swap the CAN to UVI
-        can_data['data_type'] = 'UVI'
-        can_data['CVE_data_meta']['ID'] = uvi_id
-        can_data['OSV']['id'] = uvi_id
+        # Swap the CAN to GSD
+        can_data['data_type'] = 'GSD'
+        can_data['CVE_data_meta']['ID'] = gsd_id
+        can_data['OSV']['id'] = gsd_id
 
         # save the json
-        self.update_id(uvi_id, can_data)
+        self.update_id(gsd_id, can_data)
 
         # Commit the file
         self.repo.index.add(can_file)
-        self.repo.index.commit("Promoted to %s for #%s" % (uvi_id, uvi_issue.id))
+        self.repo.index.commit("Promoted to %s for #%s" % (gsd_id, gsd_issue.id))
         self.push()
-        return uvi_id
+        return gsd_id
 
     def commit(self, message):
         self.repo.index.commit(message)
 
-    def add_uvi(self, uvi_issue):
+    def add_gsd(self, gsd_issue):
 
-        uvi_data = uvi_issue.get_uvi_json()
+        gsd_data = gsd_issue.get_gsd_json()
 
         # Check the allowlist
-        reporter = uvi_issue.get_reporter()
+        reporter = gsd_issue.get_reporter()
 
         approved_user = self.approved_user(reporter)
 
-        (uvi_id, uvi_path) = self.get_next_uvi_path(approved_user)
+        (gsd_id, gsd_path) = self.get_next_gsd_path(approved_user)
 
-        new_uvi_data = self.get_uvi_json_format(uvi_id, uvi_data)
-        uvi_json = json.dumps(new_uvi_data, indent=2)
-        uvi_json = uvi_json + "\n"
+        new_gsd_data = self.get_gsd_json_format(gsd_id, gsd_data)
+        gsd_json = json.dumps(new_gsd_data, indent=2)
+        gsd_json = gsd_json + "\n"
 
-        with open(os.path.join(self.repo.working_dir, uvi_path), 'w') as json_file:
-            json_file.write(uvi_json)
+        with open(os.path.join(self.repo.working_dir, gsd_path), 'w') as json_file:
+            json_file.write(gsd_json)
 
-        self.repo.index.add(uvi_path)
-        self.repo.index.commit("Add %s for #%s" % (uvi_id, uvi_issue.id))
+        self.repo.index.add(gsd_path)
+        self.repo.index.commit("Add %s for #%s" % (gsd_id, gsd_issue.id))
         self.push()
 
-        return uvi_id
+        return gsd_id
 
     def push(self):
         # Don't push if we're testing
@@ -124,23 +124,23 @@ class UVIRepo:
 
     def get_all_ids(self):
 
-        uvi_ids = []
+        gsd_ids = []
         for root,d_names,f_names in os.walk(self.tmpdir.name):
             # Skip the .git directories
             if '.git' in root:
                 continue
 
             for i in f_names:
-                if 'UVI-' in i:
+                if 'GSD-' in i:
                     id_only = i.split('.')[0]
-                    uvi_ids.append(id_only)
-        return uvi_ids
+                    gsd_ids.append(id_only)
+        return gsd_ids
 
-    def get_next_uvi_path(self, approved_user = False):
-        # Returns the next UVI ID and the path where it should go
+    def get_next_gsd_path(self, approved_user = False):
+        # Returns the next GSD ID and the path where it should go
         # This needs a lot more intelligence, but it'll be OK for the first pass. There are plenty of integers
-        uvi_path = None
-        the_uvi = None
+        gsd_path = None
+        the_gsd = None
 
         # Get the current year
         year = str(datetime.datetime.now().year)
@@ -159,10 +159,10 @@ class UVIRepo:
             if not os.path.exists(block_path):
                 # This is a new path with no files
                 os.mkdir(block_path)
-                the_uvi = "UVI-%s-%s000" % (year, i)
-                uvi_path = os.path.join(block_path, "%s.json" % the_uvi)
+                the_gsd = "GSD-%s-%s000" % (year, i)
+                gsd_path = os.path.join(block_path, "%s.json" % the_gsd)
                 if not approved_user:
-                    the_uvi = "CAN-%s-%s000" % (year, i)
+                    the_gsd = "CAN-%s-%s000" % (year, i)
                 break
 
             else:
@@ -176,15 +176,15 @@ class UVIRepo:
                     # It's time to roll over, we'll pick up the ID in the next loop
                     continue
 
-                the_uvi = "UVI-%s-%s" % (year, next_id)
-                uvi_path = os.path.join(block_path, "%s.json" % the_uvi)
+                the_gsd = "GSD-%s-%s" % (year, next_id)
+                gsd_path = os.path.join(block_path, "%s.json" % the_gsd)
                 if not approved_user:
-                    the_uvi = "CAN-%s-%s" % (year, next_id)
+                    the_gsd = "CAN-%s-%s" % (year, next_id)
                 break
 
-        return (the_uvi, uvi_path)
+        return (the_gsd, gsd_path)
 
-    def get_osv_json_format(self, uvi_id, issue_data):
+    def get_osv_json_format(self, gsd_id, issue_data):
 
         # The OSV format is nice. Find out more here
         # https://osv.dev/docs/#tag/vulnerability_schema
@@ -192,7 +192,7 @@ class UVIRepo:
 
         c = {};
 
-        c["id"] = uvi_id
+        c["id"] = gsd_id
         c["modified"] = the_time
         c["published"] = the_time
 
@@ -206,7 +206,7 @@ class UVIRepo:
         c["affected"] = [{
             "package": {
                 "name": issue_data["product_name"],
-                "ecosystem": "UVI"
+                "ecosystem": "GSD"
             },
             # We will need to remove a version or ranges below, there can
             # be only one!
@@ -264,13 +264,13 @@ class UVIRepo:
 
         return c
 
-    def get_uvi_json_format(self, uvi_id, issue_data):
+    def get_gsd_json_format(self, gsd_id, issue_data):
 
         # We made a mistake of not properly namespacing this at the
         # beginning. It will be fixed someday
         c = {}
-        c["uvi"] = issue_data
+        c["gsd"] = issue_data
         # Consider this the first proper namespace
-        c["OSV"] = self.get_osv_json_format(uvi_id, issue_data)
+        c["OSV"] = self.get_osv_json_format(gsd_id, issue_data)
         return c
 

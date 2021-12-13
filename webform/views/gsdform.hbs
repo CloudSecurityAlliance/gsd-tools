@@ -17,12 +17,12 @@ $(document).ready(function(){
 Hello {{username}}
 </p>
 
-<h2>UVI Request</h2>
+<h2>GSD Request</h2>
 
 <div class="container-fluid">
   <div class="row">
   <div class="col-6">
-    <form action="/uviform/formsubmit" name="requestUVI" method="post" class="input-append">
+    <form action="/gsdform/formsubmit" name="requestGSD" method="post" class="input-append">
         <input type="hidden" name="_csrf" value="{{csrfToken}}">
         <label for="vendorName">Vendor Name</label>
         <input type="text" class="form-control" data-toggle="tooltip" data-placement="left" title="The name of the vendor or project who release the software affected" name="vendorName" id="vendorName" placeholder="Vendor"/>
@@ -88,7 +88,7 @@ edits needed.
 <p>
 If you are interested in helping approve IDs, or anything at all really, this
 is a community project, please get in
-<a href="https://github.com/cloudsecurityalliance/uvi-tools">touch</a>.
+<a href="https://github.com/cloudsecurityalliance/gsd-tools">touch</a>.
 </p>
     </form>
 
@@ -97,7 +97,7 @@ is a community project, please get in
 $(function() {
 
 
-  $("form[name='requestUVI']").validate({
+  $("form[name='requestGSD']").validate({
     rules: {
       vendorName: "required",
       productName: "required",

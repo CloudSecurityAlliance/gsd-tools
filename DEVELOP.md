@@ -1,7 +1,7 @@
-# UVI reqeust tools
+# GSD reqeust tools
 
 # How to contribute
-We have instructions in [CONTRIBUTING.md](https://github.com/cloudsecurityalliance/uvi-tools/blob/main/CONTRIBUTING.md) on how to work with git and submit a pull request.
+We have instructions in [CONTRIBUTING.md](https://github.com/cloudsecurityalliance/gsd-tools/blob/main/CONTRIBUTING.md) on how to work with git and submit a pull request.
 
 # How to develop
 
@@ -24,7 +24,7 @@ Your homepage URL can be http://localhost:3000 for local development
 Only set this for your dev system, the containers will take care of this
 for prod. You have to use the absolute path, for example on my system
 
-export GIT_ASKPASS=/home/XXX/src/uvi-tools/uvi-bot/helpers/git-askpass.py
+export GIT_ASKPASS=/home/XXX/src/gsd-tools/gsd-bot/helpers/git-askpass.py
 
 **GH_REPO**
 The repo name in github. This is the repo the bot and web form will be working with

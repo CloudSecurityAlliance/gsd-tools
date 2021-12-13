@@ -8,7 +8,7 @@ var clientSecret = process.env.GH_OAUTH_SECRET;
 /* GET home page. */
 router.get('/', async function(req, res, next) {
 
-	if (process.env.UVI_VIEW_EDIT == "true") {
+	if (process.env.GSD_VIEW_EDIT == "true") {
         // Form view only dev mode
 		req.session.github_login = "dev-user";
 		req.session.github_id = 0;

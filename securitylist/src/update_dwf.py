@@ -25,7 +25,7 @@ def main():
             continue
 
         for i in f_names:
-            if 'UVI-' in i:
+            if 'GSD-' in i:
                 dwf_files.append(os.path.join(root, i))
 
     # We need to find a way to only pull in updates

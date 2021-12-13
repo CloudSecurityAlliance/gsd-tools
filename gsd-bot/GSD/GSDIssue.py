@@ -18,7 +18,7 @@ class Issue:
         self.creator_id = details['user']['id']
         self.auth = (os.environ['GH_USERNAME'], os.environ['GH_TOKEN'])
 
-    def get_uvi_id(self):
+    def get_gsd_id(self):
         # We are going to only trust the comment from <username> for this
         # ID. It's the most trustworthy ID
 
@@ -27,9 +27,9 @@ class Issue:
         for i in comments:
             if i['user']['login'] == os.environ['GH_USERNAME']:
                 if i['body'].startswith('This issue has been assigned'):
-                    match = re.search('((UVI|CAN)-\d{4}-\d+)', i['body'])
-                    uvi_id = match.groups()[0]
-                    return uvi_id
+                    match = re.search('((GSD|CAN)-\d{4}-\d+)', i['body'])
+                    gsd_id = match.groups()[0]
+                    return gsd_id
         return None
 
     def get_events(self):
@@ -81,22 +81,22 @@ class Issue:
                 return "%s:%s" % (approver, approver_id)
 
     def get_reporter(self):
-        data = self.get_uvi_json()
+        data = self.get_gsd_json()
         the_reporter = "%s:%s" % (data['reporter'], data['reporter_id'])
         return the_reporter
 
-    def get_uvi_json(self):
-        uvi_json = ""
+    def get_gsd_json(self):
+        gsd_json = ""
         found_json = False
 
         for l in self.lines:
-            if l == "--- UVI JSON ---":
+            if l == "--- GSD JSON ---":
                 found_json = not found_json
             elif found_json is True:
-                uvi_json = uvi_json + l
+                gsd_json = gsd_json + l
 
-        uvi_data = json.loads(uvi_json)
-        return uvi_data
+        gsd_data = json.loads(gsd_json)
+        return gsd_data
 
     def add_comment(self, comment):
         body = {
@@ -110,8 +110,8 @@ class Issue:
         resp = requests.post(self.comments_url, json=body, auth=self.auth, headers=headers)
         resp.raise_for_status()
 
-    def can_to_uvi(self):
-        can_id = self.get_uvi_id()
+    def can_to_gsd(self):
+        can_id = self.get_gsd_id()
         # Make sure the ID starts with CAN
         if not can_id.startswith('CAN-'):
             return None
@@ -119,9 +119,9 @@ class Issue:
         # Get the path to the file
         year = can_id.split('-')[1]
         id_str = can_id.split('-')[2]
-        uvi_id = "UVI-%s-%s" % (year, id_str)
+        gsd_id = "GSD-%s-%s" % (year, id_str)
 
-        self.title = self.title.replace(can_id, uvi_id)
+        self.title = self.title.replace(can_id, gsd_id)
         body = {
             "title": self.title,
             "state": "closed"
@@ -132,14 +132,14 @@ class Issue:
         resp = requests.post(self.url, json=body, auth=self.auth, headers=headers)
         resp.raise_for_status()
 
-    def assign_uvi(self, uvi_id, approved_user = False):
+    def assign_gsd(self, gsd_id, approved_user = False):
 
         # Add a comment to the issue
-        self.add_comment("This issue has been assigned %s" % uvi_id)
+        self.add_comment("This issue has been assigned %s" % gsd_id)
 
                 # Modify the title and labels
         body = {
-            "title": "[%s] %s" % (uvi_id, self.title),
+            "title": "[%s] %s" % (gsd_id, self.title),
             "labels": ["assigned"]
         }
 

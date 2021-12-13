@@ -140,8 +140,8 @@ def main():
         github_repo = os.environ['GH_REPO']
         auth = (os.environ['GH_USERNAME'], os.environ['GH_TOKEN'])
         body = {
-            "title": "UVI Request",
-            "body": f"```\n--- UVI JSON ---\n{json_output}\n--- UVI JSON ---\n```",
+            "title": "GSD Request",
+            "body": f"```\n--- GSD JSON ---\n{json_output}\n--- GSD JSON ---\n```",
             "labels": ["new", "check"]
         }
         headers = {
