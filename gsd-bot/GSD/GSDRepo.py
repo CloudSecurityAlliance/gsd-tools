@@ -269,7 +269,7 @@ class GSDRepo:
         # We made a mistake of not properly namespacing this at the
         # beginning. It will be fixed someday
         c = {}
-        c["gsd"] = issue_data
+        c["GSD"] = issue_data
         # Consider this the first proper namespace
         c["OSV"] = self.get_osv_json_format(gsd_id, issue_data)
         return c
