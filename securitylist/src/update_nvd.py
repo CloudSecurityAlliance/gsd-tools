@@ -26,12 +26,12 @@ def main():
         the_id = i['cve']['CVE_data_meta']['ID']
         # We need to put these in the NVD namespace
         c = securitylist.CVE(the_id)
-        c.add_data('NVD', i)
+        c.add_data('nvd.nist.gov', i)
         c.write()
 
     # We need to store the end time for future use
     with open(meta_time_file, 'w') as fh:
-        fh.write(nvd.end_time)
+        fh.write(nvd.get_end_time_str())
         fh.write("\n")
 
 if __name__ == "__main__":
