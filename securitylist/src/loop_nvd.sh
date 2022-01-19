@@ -8,5 +8,5 @@ GSDLIST=~/gsd/gsd-database
 while true;
 do
 ./update_nvd.py $GSDLIST
-sleep 5
+sleep 1
 done
