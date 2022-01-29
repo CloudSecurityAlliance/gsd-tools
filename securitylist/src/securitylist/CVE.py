@@ -10,18 +10,35 @@ class CVE:
 
     def __init__(self, cve_id):
         self.id = cve_id
+        self.gsd_id = "GSD" + self.id[3:]
 
         if os.path.exists(self.get_filename()):
             # Read the file
             with open(self.get_filename()) as fh:
                 self.json = json.load(fh)
         else:
-            self.json = {}
+            self.json = { "namespaces": {} }
 
     def add_data(self, namespace, data):
         # Add data to a namespace
 
-        self.json[namespace] = data
+        self.json["namespaces"][namespace] = data
+
+        # If the namespace is cve.org and there's no description, add one
+        if namespace == 'cve.org':
+            if 'GSD' not in self.json:
+                self.json['GSD'] = {}
+
+            if 'id' not in self.json['GSD']:
+                    self.json['GSD']['id'] = self.gsd_id
+            if 'alias' not in self.json['GSD']:
+                self.json['GSD']['alias'] = self.id
+
+            # Check for a description
+            if 'description' not in self.json['GSD']:
+                if '** RESERVED **' not in self.json['namespaces']['cve.org']['description']['description_data'][0]['value']:
+                    self.json['GSD']['description'] = self.json['namespaces']['cve.org']['description']['description_data'][0]['value']
+
 
     def write(self):
         # Write the CVE content to a file. Returns true if the contents
@@ -59,8 +76,9 @@ class CVE:
         if create is True:
             Path(the_path).mkdir(parents=True, exist_ok=True)
 
+        gsd_id = self.gsd_id
 
-        id_file = f"{self.id}.json"
+        id_file = f"{gsd_id}.json"
         the_filename = os.path.join(the_path, id_file)
 
         return the_filename

@@ -16,7 +16,7 @@ class NVD:
         self.index = 0
         self.nvd_url = "https://services.nvd.nist.gov/rest/json/cves/1.0"
         self.payload = {}
-        self.last_update = datetime.datetime.utcnow()
+        self.last_update = self.now
 
     def __get_time__(self, ts):
         # Return the time format the API wants
@@ -29,18 +29,38 @@ class NVD:
         s = ts.second
 
         return f"{y}-{m:02}-{d:02}T{h:02}:{mi:02}:{s:02}:000 UTC-00:00"
+        #return f"{y}-{m:02}-{d:02}T{h:02}:{mi:02}:{s:02}:000+00:00"
+
+    def get_end_time_str(self):
+
+        ts = self.end_time
+
+        y = ts.year
+        m = ts.month
+        d = ts.day
+        h = ts.hour
+        mi = ts.minute
+        s = ts.second
+
+        return f"{y}-{m:02}-{d:02}T{h:02}:{mi:02}:{s:02}:000"
 
     def get_range(self, start, end):
 
         if start is None:
-            self.start_time = '1990-01-01T00:00:00:000 UTC-00:00'
+            self.start_time = datetime.datetime.fromisoformat("1990-01-01T00:00:00:000")
         else:
-            self.start_time = start
+            self.start_time = datetime.datetime.fromisoformat(start)
 
         if end is None:
-            self.end_time = self.__get_time__(self.now)
+            self.end_time = self.now
         else:
-            self.end_time = end
+            self.end_time = datetime.datetime.fromisoformat(end)
+
+
+        # We can only query at most 120 days at a time, 110 keeps us safe
+        time_diff = self.end_time - self.start_time
+        if time_diff.days > 110:
+            self.end_time = self.start_time + datetime.timedelta(days=110)
 
         self.get_page(0)
 
@@ -62,8 +82,8 @@ class NVD:
         self.payload = {
             "startIndex": self.index,
             "resultsPerPage": 500,
-            "modStartDate": self.start_time,
-            "modEndDate": self.end_time
+            "modStartDate": self.__get_time__(self.start_time),
+            "modEndDate": self.__get_time__(self.end_time)
         }
 
         response = requests.get(self.nvd_url, params=self.payload)
