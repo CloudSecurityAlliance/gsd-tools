@@ -47,10 +47,10 @@ server {
       proxy_set_header        X-Forwarded-Proto $scheme;
 
       # Fix the “It appears that your reverse proxy set up is broken" error.
-      proxy_pass          http://uvi-form:3000;
+      proxy_pass          http://gsd-form:3000;
       proxy_read_timeout  90;
 
-      proxy_redirect      http://uvi-form:3000 https://site.org;
+      proxy_redirect      http://gsd-form:3000 https://site.org;
     }
 }
 
@@ -83,10 +83,10 @@ server {
       proxy_set_header        X-Forwarded-Proto $scheme;
 
       # Fix the “It appears that your reverse proxy set up is broken" error.
-      proxy_pass          http://uvi-form:3000;
+      proxy_pass          http://gsd-form:3000;
       proxy_read_timeout  90;
 
-      proxy_redirect      http://uvi-form:3000 https://site.org;
+      proxy_redirect      http://gsd-form:3000 https://site.org;
     }
   }
 
@@ -119,9 +119,9 @@ server {
       proxy_set_header        X-Forwarded-Proto $scheme;
 
       # Fix the “It appears that your reverse proxy set up is broken" error.
-      proxy_pass          http://uvi-form:3000;
+      proxy_pass          http://gsd-form:3000;
       proxy_read_timeout  90;
 
-      proxy_redirect      http://uvi-form:3000 https://site.duckdns.org;
+      proxy_redirect      http://gsd-form:3000 https://site.duckdns.org;
     }
   }

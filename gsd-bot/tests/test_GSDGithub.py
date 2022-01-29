@@ -5,7 +5,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 import unittest
 from unittest.mock import Mock, patch
 
-import UVI
+import GSD
 
 class FakeResponse:
 
@@ -23,7 +23,7 @@ def mocked_requests_get(*args, **kwargs):
     # Same as above
     return FakeResponse()
 
-class TestUVIRepo(unittest.TestCase):
+class TestGSDRepo(unittest.TestCase):
 
     def setUp(self):
         pass
@@ -31,12 +31,12 @@ class TestUVIRepo(unittest.TestCase):
     def tearDown(self):
         pass
 
-    @patch('UVI.UVIGithub.requests.get', side_effect=mocked_requests_get)
+    @patch('GSD.GSDGithub.requests.get', side_effect=mocked_requests_get)
     def testGetNewIssues(self, mock_get):
-        issues = UVI.get_new_issues('http://example.com')
+        issues = GSD.get_new_issues('http://example.com')
         self.assertEqual(len(issues), 0)
 
-    @patch('UVI.UVIGithub.requests.get', side_effect=mocked_requests_get)
+    @patch('GSD.GSDGithub.requests.get', side_effect=mocked_requests_get)
     def testGetApprovedCan(self, mock_get):
-        issues = UVI.get_approved_can_issues('http://example.com')
+        issues = GSD.get_approved_can_issues('http://example.com')
         self.assertEqual(len(issues), 0)

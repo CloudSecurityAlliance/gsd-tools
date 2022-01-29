@@ -1,0 +1,8 @@
+[core]
+	askpass = /git-askpass-helper.sh
+[user]
+	email = gsdbot@cloudsecurityalliance.org
+	name = GSD Bot
+
+[credential "https://github.com"]
+        username = gsdbot

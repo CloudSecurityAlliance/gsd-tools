@@ -1,12 +1,12 @@
 {
-  "name": "uvi-form",
+  "name": "gsd-form",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www",
-    "local": "DEBUG=uvi-form:* npm start",
-    "views-only": "SESSION_KEY=a UVI_VIEW_EDIT=true npm run devstart"
+    "local": "DEBUG=gsd-form:* npm start",
+    "views-only": "SESSION_KEY=a GSD_VIEW_EDIT=true npm run devstart"
   },
   "dependencies": {
     "axios": "^0.21.1",

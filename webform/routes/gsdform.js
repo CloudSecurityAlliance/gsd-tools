@@ -14,8 +14,8 @@ router.get('/', csrfProtection, function(req, res, next) {
 		res.redirect("/");
 	}
 
-	res.render('uviform', {
-		title: 'Actual UVI Form',
+	res.render('gsdform', {
+		title: 'Actual GSD Form',
 		username: the_username,
 		csrfToken: req.csrfToken()
 	});
@@ -23,7 +23,7 @@ router.get('/', csrfProtection, function(req, res, next) {
 
 router.post('/formsubmit', csrfProtection, function(req, res, next) {
 
-	if (process.env.UVI_VIEW_EDIT == "true") {
+	if (process.env.GSD_VIEW_EDIT == "true") {
 		// form fiew only dev mode
 		res.redirect("/");
 	} else {
@@ -45,7 +45,7 @@ router.post('/formsubmit', csrfProtection, function(req, res, next) {
 		}
 
 		// We need to turn the form data into a structure, then into json
-		uvi_data = {
+		gsd_data = {
 			vendor_name: req.body.vendorName,
 			product_name: req.body.productName,
 			product_version: req.body.productVersion,
@@ -61,12 +61,12 @@ router.post('/formsubmit', csrfProtection, function(req, res, next) {
 			description: req.body.description
 		};
 
-		uvi_json = JSON.stringify(uvi_data, null, 2);
+		gsd_json = JSON.stringify(gsd_data, null, 2);
 
 		//Create issue
 		var body = {
-			title: "UVI Request",
-			body: `\`\`\`\n--- UVI JSON ---\n${uvi_json}\n--- UVI JSON ---\n\`\`\`\n/cc @${the_username}`,
+			title: "GSD Request",
+			body: `\`\`\`\n--- GSD JSON ---\n${gsd_json}\n--- GSD JSON ---\n\`\`\`\n/cc @${the_username}`,
 			labels: ['new', 'check']
 		};
 		var opts = {

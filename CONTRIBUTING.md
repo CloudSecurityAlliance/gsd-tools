@@ -1,4 +1,4 @@
-# Contributing to UVI
+# Contributing to GSD
 We want to make contributing to this project as easy and transparent as
 possible.
 
@@ -11,10 +11,10 @@ We actively welcome your pull requests.
 
 1) Fork the repo and create your branch from `main`.
 1) Optional: Add an upstream remote branch for easy fetching in the future
-    1) `git remote add upstream https://github.com/cloudsecurityalliance/uvi-tools.git`
+    1) `git remote add upstream https://github.com/cloudsecurityalliance/gsd-tools.git`
 1) Commit and push your changes to your branch
-1) Open a pull request against the UVI main branch
-1) Future changes to the uvi main branch can be pulled and merged by running
+1) Open a pull request against the GSD main branch
+1) Future changes to the gsd main branch can be pulled and merged by running
     1) `git fetch upstream`
     1) `git merge upstream/main`
 

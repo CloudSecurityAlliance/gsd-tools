@@ -1,8 +1,0 @@
-[core]
-	askpass = /git-askpass-helper.sh
-[user]
-	email = uvibot@cloudsecurityalliance.org
-	name = UVI Bot
-
-[credential "https://github.com"]
-        username = uvibot
