@@ -46,3 +46,11 @@ For local development run it using `npm run local`
 There is also a "vew only" mode that exists to test the html content. You
 can run that with `npm run views-only`. You do not need to set any of the
 environment variables to use this mode.
+
+# Docker
+
+If you want to use the docker-compose deployment you will need a certificate
+for nginx to run. This command will create a self signed certificate and put
+things in the right place. Be sure to change the domain to something else.
+
+openssl req -x509 -nodes -days 3650 -subj "/C=CA/ST=QC/O=Company, Inc./CN=example.org" -addext "subjectAltName=DNS:example.org" -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
