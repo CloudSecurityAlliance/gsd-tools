@@ -4,7 +4,8 @@ services:
     image: "nginx"
     volumes:
       - ./nginx-config:/etc/nginx
-      - /etc/letsencrypt:/etc/letsencrypt
+      - /etc/ssl/certs/nginx-selfsigned.crt:/etc/ssl/certs/nginx-selfsigned.crt
+      - /etc/ssl/private/nginx-selfsigned.key:/etc/ssl/private/nginx-selfsigned.key
     ports:
       - 443:443
       - 80:80
