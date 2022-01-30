@@ -18,7 +18,8 @@ GH_OAUTH_SECRET**
 The two above get you from github after creating an OAuth application
 Instructions to create this application can be found here
 https://docs.github.com/en/developers/apps/creating-an-oauth-app
-Your homepage URL can be http://localhost:3000 for local development
+Your homepage URL can be http://localhost:3000 for local development.
+The callback URL is http://localhost:3000/authcallback
 
 **GIT_ASKPASS**
 Only set this for your dev system, the containers will take care of this
