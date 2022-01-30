@@ -24,8 +24,8 @@ server {
     listen 80;
     listen 443 ssl;
     #return 301 https://$host$request_uri;
-    ssl_certificate           /etc/letsencrypt/live/site.org/cert.pem;
-    ssl_certificate_key       /etc/letsencrypt/live/site.org/privkey.pem;
+    ssl_certificate           /etc/ssl/certs/nginx-selfsigned.crt;
+    ssl_certificate_key       /etc/ssl/private/nginx-selfsigned.key;
 
     #ssl on;
     ssl_session_cache  builtin:1000  shared:SSL:10m;
@@ -60,8 +60,8 @@ server {
     listen 443 ssl;
     server_name site.org;
 
-    ssl_certificate           /etc/letsencrypt/live/site.org/cert.pem;
-    ssl_certificate_key       /etc/letsencrypt/live/site.org/privkey.pem;
+    ssl_certificate           /etc/ssl/certs/nginx-selfsigned.crt;
+    ssl_certificate_key       /etc/ssl/private/nginx-selfsigned.key;
 
 #    ssl on;
     ssl_session_cache  builtin:1000  shared:SSL:10m;
@@ -96,8 +96,8 @@ server {
     listen 443 ssl;
     server_name site.duckdns.org;
 
-    ssl_certificate           /etc/letsencrypt/live/site.duckdns.org/cert.pem;
-    ssl_certificate_key       /etc/letsencrypt/live/site.duckdns.org/privkey.pem;
+    ssl_certificate           /etc/ssl/certs/nginx-selfsigned.crt;
+    ssl_certificate_key       /etc/ssl/private/nginx-selfsigned.key;
 
     #ssl on;
     ssl_session_cache  builtin:1000  shared:SSL:10m;
