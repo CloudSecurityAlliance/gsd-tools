@@ -58,8 +58,6 @@ class GSDRepo:
                 can_data = json.loads(json_file.read())
 
         # Swap the CAN to GSD
-        can_data['data_type'] = 'GSD'
-        can_data['CVE_data_meta']['ID'] = gsd_id
         can_data['OSV']['id'] = gsd_id
 
         # save the json
