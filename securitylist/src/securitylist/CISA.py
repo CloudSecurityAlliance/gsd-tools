@@ -33,20 +33,21 @@ def get_filename(gsd_id):
 
 
 def update_gsd_file(filename, json_blob):
+    if (filename == ""):
+      #Error has been reported, skip
+      return
     with open(filename, 'r') as fh:
-      original_data=fh.read()
-      fh.close()
-    json_data = json.loads(original_data)
+      json_data = json.load(fh)
     namespace = 'cisa.gov'
     try:
-      if (json_data['namespaces'][namespace]) != json_blob:
-         json_data['namespaces'][namespace] = json_blob
-         print(filename + " updated")
+      if (json_data['namespaces'][namespace] != json_blob):
+        json_data['namespaces'][namespace] = json_blob
+        print(filename + " updated")
     except KeyError:
+      #Key Does not Exist
       json_data['namespaces'][namespace] = json_blob
-    with open(filename, 'w') as fh:
-      fh.write(json.dumps(json_data,sort_keys=True, indent=4))
-      fh.close()
+    with open(filename, 'w+') as fh:
+      json.dump(json_data, fh, sort_keys=True, indent=4)
     return
 
 def main():
@@ -58,4 +59,3 @@ def main():
 
 if __name__=="__main__":
     main()
-
