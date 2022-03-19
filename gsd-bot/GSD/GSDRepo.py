@@ -91,10 +91,17 @@ class GSDRepo:
             json_file.write(gsd_json)
 
         self.repo.index.add(gsd_path)
-        self.repo.index.commit("Add %s for #%s" % (gsd_id, gsd_issue.id))
+        self.commit("Add %s for #%s" % (gsd_id, gsd_issue.id))
         self.push()
 
         return gsd_id
+
+    def commit(self, message):
+        # Don't commit if we're testing
+        if self.testing:
+            pass
+        else:
+            self.repo.index.commit(message)
 
     def push(self):
         # Don't push if we're testing
