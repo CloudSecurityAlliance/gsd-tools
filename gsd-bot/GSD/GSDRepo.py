@@ -96,6 +96,13 @@ class GSDRepo:
 
         return gsd_id
 
+    def commit(self, message):
+        # Don't commit if we're testing
+        if self.testing:
+            pass
+        else:
+            self.repo.index.commit(message)
+
     def push(self):
         # Don't push if we're testing
         if self.testing:
