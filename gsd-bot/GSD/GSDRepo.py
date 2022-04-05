@@ -91,7 +91,7 @@ class GSDRepo:
             json_file.write(gsd_json)
 
         self.repo.index.add(gsd_path)
-        self.repo.index.commit("Add %s for #%s" % (gsd_id, gsd_issue.id))
+        self.repo.index.commit("Add %s for %s" % (gsd_id, gsd_issue.html_url))
         self.push()
 
         return gsd_id
