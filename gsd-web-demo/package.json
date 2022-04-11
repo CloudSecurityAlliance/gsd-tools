@@ -14,7 +14,10 @@
     "@quasar/extras": "^1.0.0",
     "axios": "^0.21.1",
     "babel-plugin-prismjs": "^2.1.0",
+    "cookie-parser": "^1.4.6",
+    "cookie-session": "^2.0.0",
     "core-js": "^3.6.5",
+    "csurf": "^1.11.0",
     "prismjs": "^1.25.0",
     "quasar": "^2.0.0"
   },

@@ -131,16 +131,21 @@
 
 <script>
 import { defineComponent, ref, watch, nextTick, computed } from 'vue'
+import { useQuasar } from 'quasar'
 import { useRoute, useRouter } from 'vue-router'
 import { api } from 'boot/axios'
 
 // Syntax highlighting for JSON
 import Prism from 'prismjs'
 
+// Edit Dialog Component
+import EditDialog from 'components/EditDialog.vue'
+
 export default defineComponent({
   name: 'PageIdentifier',
 
   setup() {
+    const $q = useQuasar()
     const $route = useRoute()
     const $router = useRouter()
 
@@ -250,10 +255,19 @@ export default defineComponent({
       const editUrl = `${repo}/edit/${branch}/${year}/${thousands}/${identifier.value}.json`
 
       // TODO: Open a dialog and allow editing locally instead, with sanity checks. Also allow editing specific fields quickly.
-      window.open(
-        editUrl,
-        '_blank'
-      )
+      // window.open(
+      //   editUrl,
+      //   '_blank'
+      // )
+
+      $q.dialog({
+        component: EditDialog,
+
+        componentProps: {
+          gsd_json: JSON.stringify(jsonBlob.value, null, 2),
+          edit_url: editUrl
+        }
+      })
     }
 
     return {

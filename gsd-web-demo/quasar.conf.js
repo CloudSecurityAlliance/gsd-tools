@@ -97,7 +97,10 @@ module.exports = configure(function (ctx) {
       // directives: [],
 
       // Quasar plugins
-      plugins: []
+      plugins: [
+        'Cookies',
+        'Dialog'
+      ]
     },
 
     // animations: 'all', // --- includes all animations
@@ -124,6 +127,9 @@ module.exports = configure(function (ctx) {
 
       middlewares: [
         ctx.prod ? 'compression' : '',
+        'cookie-sessions',
+        'csrf-protection',
+        'github-proxy',
         'render' // keep this as last one
       ]
     },

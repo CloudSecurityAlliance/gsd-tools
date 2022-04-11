@@ -3,6 +3,10 @@ import {
   mapRequestToAsset,
   serveSinglePageApp
 } from '@cloudflare/kv-asset-handler'
+import { Router } from 'itty-router'
+
+// Create a new router
+const router = Router()
 
 /**
  * The DEBUG flag will do two things that help during development:
@@ -13,9 +17,16 @@ import {
  */
 const DEBUG = false
 
+router.get("/api/testing", () => {
+  return new Response("Hello, world!")
+})
+
+router.all("*", handleSPA)
+
 addEventListener('fetch', event => {
   try {
-    event.respondWith(handleEvent(event))
+    event.request.event = event
+    event.respondWith(router.handle(event.request))
   } catch (e) {
     if (DEBUG) {
       return event.respondWith(
@@ -28,8 +39,8 @@ addEventListener('fetch', event => {
   }
 })
 
-async function handleEvent(event) {
-  const url = new URL(event.request.url)
+async function handleSPA(request) {
+  const url = new URL(request.url)
   let options = {
     mapRequestToAsset: serveSinglePageApp
   }
@@ -47,7 +58,7 @@ async function handleEvent(event) {
         bypassCache: true,
       };
     }
-    const page = await getAssetFromKV(event, options);
+    const page = await getAssetFromKV(request.event, options);
 
     // allow headers to be altered
     const response = new Response(page.body, page);
@@ -64,7 +75,7 @@ async function handleEvent(event) {
     // if an error is thrown try to serve the asset at 404.html
     if (!DEBUG) {
       try {
-        let notFoundResponse = await getAssetFromKV(event, {
+        let notFoundResponse = await getAssetFromKV(request.event, {
           mapRequestToAsset: req => new Request(`${new URL(req.url).origin}/404.html`, req),
         })
 
