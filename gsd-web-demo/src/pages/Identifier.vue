@@ -133,7 +133,7 @@
 import { defineComponent, ref, watch, nextTick, computed } from 'vue'
 import { useQuasar } from 'quasar'
 import { useRoute, useRouter } from 'vue-router'
-import { api } from 'boot/axios'
+import { gsdApi } from 'boot/axios'
 
 // Syntax highlighting for JSON
 import Prism from 'prismjs'
@@ -162,7 +162,7 @@ export default defineComponent({
       }
 
       if (isValidIdentifier(identifier.value)) {
-        api.get(`/${identifier.value}`).then(
+        gsdApi.get(`/${identifier.value}`).then(
           (response) => {
             if (response.status === 200 && response.data !== '404: Not Found') {
               jsonBlob.value = response.data

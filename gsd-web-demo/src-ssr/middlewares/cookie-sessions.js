@@ -1,6 +1,5 @@
 import cookieSession from 'cookie-session'
 import cookieParser from 'cookie-parser'
-import csrf from 'csurf'
 import { ssrMiddleware } from 'quasar/wrappers'
 
 export default ssrMiddleware(({ app }) => {
@@ -10,5 +9,4 @@ export default ssrMiddleware(({ app }) => {
     maxAge: 1000 * 60 * 60 * 24 // 24 hours
   }))
   app.use(cookieParser())
-  app.use(csrf({ cookie: true }))
 })

@@ -9,7 +9,13 @@ export default ssrMiddleware(({ app, resolve, render, serve }) => {
   // over to Vue and Vue Router to render our page
   app.get(resolve.urlPath('*'), (req, res) => {
     res.setHeader('Content-Type', 'text/html')
+
     res.cookie('XSRF-TOKEN', req.csrfToken())
+    if(req.session.username) {
+      res.cookie('GSD-USERNAME', req.session.username)
+    } else {
+      res.clearCookie('GSD-USERNAME')
+    }
 
     render(/* the ssrContext: */ { req, res })
       .then(html => {

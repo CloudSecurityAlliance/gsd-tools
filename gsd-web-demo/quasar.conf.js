@@ -34,7 +34,7 @@ module.exports = configure(function (ctx) {
     extras: [
       // 'ionicons-v4',
       // 'mdi-v5',
-      // 'fontawesome-v5',
+      'fontawesome-v5',
       // 'eva-icons',
       // 'themify',
       // 'line-awesome',
@@ -65,6 +65,11 @@ module.exports = configure(function (ctx) {
       // Options below are automatically set depending on the env, set them if you want to override
       // extractCSS: false,
 
+      // Embed client ID to allow login requests
+      env: {
+        GSD_GITHUB_KEY: process.env.GSD_GITHUB_KEY
+      },
+
       // https://quasar.dev/quasar-cli/handling-webpack
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
       chainWebpack (chain) {
@@ -76,7 +81,7 @@ module.exports = configure(function (ctx) {
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
     devServer: {
       server: {
-        type: 'http'
+        type: 'https' // https is required for OAuth callbacks
       },
       port: 8080,
       open: true // opens browser window automatically

@@ -28,6 +28,52 @@
             <q-btn round dense flat icon="search" @click="search" />
           </template>
         </q-input>
+
+        <q-no-ssr>
+          <template v-if="username">
+            <q-btn
+              dense
+              flat
+              no-wrap
+              class="q-ml-md"
+            >
+              <q-avatar rounded size="32px">
+                <q-icon :name="githubAvatar" style="border-radius: 50%;" />
+              </q-avatar>
+              <q-icon name="arrow_drop_down" size="24px" />
+
+              <q-menu auto-close>
+                <q-list>
+                  <q-item>
+                    <q-item-section class="text-center">
+                      <div>Logged in as:</div>
+                      <div>
+                        {{ username }}
+                      </div>
+                    </q-item-section>
+                  </q-item>
+                  <q-separator />
+                  <q-item clickable @click="logout">
+                    <q-item-section>Logout</q-item-section>
+                    <q-item-section avatar>
+                      <q-icon name="fas fa-sign-out-alt" />
+                    </q-item-section>
+                  </q-item>
+                </q-list>
+              </q-menu>
+            </q-btn>
+          </template>
+
+          <template v-else>
+            <q-btn
+              label="Sign in with GitHub"
+              class="q-ml-md"
+              icon="fab fa-github"
+              color="black"
+              @click="login"
+            />
+          </template>
+        </q-no-ssr>
       </q-toolbar>
     </q-header>
 
@@ -38,13 +84,16 @@
 </template>
 
 <script>
-import { defineComponent, ref, watch } from 'vue'
+import { defineComponent, ref, watch, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useQuasar } from 'quasar'
+import { api } from 'boot/axios'
 
 export default defineComponent({
   name: 'MainLayout',
 
   setup() {
+    const $q = useQuasar()
     const $route = useRoute()
     const $router = useRouter()
 
@@ -64,7 +113,7 @@ export default defineComponent({
     }
 
     function openGithubRepo() {
-      window.open('https://github.com/cloudsecurityalliance/gsd-demo', '_blank')
+      window.open('https://github.com/cloudsecurityalliance/gsd-tools/tree/main/gsd-web-demo#gsd-demo-gsd-demo', '_blank')
     }
 
     watch(
@@ -74,10 +123,39 @@ export default defineComponent({
       }
     )
 
+    const loginURL = `https://github.com/login/oauth/authorize?client_id=${process.env.GSD_GITHUB_KEY}`
+
+    function login() {
+      // TODO: Auto redirect back to current page after login
+      const currentURL = encodeURI(window.location.origin + $route.path)
+      window.open(loginURL, '_self')
+    }
+
+    function logout() {
+      api.delete('/logout', {}).then(
+        () => {
+          window.location.reload()
+        }
+      )
+    }
+
+    const username = ref('')
+    username.value = $q.cookies.get('GSD-USERNAME')
+
+    const githubAvatar = computed(
+      // FIXME: This is a fast way to get injection attacks, don't do it
+      () => { return `img:https://github.com/${username.value}.png?size=128` }
+    )
+
     return {
       searchField,
       search,
       openGithubRepo,
+      login,
+      loginURL,
+      username,
+      githubAvatar,
+      logout,
     }
   }
 })
