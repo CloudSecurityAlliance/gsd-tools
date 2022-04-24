@@ -9,7 +9,9 @@
     "lint": "eslint --ext .js,.vue ./",
     "test": "echo \"No test specified\" && exit 0",
     "build": "quasar build -m ssr",
-    "dev": "quasar dev -m ssr"
+    "heroku-postbuild": "yarn build",
+    "dev": "quasar dev -m ssr",
+    "start": "node dist/ssr/index.js"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
@@ -44,8 +46,8 @@
     "last 5 Opera versions"
   ],
   "engines": {
-    "node": ">= 12.22.1",
-    "npm": ">= 6.13.4",
-    "yarn": ">= 1.21.1"
+    "node": "16.x",
+    "npm": "6.x",
+    "yarn": "1.x"
   }
 }
