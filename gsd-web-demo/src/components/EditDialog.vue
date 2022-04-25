@@ -26,14 +26,21 @@
 </template>
 
 <script>
-import { useDialogPluginComponent } from 'quasar'
+import { useDialogPluginComponent, useQuasar } from 'quasar'
 import { computed, ref, watch } from 'vue'
+import { api } from 'boot/axios'
+
+import { errorNotification } from '../misc/ErrorNotification'
 
 export default {
   name: 'EditDialog',
 
   props: {
     gsd_json: {
+      type: String,
+      required: true
+    },
+    identifier: {
       type: String,
       required: true
     }
@@ -54,6 +61,8 @@ export default {
     //                    example: onDialogOK() - no payload
     //                    example: onDialogOK({ /*.../* }) - with payload
     // onDialogCancel - Function to call to settle dialog with "cancel" outcome
+
+    const $q = useQuasar()
 
     const gsdJson = ref(props.gsd_json)
 
@@ -77,18 +86,38 @@ export default {
       try {
         // Force reformatting of the JSON string, as well as check validity.
         fileContent = JSON.stringify(JSON.parse(gsdJson.value), null, 2);
-        console.log('Saved!')
-      } catch(e) {
-        console.log('Failed to save: ' + e.message)
+        api.patch('/update-gsd', {
+          identifier: props.identifier,
+          file_content: fileContent
+        }).then(
+          (response) => {
+            const redirectWindow = window.open(
+              response.data.redirect_url,
+              '_blank'
+            )
+            if(!redirectWindow) {
+              $q.notify({
+                color: 'negative',
+                position: 'top',
+                message: 'Failed to open issue in a new tab',
+                icon: 'report_problem'
+              })
+            }
+            $q.notify({
+              color: 'positive',
+              position: 'top',
+              message: 'Changes saved!',
+              icon: 'published_with_changes'
+            })
+            onCancelClick()
+          },
+          (error) => {
+            errorNotification(error, 'Failed to update GSD')
+          }
+        )
+      } catch(error) {
+        errorNotification(error, 'Failed to save changes')
       }
-
-      if(!forkExists()) {
-        createFork()
-      }
-
-      createBranch()
-      updateFile()
-      submitPullRequest()
     }
 
     return {

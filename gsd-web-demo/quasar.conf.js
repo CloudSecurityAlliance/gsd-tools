@@ -104,7 +104,8 @@ module.exports = configure(function (ctx) {
       // Quasar plugins
       plugins: [
         'Cookies',
-        'Dialog'
+        'Dialog',
+        'Notify'
       ]
     },
 
@@ -132,6 +133,7 @@ module.exports = configure(function (ctx) {
 
       middlewares: [
         ctx.prod ? 'compression' : '',
+        'body-parser',
         'cookie-sessions',
         'csrf-protection',
         'github-proxy',

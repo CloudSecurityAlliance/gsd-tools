@@ -123,11 +123,11 @@ export default defineComponent({
       }
     )
 
-    const loginURL = `https://github.com/login/oauth/authorize?client_id=${process.env.GSD_GITHUB_KEY}`
+    const loginURL = `https://github.com/login/oauth/authorize?client_id=${process.env.GSD_GITHUB_KEY}&scope=public_repo`
 
     function login() {
       // TODO: Auto redirect back to current page after login
-      const currentURL = encodeURI(window.location.origin + $route.path)
+      // const currentURL = encodeURI(window.location.origin + $route.path)
       window.open(loginURL, '_self')
     }
 
