@@ -1,6 +1,26 @@
 # GSD Demo (gsd-demo)
 
-A technology demonstrator for GSD
+A web based user interface for the GSD data (gsd-database repo) allowing users to explore and edit the data. *** TODO ***
+
+# How to use this tool
+
+*** TODO ***
+
+# How to contribute to this tool
+
+*** TODO ***
+
+# How to file an issue
+
+*** CREATE TEMPLATE ***
+
+# Issues and PR Labels for this tool
+
+Please use "gsd-web-demo" as a label.
+
+# How to install this tool
+
+# Requirements
 
 ## Install the dependencies
 ```bash
