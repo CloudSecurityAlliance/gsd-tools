@@ -1,0 +1,8 @@
+name: 'Check JSON format'
+description: 'Parse all changed JSON files and fail if one is not valid JSON'
+runs:
+  using: "composite"
+  steps:
+    - run: $GITHUB_ACTION_PATH/check.sh
+      shell: bash
+
