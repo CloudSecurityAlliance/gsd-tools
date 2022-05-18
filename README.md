@@ -7,6 +7,7 @@ The world of vulnerability identifiers has changed drastically in the last 20 ye
 For more information please see https://csaurl.org/gsd-quick-links.
 
 # Table of contents
+
 1. [GSD Repos](#gsd-repos)
 2. 
 
@@ -45,10 +46,24 @@ Please file any tooling related issues in the gsd-tools repo. If you need to fil
 ## actions
 ## cloudflare-workers
 ## docker-compose
-## gsd-api-demo
+## gsd-api
+
+**WIP**
+
+Provides a simple REST API for interfacing with the GSD Database.
+
+[GSD API README](gsd-api/README.md)
+
 ## gsd-bot
 ## gsd-url-processing
-## gsd-web-demo
+## gsd-web
+
+**WIP**
+
+Provides a web interface for viewing, searching, and editing the GSD Database.
+
+[GSD Web README](gsd-web/README.md)
+
 ## local-scripts
 ## securitylist
 ## webform
