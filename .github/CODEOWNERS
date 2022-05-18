@@ -1,0 +1,10 @@
+# A Code Owner is someone who is automatically requested for review when a
+# particular piece of code is updated.
+
+# Josh Buker - @athix
+# Josh Bressers - @joshbressers
+
+/gsd-api @athix
+/gsd-web @athix
+
+/webform @joshbressers
