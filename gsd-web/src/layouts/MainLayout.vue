@@ -113,7 +113,7 @@ export default defineComponent({
     }
 
     function openGithubRepo() {
-      window.open('https://github.com/cloudsecurityalliance/gsd-tools/tree/main/gsd-web-demo#gsd-demo-gsd-demo', '_blank')
+      window.open('https://github.com/cloudsecurityalliance/gsd-tools/tree/main/gsd-web#gsd-web', '_blank')
     }
 
     watch(
