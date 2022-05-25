@@ -8,7 +8,7 @@ For more information please see https://csaurl.org/gsd-quick-links.
 
 # Table of contents
 1. [GSD Repos](#gsd-repos)
-2. 
+2. [Projects and tools](#projects-and-tools)
 
 # GSD Repos
 
@@ -16,7 +16,7 @@ There are 3 primary repositories.
 
 ## gsd-database
 
-*** DESCRIBE ***
+The gsd-database repo is the actual data for identifiers in the Global Security Database in the form of GSD-YEAR-INTEGER. To maintain easier compatibility with the CVE ecosystem we have decided to reserve numbers below 1 million for CVE data, using the same integer to make matching up entries easy.
 
 ### Issues
 
