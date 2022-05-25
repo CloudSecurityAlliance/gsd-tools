@@ -9,7 +9,7 @@
         <q-space />
 
         <q-btn
-          label="Demo Github Repo"
+          label="View Source"
           flat
           @click="openGithubRepo()"
         />
