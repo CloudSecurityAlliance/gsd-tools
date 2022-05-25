@@ -1,4 +1,4 @@
-# GSD reqeust tools
+# GSD request tools
 
 # How to contribute
 We have instructions in [CONTRIBUTING.md](https://github.com/cloudsecurityalliance/gsd-tools/blob/main/CONTRIBUTING.md) on how to work with git and submit a pull request.
