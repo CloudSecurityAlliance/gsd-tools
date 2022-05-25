@@ -3,13 +3,13 @@
     <q-header elevated>
       <q-toolbar>
         <q-toolbar-title>
-          <router-link to="/" class="text-white" style="text-decoration: none;">GSD Demo</router-link>
+          <router-link to="/" class="text-white" style="text-decoration: none;">GSD Web</router-link>
         </q-toolbar-title>
 
         <q-space />
 
         <q-btn
-          label="Demo Github Repo"
+          label="View Source"
           flat
           @click="openGithubRepo()"
         />
