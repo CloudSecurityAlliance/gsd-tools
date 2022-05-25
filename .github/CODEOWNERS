@@ -1,10 +1,19 @@
 # A Code Owner is someone who is automatically requested for review when a
 # particular piece of code is updated.
 
+# Raphael Ahrens - @raphaelahrens
+# Palash Oswal - @oswalpalash
 # Josh Buker - @athix
 # Josh Bressers - @joshbressers
+# Kurt Seifried - @kurtseifried
 
+/actions @raphaelahrens @oswalpalash @joshbressers
+/cloudflare-workers @kurtseifried
+/docker-compose @joshbressers
 /gsd-api @athix
+/gsd-bot @joshbressers
+/gsd-url-processing @kurtseifried
 /gsd-web @athix
-
+/local-scripts @kurtseifried
+/securitylist @joshbressers
 /webform @joshbressers
