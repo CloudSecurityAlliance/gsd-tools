@@ -154,9 +154,9 @@ module.exports = configure(function (ctx) {
       },
 
       manifest: {
-        name: `GSD Demo`,
-        short_name: `GSD Demo`,
-        description: `A technology demonstrator for GSD`,
+        name: `GSD Web`,
+        short_name: `GSD Web`,
+        description: `The web-based human interface for editing and creating GSD entries.`,
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',
