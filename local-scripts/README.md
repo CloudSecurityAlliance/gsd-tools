@@ -1,7 +1,7 @@
-# GSD API
+# Local Scripts
 
 *** TODO: Description ***
 
 ## Tool Code Owner
 
-@athix
+@kurtseifried
