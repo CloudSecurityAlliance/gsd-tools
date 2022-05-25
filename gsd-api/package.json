@@ -1,5 +1,5 @@
 {
-    "name": "gsd-api-demo",
+    "name": "gsd-api",
     "private": true,
     "version": "1.0.0",
     "description": "package for creating workers templates",
