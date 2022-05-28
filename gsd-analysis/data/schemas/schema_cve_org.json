@@ -1,0 +1,960 @@
+{
+    "properties": {
+        "CVE_data_meta": {
+            "properties": {
+                "AKA": {
+                    "type": "string"
+                },
+                "ASSIGNER": {
+                    "type": "string"
+                },
+                "DATA_ASSIGNED": {
+                    "type": "string"
+                },
+                "DATE_ASSIGNED": {
+                    "type": "string"
+                },
+                "DATE_ASSIGNEDE": {
+                    "type": "string"
+                },
+                "DATE_PUBLIC": {
+                    "type": "string"
+                },
+                "DATE_REQUESTED": {
+                    "type": "string"
+                },
+                "ID": {
+                    "type": "string"
+                },
+                "REQUESTER": {
+                    "type": "string"
+                },
+                "STATE": {
+                    "type": "string"
+                },
+                "STATE_DETAIL": {
+                    "type": "string"
+                },
+                "TITLE": {
+                    "type": "string"
+                },
+                "UPDATED": {
+                    "type": "string"
+                },
+                "vendor_name": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "ASSIGNER",
+                "ID"
+            ],
+            "type": "object"
+        },
+        "affects": {
+            "properties": {
+                "vendor": {
+                    "properties": {
+                        "vendor_data": {
+                            "items": {
+                                "properties": {
+                                    "product": {
+                                        "properties": {
+                                            "product_data": {
+                                                "items": {
+                                                    "properties": {
+                                                        "product_name": {
+                                                            "type": "string"
+                                                        },
+                                                        "version": {
+                                                            "properties": {
+                                                                "version_data": {
+                                                                    "items": {
+                                                                        "properties": {
+                                                                            "affected": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "affected:": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "configuration": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "platform": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "version_affected": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "version_name": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "version_number": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "version_value": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "versions_affected": {
+                                                                                "type": "string"
+                                                                            }
+                                                                        },
+                                                                        "required": [
+                                                                            "version_value"
+                                                                        ],
+                                                                        "type": "object"
+                                                                    },
+                                                                    "type": "array"
+                                                                }
+                                                            },
+                                                            "required": [
+                                                                "version_data"
+                                                            ],
+                                                            "type": "object"
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "product_name",
+                                                        "version"
+                                                    ],
+                                                    "type": "object"
+                                                },
+                                                "type": "array"
+                                            }
+                                        },
+                                        "required": [
+                                            "product_data"
+                                        ],
+                                        "type": "object"
+                                    },
+                                    "vendor_name": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "product",
+                                    "vendor_name"
+                                ],
+                                "type": "object"
+                            },
+                            "type": "array"
+                        }
+                    },
+                    "required": [
+                        "vendor_data"
+                    ],
+                    "type": "object"
+                }
+            },
+            "required": [
+                "vendor"
+            ],
+            "type": "object"
+        },
+        "configuration": {
+            "anyOf": [
+                {
+                    "items": {
+                        "properties": {
+                            "lang": {
+                                "type": "string"
+                            },
+                            "value": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "lang",
+                            "value"
+                        ],
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                {
+                    "properties": {
+                        "configuration_data": {
+                            "properties": {
+                                "description": {
+                                    "properties": {
+                                        "description_data": {
+                                            "items": {
+                                                "properties": {
+                                                    "lang": {
+                                                        "type": "string"
+                                                    },
+                                                    "value": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "lang",
+                                                    "value"
+                                                ],
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        }
+                                    },
+                                    "required": [
+                                        "description_data"
+                                    ],
+                                    "type": "object"
+                                }
+                            },
+                            "required": [
+                                "description"
+                            ],
+                            "type": "object"
+                        }
+                    },
+                    "required": [
+                        "configuration_data"
+                    ],
+                    "type": "object"
+                }
+            ]
+        },
+        "credit": {
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "properties": {
+                                    "lang": {
+                                        "type": "string"
+                                    },
+                                    "value": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "lang"
+                                ],
+                                "type": "object"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                {
+                    "properties": {
+                        "credit_data": {
+                            "properties": {
+                                "description": {
+                                    "properties": {
+                                        "description_data": {
+                                            "items": {
+                                                "properties": {
+                                                    "lang": {
+                                                        "type": "string"
+                                                    },
+                                                    "value": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "lang",
+                                                    "value"
+                                                ],
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        }
+                                    },
+                                    "required": [
+                                        "description_data"
+                                    ],
+                                    "type": "object"
+                                }
+                            },
+                            "required": [
+                                "description"
+                            ],
+                            "type": "object"
+                        }
+                    },
+                    "required": [
+                        "credit_data"
+                    ],
+                    "type": "object"
+                }
+            ]
+        },
+        "cve_id": {
+            "type": "string"
+        },
+        "data_format": {
+            "type": "string"
+        },
+        "data_type": {
+            "type": "string"
+        },
+        "data_version": {
+            "type": "string"
+        },
+        "description": {
+            "properties": {
+                "description_data": {
+                    "items": {
+                        "properties": {
+                            "lang": {
+                                "type": "string"
+                            },
+                            "value": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "lang",
+                            "value"
+                        ],
+                        "type": "object"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "description_data"
+            ],
+            "type": "object"
+        },
+        "discoverer": {
+            "type": "string"
+        },
+        "exploit": {
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "items": {
+                        "properties": {
+                            "lang": {
+                                "type": "string"
+                            },
+                            "value": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "lang",
+                            "value"
+                        ],
+                        "type": "object"
+                    },
+                    "type": "array"
+                }
+            ]
+        },
+        "generator": {
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "properties": {
+                        "engine": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "engine"
+                    ],
+                    "type": "object"
+                }
+            ]
+        },
+        "impact": {
+            "anyOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "properties": {
+                        "cvss": {
+                            "anyOf": [
+                                {
+                                    "properties": {
+                                        "attackComplexity": {
+                                            "type": "string"
+                                        },
+                                        "attackVector": {
+                                            "type": "string"
+                                        },
+                                        "availabilityImpact": {
+                                            "type": "string"
+                                        },
+                                        "baseScore": {
+                                            "type": [
+                                                "number",
+                                                "string"
+                                            ]
+                                        },
+                                        "baseSeverity": {
+                                            "type": [
+                                                "null",
+                                                "string"
+                                            ]
+                                        },
+                                        "confidentialityImpact": {
+                                            "type": "string"
+                                        },
+                                        "confidentialityRequirement": {
+                                            "type": "string"
+                                        },
+                                        "environmentalScore": {
+                                            "type": "number"
+                                        },
+                                        "environmentalSeverity": {
+                                            "type": "string"
+                                        },
+                                        "integrityImpact": {
+                                            "type": "string"
+                                        },
+                                        "privilegesRequired": {
+                                            "type": "string"
+                                        },
+                                        "scope": {
+                                            "type": "string"
+                                        },
+                                        "temporalScore": {
+                                            "type": [
+                                                "number",
+                                                "string"
+                                            ]
+                                        },
+                                        "userInteraction": {
+                                            "type": "string"
+                                        },
+                                        "vectorString": {
+                                            "type": "string"
+                                        },
+                                        "vector_string_": {
+                                            "type": "string"
+                                        },
+                                        "vectorstring": {
+                                            "type": "string"
+                                        },
+                                        "version": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                {
+                                    "items": {
+                                        "anyOf": [
+                                            {
+                                                "items": {
+                                                    "properties": {
+                                                        "vectorString": {
+                                                            "type": "string"
+                                                        },
+                                                        "version": {
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "vectorString",
+                                                        "version"
+                                                    ],
+                                                    "type": "object"
+                                                },
+                                                "type": "array"
+                                            },
+                                            {
+                                                "properties": {
+                                                    "attackComplexity": {
+                                                        "type": "string"
+                                                    },
+                                                    "attackVector": {
+                                                        "type": "string"
+                                                    },
+                                                    "availabilityImpact": {
+                                                        "type": "string"
+                                                    },
+                                                    "baseScore": {
+                                                        "type": [
+                                                            "number",
+                                                            "string"
+                                                        ]
+                                                    },
+                                                    "baseSeverity": {
+                                                        "type": "string"
+                                                    },
+                                                    "confidentialityImpact": {
+                                                        "type": "string"
+                                                    },
+                                                    "integrityImpact": {
+                                                        "type": "string"
+                                                    },
+                                                    "privilegesRequired": {
+                                                        "type": "string"
+                                                    },
+                                                    "scope": {
+                                                        "type": "string"
+                                                    },
+                                                    "userInteraction": {
+                                                        "type": "string"
+                                                    },
+                                                    "vectorString": {
+                                                        "type": "string"
+                                                    },
+                                                    "version": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "baseScore",
+                                                    "vectorString",
+                                                    "version"
+                                                ],
+                                                "type": "object"
+                                            }
+                                        ]
+                                    },
+                                    "type": "array"
+                                }
+                            ]
+                        },
+                        "cvssv3": {
+                            "properties": {
+                                "A": {
+                                    "type": "string"
+                                },
+                                "AC": {
+                                    "type": "string"
+                                },
+                                "AV": {
+                                    "type": "string"
+                                },
+                                "BM": {
+                                    "properties": {
+                                        "A": {
+                                            "type": "string"
+                                        },
+                                        "AC": {
+                                            "type": "string"
+                                        },
+                                        "AV": {
+                                            "type": "string"
+                                        },
+                                        "C": {
+                                            "type": "string"
+                                        },
+                                        "I": {
+                                            "type": "string"
+                                        },
+                                        "PR": {
+                                            "type": "string"
+                                        },
+                                        "S": {
+                                            "type": "string"
+                                        },
+                                        "SCORE": {
+                                            "type": "string"
+                                        },
+                                        "UI": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "A",
+                                        "AC",
+                                        "AV",
+                                        "C",
+                                        "I",
+                                        "PR",
+                                        "S",
+                                        "SCORE",
+                                        "UI"
+                                    ],
+                                    "type": "object"
+                                },
+                                "C": {
+                                    "type": "string"
+                                },
+                                "EM": {
+                                    "properties": {
+                                        "AR": {
+                                            "type": "string"
+                                        },
+                                        "CR": {
+                                            "type": "string"
+                                        },
+                                        "IR": {
+                                            "type": "string"
+                                        },
+                                        "MA": {
+                                            "type": "string"
+                                        },
+                                        "MAC": {
+                                            "type": "string"
+                                        },
+                                        "MAV": {
+                                            "type": "string"
+                                        },
+                                        "MC": {
+                                            "type": "string"
+                                        },
+                                        "MI": {
+                                            "type": "string"
+                                        },
+                                        "MPR": {
+                                            "type": "string"
+                                        },
+                                        "MS": {
+                                            "type": "string"
+                                        },
+                                        "MUI": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "AR",
+                                        "CR",
+                                        "IR",
+                                        "MA",
+                                        "MAC",
+                                        "MAV",
+                                        "MC",
+                                        "MI",
+                                        "MPR",
+                                        "MS",
+                                        "MUI"
+                                    ],
+                                    "type": "object"
+                                },
+                                "I": {
+                                    "type": "string"
+                                },
+                                "PR": {
+                                    "type": "string"
+                                },
+                                "S": {
+                                    "type": "string"
+                                },
+                                "SCORE": {
+                                    "type": "string"
+                                },
+                                "TM": {
+                                    "properties": {
+                                        "E": {
+                                            "type": "string"
+                                        },
+                                        "RC": {
+                                            "type": "string"
+                                        },
+                                        "RL": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "E",
+                                        "RC",
+                                        "RL"
+                                    ],
+                                    "type": "object"
+                                },
+                                "UI": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "impact_data": {
+                            "properties": {
+                                "description": {
+                                    "properties": {
+                                        "description_data": {
+                                            "items": {
+                                                "properties": {
+                                                    "lang": {
+                                                        "type": "string"
+                                                    },
+                                                    "value": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "lang",
+                                                    "value"
+                                                ],
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        }
+                                    },
+                                    "required": [
+                                        "description_data"
+                                    ],
+                                    "type": "object"
+                                }
+                            },
+                            "required": [
+                                "description"
+                            ],
+                            "type": "object"
+                        },
+                        "ssvc": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                {
+                    "items": {
+                        "properties": {
+                            "lang": {
+                                "type": "string"
+                            },
+                            "other": {
+                                "type": "string"
+                            },
+                            "url": {
+                                "type": "string"
+                            },
+                            "value": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                }
+            ]
+        },
+        "problemtype": {
+            "properties": {
+                "problemtype_data": {
+                    "items": {
+                        "properties": {
+                            "description": {
+                                "items": {
+                                    "properties": {
+                                        "lang": {
+                                            "type": "string"
+                                        },
+                                        "value": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "lang",
+                                        "value"
+                                    ],
+                                    "type": "object"
+                                },
+                                "type": "array"
+                            }
+                        },
+                        "required": [
+                            "description"
+                        ],
+                        "type": "object"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "problemtype_data"
+            ],
+            "type": "object"
+        },
+        "references": {
+            "properties": {
+                "reference_data": {
+                    "items": {
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "refsource": {
+                                "type": "string"
+                            },
+                            "title": {
+                                "type": "string"
+                            },
+                            "url": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "url"
+                        ],
+                        "type": "object"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "reference_data"
+            ],
+            "type": "object"
+        },
+        "solution": {
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "items": {
+                        "properties": {
+                            "lang": {
+                                "type": "string"
+                            },
+                            "value": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "lang"
+                        ],
+                        "type": "object"
+                    },
+                    "type": "array"
+                }
+            ]
+        },
+        "source": {
+            "properties": {
+                "advisory": {
+                    "type": "string"
+                },
+                "defect": {
+                    "items": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            }
+                        ]
+                    },
+                    "type": "array"
+                },
+                "discovery": {
+                    "type": "string"
+                },
+                "found_during": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "timeline": {
+            "items": {
+                "properties": {
+                    "lang": {
+                        "type": "string"
+                    },
+                    "time": {
+                        "type": "string"
+                    },
+                    "value": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "lang"
+                ],
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "work_around": {
+            "items": {
+                "properties": {
+                    "lang": {
+                        "type": "string"
+                    },
+                    "value": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "lang"
+                ],
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "workaround": {
+            "properties": {
+                "workaround_data": {
+                    "properties": {
+                        "description": {
+                            "properties": {
+                                "description_data": {
+                                    "items": {
+                                        "properties": {
+                                            "lang": {
+                                                "type": "string"
+                                            },
+                                            "value": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "lang",
+                                            "value"
+                                        ],
+                                        "type": "object"
+                                    },
+                                    "type": "array"
+                                }
+                            },
+                            "required": [
+                                "description_data"
+                            ],
+                            "type": "object"
+                        }
+                    },
+                    "required": [
+                        "description"
+                    ],
+                    "type": "object"
+                }
+            },
+            "required": [
+                "workaround_data"
+            ],
+            "type": "object"
+        },
+        "x_advisoryEoL": {
+            "type": "boolean"
+        },
+        "x_affectedList": {
+            "items": {
+                "type": "string"
+            },
+            "type": "array"
+        },
+        "x_likelyAffectedList": {
+            "items": {
+                "type": "string"
+            },
+            "type": "array"
+        }
+    },
+    "required": [
+        "CVE_data_meta",
+        "data_format",
+        "data_type",
+        "data_version",
+        "description"
+    ],
+    "type": "object"
+}

@@ -1,0 +1,39 @@
+{
+    "properties": {
+        "cveID": {
+            "type": "string"
+        },
+        "dateAdded": {
+            "type": "string"
+        },
+        "dueDate": {
+            "type": "string"
+        },
+        "product": {
+            "type": "string"
+        },
+        "requiredAction": {
+            "type": "string"
+        },
+        "shortDescription": {
+            "type": "string"
+        },
+        "vendorProject": {
+            "type": "string"
+        },
+        "vulnerabilityName": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "cveID",
+        "dateAdded",
+        "dueDate",
+        "product",
+        "requiredAction",
+        "shortDescription",
+        "vendorProject",
+        "vulnerabilityName"
+    ],
+    "type": "object"
+}
