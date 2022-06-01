@@ -1,7 +1,7 @@
-# GSD API
+# Cloudflare Workers
 
 *** TODO: Description ***
 
 ## Tool Code Owner
 
-@athix
+@kurtseifried

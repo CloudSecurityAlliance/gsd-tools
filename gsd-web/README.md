@@ -31,6 +31,10 @@ Please use "gsd-web-demo" as a label.
 - [Github REST API](https://docs.github.com/en/rest/guides/getting-started-with-the-rest-api)
 	- This is used for interacting with the GSD Database, which is hosted via a Github Repository.
 
+## Tool Code Owner
+
+@athix
+
 ## Running Locally
 
 This project uses the [Quasar Framework](https://quasar.dev). You may also want to use NVM for managing multiple node versions between different projects. This is purely for convenience however, and is not necessary to build or run the project. The Quasar CLI on the otherhand will be required to build and run the project.
