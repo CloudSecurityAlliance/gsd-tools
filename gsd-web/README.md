@@ -94,6 +94,8 @@ export GSD_GITHUB_KEY='<your oauth app client id>'
 export GSD_GITHUB_SECRET='<your oauth app client secret>'
 ```
 
+If your terminal application was open, restart it to reload the profile file.
+
 #### Commands
 
 > You must run these commands within the project directory, as it will search for the `.nvmrc` file to decide what version of node to use when running `nvm install` and `nvm use`, as well as the `package.json` file when running `yarn` / `yarn install`.
@@ -118,3 +120,7 @@ yarn dev
 ```
 
 The server can be stopped with `ctrl+c`.
+
+### Troubleshooting
+
+The server runs fine, but returns `Cannot GET /`: Make sure you properly setup the ENV variables, and restarted your terminal application to load the new profile.
