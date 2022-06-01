@@ -8,4 +8,5 @@
 /gsd-web @athix
 
 /webform @joshbressers
-/gsd-analysis @tdunlap607
+# FIXME: Github doesn't allow codeowners without granting write access
+# /gsd-analysis @tdunlap607
