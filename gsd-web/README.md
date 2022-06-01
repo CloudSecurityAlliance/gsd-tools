@@ -1,6 +1,28 @@
 # GSD Web
 
-Provides a web interface for viewing, searching, and editing the GSD Database.
+A web based user interface for the GSD data (gsd-database repo) allowing users to explore and edit the data. *** TODO ***
+
+## How to use this tool
+
+For the live version of this tool, please visit https://edit.globalsecuritydatabase.org
+
+To try the code locally, please see [Running Locally](#running-locally).
+
+*** TODO ***
+
+## How to contribute to this tool
+
+You'll want to fork this repo, and clone the fork locally. To run the code locally and see your changes before committing them, see [Running Locally](#running-locally).
+
+See also the [CONTRIBUTING.md](../CONTRIBUTING.md) file for further guidance.
+
+## How to file an issue
+
+*** CREATE TEMPLATE ***
+
+## Issues and PR Labels for this tool
+
+Please use "gsd-web-demo" as a label.
 
 ## Running Locally
 
