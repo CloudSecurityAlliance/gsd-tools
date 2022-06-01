@@ -1,0 +1,428 @@
+{
+    "properties": {
+        "configurations": {
+            "properties": {
+                "CVE_data_version": {
+                    "type": "string"
+                },
+                "nodes": {
+                    "items": {
+                        "properties": {
+                            "children": {
+                                "items": {
+                                    "properties": {
+                                        "children": {
+                                            "type": "array"
+                                        },
+                                        "cpe_match": {
+                                            "items": {
+                                                "properties": {
+                                                    "cpe23Uri": {
+                                                        "type": "string"
+                                                    },
+                                                    "cpe_name": {
+                                                        "type": "array"
+                                                    },
+                                                    "versionEndExcluding": {
+                                                        "type": "string"
+                                                    },
+                                                    "versionEndIncluding": {
+                                                        "type": "string"
+                                                    },
+                                                    "versionStartExcluding": {
+                                                        "type": "string"
+                                                    },
+                                                    "versionStartIncluding": {
+                                                        "type": "string"
+                                                    },
+                                                    "vulnerable": {
+                                                        "type": "boolean"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "cpe23Uri",
+                                                    "cpe_name",
+                                                    "vulnerable"
+                                                ],
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        },
+                                        "operator": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "children",
+                                        "cpe_match",
+                                        "operator"
+                                    ],
+                                    "type": "object"
+                                },
+                                "type": "array"
+                            },
+                            "cpe_match": {
+                                "items": {
+                                    "properties": {
+                                        "cpe23Uri": {
+                                            "type": "string"
+                                        },
+                                        "cpe_name": {
+                                            "type": "array"
+                                        },
+                                        "versionEndExcluding": {
+                                            "type": "string"
+                                        },
+                                        "versionEndIncluding": {
+                                            "type": "string"
+                                        },
+                                        "versionStartExcluding": {
+                                            "type": "string"
+                                        },
+                                        "versionStartIncluding": {
+                                            "type": "string"
+                                        },
+                                        "vulnerable": {
+                                            "type": "boolean"
+                                        }
+                                    },
+                                    "required": [
+                                        "cpe23Uri",
+                                        "cpe_name",
+                                        "vulnerable"
+                                    ],
+                                    "type": "object"
+                                },
+                                "type": "array"
+                            },
+                            "operator": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "children",
+                            "cpe_match",
+                            "operator"
+                        ],
+                        "type": "object"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "CVE_data_version",
+                "nodes"
+            ],
+            "type": "object"
+        },
+        "cve": {
+            "properties": {
+                "CVE_data_meta": {
+                    "properties": {
+                        "ASSIGNER": {
+                            "type": "string"
+                        },
+                        "ID": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "ASSIGNER",
+                        "ID"
+                    ],
+                    "type": "object"
+                },
+                "data_format": {
+                    "type": "string"
+                },
+                "data_type": {
+                    "type": "string"
+                },
+                "data_version": {
+                    "type": "string"
+                },
+                "description": {
+                    "properties": {
+                        "description_data": {
+                            "items": {
+                                "properties": {
+                                    "lang": {
+                                        "type": "string"
+                                    },
+                                    "value": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "lang",
+                                    "value"
+                                ],
+                                "type": "object"
+                            },
+                            "type": "array"
+                        }
+                    },
+                    "required": [
+                        "description_data"
+                    ],
+                    "type": "object"
+                },
+                "problemtype": {
+                    "properties": {
+                        "problemtype_data": {
+                            "items": {
+                                "properties": {
+                                    "description": {
+                                        "items": {
+                                            "properties": {
+                                                "lang": {
+                                                    "type": "string"
+                                                },
+                                                "value": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "lang",
+                                                "value"
+                                            ],
+                                            "type": "object"
+                                        },
+                                        "type": "array"
+                                    }
+                                },
+                                "required": [
+                                    "description"
+                                ],
+                                "type": "object"
+                            },
+                            "type": "array"
+                        }
+                    },
+                    "required": [
+                        "problemtype_data"
+                    ],
+                    "type": "object"
+                },
+                "references": {
+                    "properties": {
+                        "reference_data": {
+                            "items": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "refsource": {
+                                        "type": "string"
+                                    },
+                                    "tags": {
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "url": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "name",
+                                    "refsource",
+                                    "tags",
+                                    "url"
+                                ],
+                                "type": "object"
+                            },
+                            "type": "array"
+                        }
+                    },
+                    "required": [
+                        "reference_data"
+                    ],
+                    "type": "object"
+                }
+            },
+            "required": [
+                "CVE_data_meta",
+                "data_format",
+                "data_type",
+                "data_version",
+                "description",
+                "problemtype",
+                "references"
+            ],
+            "type": "object"
+        },
+        "impact": {
+            "properties": {
+                "baseMetricV2": {
+                    "properties": {
+                        "acInsufInfo": {
+                            "type": "boolean"
+                        },
+                        "cvssV2": {
+                            "properties": {
+                                "accessComplexity": {
+                                    "type": "string"
+                                },
+                                "accessVector": {
+                                    "type": "string"
+                                },
+                                "authentication": {
+                                    "type": "string"
+                                },
+                                "availabilityImpact": {
+                                    "type": "string"
+                                },
+                                "baseScore": {
+                                    "type": "number"
+                                },
+                                "confidentialityImpact": {
+                                    "type": "string"
+                                },
+                                "integrityImpact": {
+                                    "type": "string"
+                                },
+                                "vectorString": {
+                                    "type": "string"
+                                },
+                                "version": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "accessComplexity",
+                                "accessVector",
+                                "authentication",
+                                "availabilityImpact",
+                                "baseScore",
+                                "confidentialityImpact",
+                                "integrityImpact",
+                                "vectorString",
+                                "version"
+                            ],
+                            "type": "object"
+                        },
+                        "exploitabilityScore": {
+                            "type": "number"
+                        },
+                        "impactScore": {
+                            "type": "number"
+                        },
+                        "obtainAllPrivilege": {
+                            "type": "boolean"
+                        },
+                        "obtainOtherPrivilege": {
+                            "type": "boolean"
+                        },
+                        "obtainUserPrivilege": {
+                            "type": "boolean"
+                        },
+                        "severity": {
+                            "type": "string"
+                        },
+                        "userInteractionRequired": {
+                            "type": "boolean"
+                        }
+                    },
+                    "required": [
+                        "cvssV2",
+                        "exploitabilityScore",
+                        "impactScore",
+                        "obtainAllPrivilege",
+                        "obtainOtherPrivilege",
+                        "obtainUserPrivilege",
+                        "severity"
+                    ],
+                    "type": "object"
+                },
+                "baseMetricV3": {
+                    "properties": {
+                        "cvssV3": {
+                            "properties": {
+                                "attackComplexity": {
+                                    "type": "string"
+                                },
+                                "attackVector": {
+                                    "type": "string"
+                                },
+                                "availabilityImpact": {
+                                    "type": "string"
+                                },
+                                "baseScore": {
+                                    "type": "number"
+                                },
+                                "baseSeverity": {
+                                    "type": "string"
+                                },
+                                "confidentialityImpact": {
+                                    "type": "string"
+                                },
+                                "integrityImpact": {
+                                    "type": "string"
+                                },
+                                "privilegesRequired": {
+                                    "type": "string"
+                                },
+                                "scope": {
+                                    "type": "string"
+                                },
+                                "userInteraction": {
+                                    "type": "string"
+                                },
+                                "vectorString": {
+                                    "type": "string"
+                                },
+                                "version": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "attackComplexity",
+                                "attackVector",
+                                "availabilityImpact",
+                                "baseScore",
+                                "baseSeverity",
+                                "confidentialityImpact",
+                                "integrityImpact",
+                                "privilegesRequired",
+                                "scope",
+                                "userInteraction",
+                                "vectorString",
+                                "version"
+                            ],
+                            "type": "object"
+                        },
+                        "exploitabilityScore": {
+                            "type": "number"
+                        },
+                        "impactScore": {
+                            "type": "number"
+                        }
+                    },
+                    "required": [
+                        "cvssV3",
+                        "exploitabilityScore",
+                        "impactScore"
+                    ],
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        },
+        "lastModifiedDate": {
+            "type": "string"
+        },
+        "publishedDate": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "configurations",
+        "cve",
+        "impact",
+        "lastModifiedDate",
+        "publishedDate"
+    ],
+    "type": "object"
+}
