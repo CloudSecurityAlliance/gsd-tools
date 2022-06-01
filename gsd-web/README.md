@@ -24,6 +24,13 @@ See also the [CONTRIBUTING.md](../CONTRIBUTING.md) file for further guidance.
 
 Please use "gsd-web-demo" as a label.
 
+## Tools Used
+
+- [Quasar Framework](https://quasar.dev)
+	- Which is based on [Vue 3](https://vuejs.org/guide/introduction.html) (we're using the composition API)
+- [Github REST API](https://docs.github.com/en/rest/guides/getting-started-with-the-rest-api)
+	- This is used for interacting with the GSD Database, which is hosted via a Github Repository.
+
 ## Running Locally
 
 This project uses the [Quasar Framework](https://quasar.dev). You may also want to use NVM for managing multiple node versions between different projects. This is purely for convenience however, and is not necessary to build or run the project. The Quasar CLI on the otherhand will be required to build and run the project.
