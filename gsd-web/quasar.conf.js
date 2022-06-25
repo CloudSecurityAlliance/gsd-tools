@@ -9,6 +9,7 @@
 /* eslint-env node */
 const ESLintPlugin = require('eslint-webpack-plugin')
 const { configure } = require('quasar/wrappers');
+const envConfig = require('./src/boot/env');
 
 module.exports = configure(function (ctx) {
   return {
@@ -66,9 +67,7 @@ module.exports = configure(function (ctx) {
       // extractCSS: false,
 
       // Embed client ID to allow login requests
-      env: {
-        GSD_GITHUB_KEY: process.env.GSD_GITHUB_KEY
-      },
+      env: envConfig,
 
       // https://quasar.dev/quasar-cli/handling-webpack
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
