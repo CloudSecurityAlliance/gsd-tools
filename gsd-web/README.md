@@ -1,5 +1,7 @@
 # GSD Web
 
+- **Live Website:** https://edit.globalsecuritydatabase.org
+
 A web based user interface for the GSD data (gsd-database repo) allowing users to explore and edit the data. *** TODO ***
 
 ## How to use this tool

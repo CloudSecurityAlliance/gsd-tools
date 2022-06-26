@@ -1,84 +1,101 @@
-# Global Security Database (GSD)
+# GSD Tools
 
-The Global Security Database is a new Working Group project from the Cloud Security Alliance meant to address the gaps in the current vulnerability identifier space.
+This repository (repo) is a part of the [Global Security Database (GSD)](https://globalsecuritydatabase.org), an open source project by the [Cloud Security Alliance (CSA)](https://cloudsecurityalliance.org) to address gaps within the current vulnerability identifier space.
 
-The world of vulnerability identifiers has changed drastically in the last 20 years while the infrastructure and management of public and private vulnerability data have changed very little. This has created a sizable gap between the current needs of industry and the ability of existing projects to be effective.
+If you are unfamiliar with the GSD and the vulnerability identifier space, please read the following document: **TODO: Create a tl;dr of what GSD & vuln ids are within gsd-project**
 
-For more information please see [csaurl.org/gsd-quick-links](https://csaurl.org/gsd-quick-links).
+If you're looking to contribute or file a bug, please see the following guide: **TODO: Extract the repo descriptions & issue guide to a doc within gsd-project**
 
-## Table of contents
+The `gsd-tools` repo contains any tools, parsers, applications, and other code related to the GSD. The data for the identifiers themselves live within the [gsd-database](https://github.com/cloudsecurityalliance/gsd-database) repo, and any non-data, non-code related documentation (such as meeting times and policies) live within the [gsd-project](https://github.com/cloudsecurityalliance/gsd-project) repo.
 
-1. [GSD Repos](#gsd-repos)
-	1. [GSD Database](#gsd-database)
-	2. [GSD Project](#gsd-project)
-	3. [GSD Tools](#gsd-tools)
-2. [Projects and tools](#projects-and-tools)
-	1. [actions](#actions)
-	2. [cloudflare-workers](#cloudflare-workers)
-	3. [docker-compose](#docker-compose)
-	4. [gsd-api](#gsd-api)
-	5. [gsd-bot](#gsd-bot)
-	6. [gsd-url-processing](#gsd-url-processing)
-	7. [gsd-web](#gsd-web)
-	8. [local-scripts](#local-scripts)
-	9. [securitylist](#securitylist)
-	10. [webform](#webform)
+## Licensing
 
-## GSD Repos
+Please note that the data for GSD is `CC0`, everything else is `Apache v2.0`. See the [LICENSE.md](LICENSE.md) file for each project for more details.
 
-There are 3 primary repositories. 
+## Tools
 
-### gsd-database
- 
-The gsd-database repo is the actual data for identifiers in the Global Security Database in the form of GSD-YEAR-INTEGER. To maintain easier compatibility with the CVE ecosystem we have decided to reserve numbers below 1 million for CVE data, using the same integer to make matching up entries easy.
+Each project has its own README and supporting documents. Included below is a short one line description of each project and a quick link to its more detailed README.
 
-#### Issues
+### Table of Contents
 
-Please file any data related issues in the gsd-database repo. If you need to file issues against the data format(s) themselves please file an issue in the gsd-project repo.
+- [GSD Analysis](#GSD%20Analysis)
+- [GSD API](#GSD%20API)
+- [GSD Bot](#GSD%20Bot)
+- [GSD GitHub Actions](#GSD%20GitHub%20Actions)
+- [GSD Requests](#GSD%20Requests)
+- [GSD Schema](#GSD%20Schema)
+- [GSD URL Processing](#GSD%20URL%20Processing)
+- [GSD Web](README.md#GSD%20Web)
+- [Local Scripts](#Local%20Scripts)
 
-### gsd-project
+### GSD Analysis
 
-The gsd-project repo is designed to support the project, meeting times, agendas, minutes, planning, roadmaps, vision, etc. are contained here.
+- **Website:** _N/A_
+- **Location:** `gsd-tools/gsd-analysis/`
+- **README:** [GSD Analysis README](gsd-analysis/README.md)
+- **Short Description:** A review of the GSD data using a python parser.
+- **Depends on:** _None_
 
-#### Issues
+### GSD API
 
-Please file any project, governance, road maps, planning, data formats, process related issues or any general cross repo or project issues in the gsd-project repo.
+- **Website:** https://api.globalsecuritydatabase.io
+- **Location:** `gsd-tools/gsd-api/`
+- **README:** [GSD API README](gsd-api/README.md)
+- **Short Description:** Provides a simple REST API for interfacing with the GSD Database.
+- **Depends on:**  GSD Database
 
-### gsd-tools
+### GSD Bot
 
-The gsd-tools repo is the Global Security Database (GSD) tools repo which contains all the GSD tools. For more informaiton please see https://csaurl.org/gsd-quick-links.
+- **Website:** _N/A_
+- **Location:** `gsd-tools/gsd-bot/`
+- **README:** [GSD Bot README](gsd-bot/README.md)
+- **Short Description:** Provides automation around specifically formatted issues within the gsd-database repo.
+- **Depends on:** _None_
 
-#### Issues
+### GSD GitHub Actions
 
-Please file any tooling related issues in the gsd-tools repo. If you need to file issues against the data format(s) themselves please file an issue in the gsd-project repo.
+- **Website:** _N/A_
+- **Location:** `gsd-tools/gsd-github-actions/`
+- **README:** [GSD GitHub Actions README](gsd-github-actions/README.md)
+- **Short Description:** The GitHub actions used by GSD Database to validate new and existing identifiers.
+- **Depends on:** _None_
 
-## Projects and tools
+### GSD Requests
 
-*** TODO *** one line description and link to the README.md (which includes the WHY)
+- **Website:** https://requests.globalsecuritydatabase.org
+- **Location:** `gsd-tools/gsd-requests/`
+- **README:** [Requests Webform README](gsd-requests/README.md)
+- **Short Description:** A utilitarian webform for submitting new GSD IDs.
+- **Depends on:** GSD Database
 
-### actions
-### cloudflare-workers
-### docker-compose
-### gsd-api
+### GSD Schema
 
-**WIP**
+- **Website:** _N/A_
+- **Location:** `gsd-tools/gsd-schema/`
+- **README:** [GSD Schema README](gsd-schema/README.md)
+- **Short Description:** Provides the json schema of a GSD identifier.
+- **Depends on:** _None_
 
-Provides a simple REST API for interfacing with the GSD Database.
+### GSD URL Processing
 
-[GSD API README](gsd-api/README.md)
+- **Website:** _N/A_
+- **Location:** `gsd-tools/gsd-url-processing/`
+- **README:** [GSD URL Processing README](gsd-url-processing/README.md)
+- **Short Description:** Various scripts written by @kurtseifried to process urls into GSD ids.
+- **Depends on:** _None_
 
-### gsd-bot
-### gsd-url-processing
-### gsd-web
+### GSD Web
 
-**WIP**
+- **Website:** https://edit.globalsecuritydatabase.org
+- **Location:** `gsd-tools/gsd-web`
+- **README:** [GSD Web README](gsd-web/README.md)
+- **Short Description:** A human interface for interacting with and updating the GSD data.
+- **Depends on:** GSD API, GSD Schema
 
-Provides a web interface for viewing, searching, and editing the GSD Database.
+### Local Scripts
 
-Relies on the gsd-api tool for retrieving the GSD data.
-
-[GSD Web README](gsd-web/README.md)
-
-### local-scripts
-### securitylist
-### webform
+- **Website:** _N/A_
+- **Location:** `gsd-tools/local-scripts/`
+- **README:** [Local Scripts README](local-scripts/README.md)
+- **Short Description:** _TODO_ - Ask @kurtseifried
+- **Depends on:** _None_

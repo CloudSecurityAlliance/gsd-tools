@@ -2,7 +2,6 @@
 
 The primary goal of this analysis is to understand the data sources, structure, and counts of the Global Security Database ([GSD](https://github.com/cloudsecurityalliance/gsd-database#gsd-repos)). 
 
-
 ## Replication
 
 Clone both this repository and the [gsd-database](https://github.com/cloudsecurityalliance/gsd-database#gsd-repos) repository.
