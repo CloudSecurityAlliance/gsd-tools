@@ -9,6 +9,7 @@
 /* eslint-env node */
 const ESLintPlugin = require('eslint-webpack-plugin')
 const { configure } = require('quasar/wrappers');
+const buildSha = require('./src/build/buildVersion');
 
 module.exports = configure(function (ctx) {
   return {
@@ -112,6 +113,11 @@ module.exports = configure(function (ctx) {
     // animations: 'all', // --- includes all animations
     // https://quasar.dev/options/animations
     animations: [],
+
+    // https://quasar.dev/quasar-cli-webpack/quasar-config-js#property-htmlvariables
+    htmlVariables: {
+      buildVersion: buildSha.sha,
+    },
 
     // https://quasar.dev/quasar-cli/developing-ssr/configuring-ssr
     ssr: {
