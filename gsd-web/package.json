@@ -11,6 +11,7 @@
     "build": "quasar build -m ssr",
     "heroku-postbuild": "yarn build",
     "dev": "quasar dev -m ssr",
+    "devinit": "npx jake setup",
     "start": "node dist/ssr/index.js"
   },
   "dependencies": {
@@ -34,7 +35,8 @@
     "eslint": "^7.14.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-vue": "^7.0.0",
-    "eslint-webpack-plugin": "^2.4.0"
+    "eslint-webpack-plugin": "^2.4.0",
+    "jake": "^10.8.5"
   },
   "browserslist": [
     "last 10 Chrome versions",

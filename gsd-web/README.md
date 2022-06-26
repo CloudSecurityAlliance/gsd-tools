@@ -76,6 +76,36 @@ To be able to use the sign in functionality locally, you'll need to create a Git
 
 You'll need to save three ENV variables in your terminal profile so that the application can properly load.
 
+| Key | Value | Usage |
+| --- | --- | --- |
+| GSD_SESSION_KEY | Secure random string | Seed for Session Security |
+| GSD_GITHUB_KEY | Github OAuth app client id | Provides app access to GH Api |
+| GSD_GITHUB_SECRET | OAuth app client secret |  |
+
+Only ENV variables prefixed with `GSD_` will passed to the Quasar environment.
+
+__ENV Load Order__
+1. Hardcoded defaults
+2. (Optional) .env values
+3. Shell ENV prefixed with `GSD_`
+
+##### Project local .env file
+
+This project uses `dotenv` to simplify management of required settings and ENV variables.
+
+You will find an `.env.sample` in the project root and by renaming it to `.env` will cause it to load before quasar boots.
+
+For convenience you can run the following for an OS agnostic setup
+```bash
+yarn devinit
+```
+
+the `.env` is configuration overlay and will be overridden by the shell's env.
+
+__NEVER COMMIT YOUR .env file__
+
+##### Exporting to Shell
+
 Most commonly, the profile file will be a hidden dot file in your home directory, for example:
 
 - `~/.bash_profile`
