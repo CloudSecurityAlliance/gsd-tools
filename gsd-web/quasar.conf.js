@@ -9,7 +9,7 @@
 /* eslint-env node */
 const ESLintPlugin = require('eslint-webpack-plugin')
 const { configure } = require('quasar/wrappers');
-const buildSha = require('./src/boot/buildVersion');
+const buildSha = require('./src/build/buildVersion');
 
 module.exports = configure(function (ctx) {
   return {
