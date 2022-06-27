@@ -1,0 +1,121 @@
+{
+    "properties": {
+        "affected": {
+            "items": {
+                "properties": {
+                    "package": {
+                        "properties": {
+                            "ecosystem": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "ecosystem",
+                            "name"
+                        ],
+                        "type": "object"
+                    },
+                    "ranges": {
+                        "items": {
+                            "properties": {
+                                "events": {
+                                    "items": {
+                                        "properties": {
+                                            "introduced": {
+                                                "type": "string"
+                                            },
+                                            "limit": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "type": "array"
+                                },
+                                "repo": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "events",
+                                "repo",
+                                "type"
+                            ],
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "service": {
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "name"
+                        ],
+                        "type": "object"
+                    },
+                    "versions": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    }
+                },
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "alias": {
+            "type": "string"
+        },
+        "details": {
+            "type": "string"
+        },
+        "id": {
+            "type": "string"
+        },
+        "modified": {
+            "type": "string"
+        },
+        "published": {
+            "type": "string"
+        },
+        "references": {
+            "items": {
+                "properties": {
+                    "type": {
+                        "type": "string"
+                    },
+                    "url": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "type"
+                ],
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "summary": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "affected",
+        "details",
+        "id",
+        "modified",
+        "published",
+        "summary"
+    ],
+    "type": "object"
+}

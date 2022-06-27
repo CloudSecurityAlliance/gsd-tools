@@ -1,0 +1,319 @@
+{
+    "properties": {
+        "affected": {
+            "items": {
+                "properties": {
+                    "package": {
+                        "properties": {
+                            "ecosystem": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "ecosystem",
+                            "name"
+                        ],
+                        "type": "object"
+                    },
+                    "ranges": {
+                        "items": {
+                            "properties": {
+                                "events": {
+                                    "items": {
+                                        "properties": {
+                                            "introduced": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "introduced"
+                                        ],
+                                        "type": "object"
+                                    },
+                                    "type": "array"
+                                },
+                                "type": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "events",
+                                "type"
+                            ],
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "versions": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "package",
+                    "ranges",
+                    "versions"
+                ],
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "affected_component": {
+            "type": "string"
+        },
+        "affects": {
+            "properties": {
+                "ranges": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "ranges"
+            ],
+            "type": "object"
+        },
+        "alias": {
+            "type": "string"
+        },
+        "attack_vector": {
+            "type": "string"
+        },
+        "credit": {
+            "type": "string"
+        },
+        "data_format": {
+            "type": "string"
+        },
+        "data_type": {
+            "type": "string"
+        },
+        "data_version": {
+            "type": "string"
+        },
+        "description": {
+            "type": "string"
+        },
+        "details": {
+            "type": "string"
+        },
+        "duplicate": {
+            "type": "string"
+        },
+        "extended_references": {
+            "items": {
+                "properties": {
+                    "note": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string"
+                    },
+                    "value": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "note",
+                    "type",
+                    "value"
+                ],
+                "type": "object"
+            },
+            "type": "array"
+        },
+        "id": {
+            "type": "string"
+        },
+        "impact": {
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "properties": {
+                        "cvss": {
+                            "properties": {
+                                "attackComplexity": {
+                                    "type": "string"
+                                },
+                                "attackVector": {
+                                    "type": "string"
+                                },
+                                "availabilityImpact": {
+                                    "type": "string"
+                                },
+                                "baseScore": {
+                                    "type": "integer"
+                                },
+                                "baseSeverity": {
+                                    "type": "string"
+                                },
+                                "confidentialityImpact": {
+                                    "type": "string"
+                                },
+                                "exploitCodeMaturity": {
+                                    "type": "string"
+                                },
+                                "integrityImpact": {
+                                    "type": "string"
+                                },
+                                "privilegesRequired": {
+                                    "type": "string"
+                                },
+                                "remediationLevel ": {
+                                    "type": "string"
+                                },
+                                "reportConfidence": {
+                                    "type": "string"
+                                },
+                                "scope": {
+                                    "type": "string"
+                                },
+                                "temporalScore": {
+                                    "type": "number"
+                                },
+                                "temporalSeverity": {
+                                    "type": "string"
+                                },
+                                "userInteraction": {
+                                    "type": "string"
+                                },
+                                "vectorString": {
+                                    "type": "string"
+                                },
+                                "version": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "attackComplexity",
+                                "attackVector",
+                                "availabilityImpact",
+                                "baseScore",
+                                "baseSeverity",
+                                "confidentialityImpact",
+                                "exploitCodeMaturity",
+                                "integrityImpact",
+                                "privilegesRequired",
+                                "remediationLevel ",
+                                "reportConfidence",
+                                "scope",
+                                "temporalScore",
+                                "temporalSeverity",
+                                "userInteraction",
+                                "vectorString",
+                                "version"
+                            ],
+                            "type": "object"
+                        }
+                    },
+                    "required": [
+                        "cvss"
+                    ],
+                    "type": "object"
+                }
+            ]
+        },
+        "modified": {
+            "type": "string"
+        },
+        "notes": {
+            "type": "string"
+        },
+        "product_name": {
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            ]
+        },
+        "product_version": {
+            "type": "string"
+        },
+        "published": {
+            "type": "string"
+        },
+        "references": {
+            "items": {
+                "anyOf": [
+                    {
+                        "type": "string"
+                    },
+                    {
+                        "properties": {
+                            "content": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "refsource": {
+                                "type": "string"
+                            },
+                            "tags": {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            "timestamp": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "type": "string"
+                            },
+                            "url": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "type": "array"
+        },
+        "reporter": {
+            "type": "string"
+        },
+        "reporter_id": {
+            "type": "integer"
+        },
+        "summary": {
+            "type": "string"
+        },
+        "vendor_name": {
+            "type": "string"
+        },
+        "vulnerability_type": {
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            ]
+        },
+        "withdrawn": {
+            "type": "string"
+        }
+    },
+    "type": "object"
+}
