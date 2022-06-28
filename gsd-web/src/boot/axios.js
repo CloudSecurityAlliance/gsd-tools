@@ -7,7 +7,14 @@ import axios from 'axios'
 // good idea to move this instance creation inside of the
 // "export default () => {}" function below (which runs individually
 // for each client)
-const api = axios.create({ baseURL: 'https://gsd-api-demo.gsd-experiment-1.workers.dev' })
+let api
+if (process.env.DEV) {
+  api = axios.create({ baseURL: 'https://localhost:8080' })
+} else {
+  api = axios.create({ baseURL: 'https://gsd-web-demo.gsd-experiment-1.workers.dev' });
+}
+
+const gsdApi = axios.create({ baseURL: 'https://gsd-api-demo.gsd-experiment-1.workers.dev' });
 
 export default boot(({ app }) => {
   // for use inside Vue files (Options API) through this.$axios and this.$api
@@ -19,6 +26,8 @@ export default boot(({ app }) => {
   app.config.globalProperties.$api = api
   // ^ ^ ^ this will allow you to use this.$api (for Vue Options API form)
   //       so you can easily perform requests against your app's API
+
+  app.config.globalProperties.$gsdApi = gsdApi
 })
 
-export { api }
+export { api, gsdApi }

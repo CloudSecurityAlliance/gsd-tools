@@ -131,16 +131,21 @@
 
 <script>
 import { defineComponent, ref, watch, nextTick, computed } from 'vue'
+import { useQuasar } from 'quasar'
 import { useRoute, useRouter } from 'vue-router'
-import { api } from 'boot/axios'
+import { gsdApi } from 'boot/axios'
 
 // Syntax highlighting for JSON
 import Prism from 'prismjs'
+
+// Edit Dialog Component
+import EditDialog from 'components/EditDialog.vue'
 
 export default defineComponent({
   name: 'PageIdentifier',
 
   setup() {
+    const $q = useQuasar()
     const $route = useRoute()
     const $router = useRouter()
 
@@ -157,7 +162,7 @@ export default defineComponent({
       }
 
       if (isValidIdentifier(identifier.value)) {
-        api.get(`/${identifier.value}`).then(
+        gsdApi.get(`/${identifier.value}`).then(
           (response) => {
             if (response.status === 200 && response.data !== '404: Not Found') {
               jsonBlob.value = response.data
@@ -241,19 +246,23 @@ export default defineComponent({
       // TODO: Raise error or something?
       if (!isValidIdentifier(identifier.value)) { return }
 
-      const repo = 'https://github.com/cloudsecurityalliance/gsd-database'
-      const branch = 'main'
+      // const repo = 'https://github.com/cloudsecurityalliance/gsd-database'
+      // const branch = 'main'
 
-      const year = identifier.value.split('-')[1]
-      const thousands = `${identifier.value.split('-')[2].slice(0, -3)}xxx`
+      // const year = identifier.value.split('-')[1]
+      // const thousands = `${identifier.value.split('-')[2].slice(0, -3)}xxx`
 
-      const editUrl = `${repo}/edit/${branch}/${year}/${thousands}/${identifier.value}.json`
+      // const editUrl = `${repo}/edit/${branch}/${year}/${thousands}/${identifier.value}.json`
 
-      // TODO: Open a dialog and allow editing locally instead, with sanity checks. Also allow editing specific fields quickly.
-      window.open(
-        editUrl,
-        '_blank'
-      )
+      $q.dialog({
+        component: EditDialog,
+
+        componentProps: {
+          gsd_json: JSON.stringify(jsonBlob.value, null, 2),
+          identifier: identifier.value
+          // edit_url: editUrl
+        }
+      })
     }
 
     return {

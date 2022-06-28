@@ -1,0 +1,8 @@
+name: 'Check for deleted files'
+description: 'check for deleted files'
+runs:
+  using: "composite"
+  steps:
+    - run: $GITHUB_ACTION_PATH/check.sh
+      shell: bash
+
