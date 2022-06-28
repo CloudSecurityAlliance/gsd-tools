@@ -7,11 +7,12 @@ import json
 
 file = sys.argv[1]
 
-# open, read the file, generate the json.dumps with indent=4 and close it
+# open, read the file, generate the json.dumps with indent=2 and close it
 
 with open(file, "r") as f:
     data = json.load(f)
-    output = json.dumps(data, indent=4)
+    output = json.dumps(data, indent=2)
+    f.close()
 
 # open, write the file and close
 
