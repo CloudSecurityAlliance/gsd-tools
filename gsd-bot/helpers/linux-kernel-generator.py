@@ -26,6 +26,7 @@ class FakeIssue:
     def __init__(self, json_data):
         self.json = json_data
         self.id = "Kernel request"
+        self.html_url = "Kernel request"
 
     def get_gsd_json(self):
         return self.json
@@ -167,7 +168,7 @@ def main():
 
     # Unset the testing flag so we can push
     gsd_repo.testing = False
-    gsd_repo.commit("Add Kerenel IDs")
+    gsd_repo.commit("Add Kernel IDs")
     gsd_repo.push()
 
 if __name__ == "__main__":

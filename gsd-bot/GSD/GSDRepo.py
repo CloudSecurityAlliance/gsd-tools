@@ -65,12 +65,9 @@ class GSDRepo:
 
         # Commit the file
         self.repo.index.add(can_file)
-        self.repo.index.commit("Promoted to %s for #%s" % (gsd_id, gsd_issue.id))
+        self.commit("Promoted to %s for #%s" % (gsd_id, gsd_issue.id))
         self.push()
         return gsd_id
-
-    def commit(self, message):
-        self.repo.index.commit(message)
 
     def add_gsd(self, gsd_issue):
 
@@ -91,7 +88,7 @@ class GSDRepo:
             json_file.write(gsd_json)
 
         self.repo.index.add(gsd_path)
-        self.repo.index.commit("Add %s for %s" % (gsd_id, gsd_issue.html_url))
+        self.commit("Add %s for %s" % (gsd_id, gsd_issue.html_url))
         self.push()
 
         return gsd_id
