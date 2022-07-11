@@ -66,6 +66,12 @@ module.exports = configure(function (ctx) {
       // Options below are automatically set depending on the env, set them if you want to override
       // extractCSS: false,
 
+      // A note on the embedding of the GSD_CLIENT_ID (aka oauth public key) -
+      // this is used in the login button under src/layouts. Essentially the
+      // process.env is only available during compilation, and if you want to
+      // use it during runtime (e.g. render it out to the dom in a button) you
+      // have to explicitly pass it through in the conf.
+      //
       // Embed client ID to allow login requests
       env: {
         GSD_GITHUB_KEY: process.env.GSD_GITHUB_KEY
