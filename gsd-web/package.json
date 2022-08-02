@@ -1,8 +1,8 @@
 {
-  "name": "gsd-demo",
+  "name": "gsd-web",
   "version": "0.0.1",
-  "description": "A technology demonstrator for GSD",
-  "productName": "GSD Demo",
+  "description": "The web-based human interface for editing and creating GSD entries.",
+  "productName": "GSD Web",
   "author": "Josh Buker <crypto@joshbuker.com>",
   "private": true,
   "scripts": {

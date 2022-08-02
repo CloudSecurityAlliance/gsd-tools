@@ -86,7 +86,7 @@ class TestGSDRepo(unittest.TestCase):
         the_data = self.repo.get_gsd_json_format('GSD-1900-1000001', fake_issue.get_gsd_json())
         for i in fake_issue.get_gsd_json().keys():
             # Let's just check the keys
-            self.assertTrue(i in the_data['gsd'])
+            self.assertTrue(i in the_data['GSD'])
 
     def testGetAllIDs(self):
         the_ids = self.repo.get_all_ids()

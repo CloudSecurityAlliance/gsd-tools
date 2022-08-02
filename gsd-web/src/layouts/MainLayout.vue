@@ -3,13 +3,13 @@
     <q-header elevated>
       <q-toolbar>
         <q-toolbar-title>
-          <router-link to="/" class="text-white" style="text-decoration: none;">GSD Demo</router-link>
+          <router-link to="/" class="text-white" style="text-decoration: none;">GSD Web</router-link>
         </q-toolbar-title>
 
         <q-space />
 
         <q-btn
-          label="Demo Github Repo"
+          label="Contribute"
           flat
           @click="openGithubRepo()"
         />
@@ -113,7 +113,7 @@ export default defineComponent({
     }
 
     function openGithubRepo() {
-      window.open('https://github.com/cloudsecurityalliance/gsd-tools/tree/main/gsd-web-demo#gsd-demo-gsd-demo', '_blank')
+      window.open('https://github.com/cloudsecurityalliance/gsd-tools/tree/main/gsd-web#gsd-web', '_blank')
     }
 
     watch(

@@ -9,6 +9,7 @@
 /* eslint-env node */
 const ESLintPlugin = require('eslint-webpack-plugin')
 const { configure } = require('quasar/wrappers');
+const buildSha = require('./src/build/buildVersion');
 
 module.exports = configure(function (ctx) {
   return {
@@ -113,6 +114,11 @@ module.exports = configure(function (ctx) {
     // https://quasar.dev/options/animations
     animations: [],
 
+    // https://quasar.dev/quasar-cli-webpack/quasar-config-js#property-htmlvariables
+    htmlVariables: {
+      buildVersion: buildSha.sha,
+    },
+
     // https://quasar.dev/quasar-cli/developing-ssr/configuring-ssr
     ssr: {
       pwa: false,
@@ -154,9 +160,9 @@ module.exports = configure(function (ctx) {
       },
 
       manifest: {
-        name: `GSD Demo`,
-        short_name: `GSD Demo`,
-        description: `A technology demonstrator for GSD`,
+        name: `GSD Web`,
+        short_name: `GSD Web`,
+        description: `The web-based human interface for editing and creating GSD entries.`,
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',
@@ -221,7 +227,7 @@ module.exports = configure(function (ctx) {
       builder: {
         // https://www.electron.build/configuration/configuration
 
-        appId: 'gsd-demo'
+        appId: 'gsd-web'
       },
 
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
