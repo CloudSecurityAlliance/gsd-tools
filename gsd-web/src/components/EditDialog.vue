@@ -9,12 +9,28 @@
       <q-separator />
 
       <q-card-section style="overflow: auto; max-height: 80vh;">
-        <q-input
-          v-model="gsdJson"
-          filled
-          autogrow
-          label="GSD JSON"
+        <q-toggle
+          v-model="jsonEditMode"
+          label="JSON Edit Mode"
         />
+
+        <template v-if="jsonEditMode">
+          <q-input
+            v-model="gsdJson"
+            filled
+            autogrow
+            label="GSD JSON"
+          />
+        </template>
+
+        <template v-else>
+          <q-input
+            v-model="gsdDescription"
+            filled
+            autogrow
+            label="Description"
+          />
+        </template>
       </q-card-section>
 
       <q-card-actions align="right">
@@ -65,10 +81,26 @@ export default {
     const $q = useQuasar()
 
     const gsdJson = ref(props.gsd_json)
+    const jsonEditMode = ref(false)
+
+    let gsdJsonObject = JSON.parse(gsdJson.value)
+    const gsdOriginalDescription = ref('')
+
+    if(gsdJsonObject.GSD !== undefined) {
+      gsdOriginalDescription.value = gsdJsonObject.GSD.description
+    } else if(gsdJsonObject.gsd !== undefined) {
+      gsdOriginalDescription.value = gsdJsonObject.gsd.description
+    }
+
+    const gsdDescription = ref(gsdOriginalDescription.value)
 
     const unsavedChanges = computed(
       () => {
-        return (props.gsd_json !== gsdJson.value)
+        if(jsonEditMode.value) {
+          return (props.gsd_json !== gsdJson.value)
+        } else {
+          return (gsdOriginalDescription.value !== gsdDescription.value)
+        }
       }
     )
 
@@ -85,7 +117,20 @@ export default {
       let fileContent = '';
       try {
         // Force reformatting of the JSON string, as well as check validity.
-        fileContent = JSON.stringify(JSON.parse(gsdJson.value), null, 2);
+        if(jsonEditMode.value) {
+          fileContent = JSON.stringify(JSON.parse(gsdJson.value), null, 2);
+        } else {
+          let tempGsdJson = JSON.parse(props.gsd_json);
+          let gsdLowercase = (tempGsdJson.gsd !== undefined);
+
+          if(gsdLowercase) {
+            tempGsdJson.gsd.description = gsdDescription.value;
+          } else {
+            tempGsdJson.GSD.description = gsdDescription.value;
+          }
+
+          fileContent = JSON.stringify(tempGsdJson, null, 2);
+        }
         api.patch('/update-gsd', {
           identifier: props.identifier,
           file_content: fileContent
@@ -125,6 +170,8 @@ export default {
       gsdJson,
       saveChanges,
       unsavedChanges,
+      jsonEditMode,
+      gsdDescription,
 
       // This is REQUIRED;
       // Need to inject these (from useDialogPluginComponent() call)
