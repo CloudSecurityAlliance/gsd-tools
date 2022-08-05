@@ -1,5 +1,5 @@
 <template>
-  <q-dialog ref="dialogRef" @hide="onDialogHide">
+  <q-dialog ref="dialogRef" @hide="onDialogHide" maximized>
     <q-card class="q-dialog-plugin">
       <q-card-section class="bg-primary text-white text-center">
         <div class="text-h6">Create new GSD Identifier</div>
@@ -8,7 +8,66 @@
       <q-separator />
 
       <q-card-section style="overflow: auto; max-height: 80vh;">
-        <p>Hello world</p>
+        <div class="row">
+          <div class="col-6">
+            <q-input
+              filled
+              label="Vendor Name"
+            />
+            <br>
+            <q-input
+              filled
+              label="Product Name"
+            />
+            <br>
+            <q-input
+              filled
+              label="Affect Version(s)"
+            />
+            <br>
+            <q-input
+              filled
+              label="Vulnerability Type"
+            />
+            <br>
+            <q-input
+              filled
+              label="Affected Component"
+            />
+            <q-input
+              filled
+              label="Attack Vector"
+            />
+            <br>
+            <q-input
+              filled
+              label="Impact of Exploitation"
+            />
+            <br>
+            <q-input
+              filled
+              label="Discoverer/Credit"
+            />
+            <br>
+            <q-input
+              filled
+              label="References"
+            />
+            <q-btn
+              color="positive"
+              icon="fa fa-plus"
+            />
+            <br>
+            <q-input
+              filled
+              autogrow
+              label="Notes"
+            />
+          </div>
+          <div class="col-6">
+            <p>The description below is being generated based on your input values. Please try to make it make sense. If you edit this box manually, it will stop updating based on the other values entered. Feel free to make any manual edits needed.</p>
+          </div>
+        </div>
       </q-card-section>
 
       <q-card-actions align="right">
