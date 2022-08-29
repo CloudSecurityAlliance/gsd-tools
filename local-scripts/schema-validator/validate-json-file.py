@@ -211,9 +211,6 @@ def validateJsonSchema(data):
                 print("#####")
                 print(error.validator_value)
 
-
-
-
 if __name__ == "__main__":
     file_namepath = sys.argv[1]
     file_name = os.path.basename(file_namepath)
@@ -223,7 +220,6 @@ if __name__ == "__main__":
 
     with open(file_namepath, "r") as f:
         file_data = json.load(f)
-        f.close()
 
     # Get an array of schema and data, 0 or more entries
     extracted_data = extractDataAndSchema(file_type, file_data)
