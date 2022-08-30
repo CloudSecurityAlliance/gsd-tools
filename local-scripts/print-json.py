@@ -20,7 +20,7 @@ def set_file_indent(file):
     # The CVE Bot uses the default 4 spaces, hence the need for checking
     # We can ismply read the file, scheck the second line and count spaces because
     # some workflow (e.g. linux updates) involves using the command line jq which
-    # indents to 45 spaces and appears to have no option for 2 spaces
+    # indents to 4 spaces and appears to have no option for 2 spaces
     #
     if re.match("GSD-202[1-9]-1[0-9][0-9][0-9][0-9][0-9][0-9]", file_name):
         indent = 2
