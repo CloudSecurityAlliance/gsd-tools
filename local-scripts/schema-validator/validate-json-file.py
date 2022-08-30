@@ -166,20 +166,21 @@ def validateJsonSchema(data):
     print("###########################################################################")
     print("FILENAME: " + file_name)
 
-
-
-
     for item in data:
         print("########################################")
         print(item["key"])
 
         # Get the schema, we might not have the correct version, if so bail out
+        # Also make this work from wherever we call it
+        program_filepath = os.path.dirname(__file__)
         schema_file_name = "schema-" + item["schema"] + ".json"
+        schema_file_location = os.path.join(program_filepath, schema_file_name)
+
         try:
-            with open(schema_file_name) as schema_file:
+            with open(schema_file_location) as schema_file:
                 schema_data = json.load(schema_file)
         except IOError:
-            print("ERROR: Schema file not found: " + schema_file_name)
+            print("ERROR: Schema file not found: " + schema_file_location)
             quit()
 
         instance_data = item["process_data"]
@@ -211,12 +212,10 @@ def validateJsonSchema(data):
                 print("#####")
                 print(error.validator_value)
 
-
-
-
 if __name__ == "__main__":
     file_namepath = sys.argv[1]
     file_name = os.path.basename(file_namepath)
+
 
     # GSD or CVE
     file_type = detectFileTypeByName(file_name)
