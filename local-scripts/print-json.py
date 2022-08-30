@@ -11,27 +11,28 @@ file = sys.argv[1]
 
 # open, read the file, generate the json.dumps with indent=2 and close it
 
-# TODO: get filename, if >=1000000 then indent = 2 if 4-6 digits then 4
+def set_file_indent(file):
+    # This code breaks in 2030 and.or after we assign 1 million GSDs per year
+    file_name = os.path.basename(file)
 
-filename = os.path.basename(file)
-id_integer = filename.split("-")
-id_year = id_integer[1]
+    # We match 2021 through 2029, 1 million and up so that's guaranteed GSD space only
+    # GSD bot uses 2 space for indent
+    # The CVE Bot uses the default 4 spaces, hence the need for checking
+    # We can ismply read the file, scheck the second line and count spaces because
+    # some workflow (e.g. linux updates) involves using the command line jq which
+    # indents to 45 spaces and appears to have no option for 2 spaces
+    #
+    if re.match("GSD-202[1-9]-1[0-9][0-9][0-9][0-9][0-9][0-9]", file_name):
+        indent = 2
+    else:
+        indent = 4
+    return(indent)
 
-tmp_integer = id_integer[2].split(".")
-id_integer_raw = tmp_integer[0]
-
-indent_size=4
-
-if re.match("202[0-9]", id_year):
-    if re.match("[0-9]{7,8}", id_integer_raw):
-        indent_size=2
-        print("GSD")
-
-quit()
+file_indent = set_file_indent(file)
 
 with open(file, "r") as f:
     data = json.load(f)
-    output = json.dumps(data, indent=indent_size)
+    output = json.dumps(data, indent=file_indent)
     f.close()
 
 # open, write the file and close
