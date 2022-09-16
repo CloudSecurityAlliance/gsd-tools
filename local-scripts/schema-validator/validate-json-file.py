@@ -14,6 +14,52 @@ from jsonschema import Draft202012Validator
 # Apply CVE schema to GSD {namespaces: cve.org AND nvd.nist.gov}
 # Apply CVE schema
 
+# Read the ~/.gsdconfig file, e.g.:
+#{
+#	"gsd_database_path": "/home/kurt/GitHub/gsd-database/",
+#	"gsd_tools_path": "/home/kurt/GitHub/gsd-tools/"
+#}
+def setgsdconfigGlobals():
+    # Set gsdconfig globals like pathnames
+    # TODO: check for trailing slash at some point
+    user_homedir_path = os.path.expanduser('~')
+    gsdconfig_path = user_homedir_path + "/.gsdconfig"
+    global gsd_database_path
+    global gsd_tools_path
+    if os.path.exists(gsdconfig_path): 
+        with open(gsdconfig_path, "r") as f:
+            gsdconfig_data = json.load(f)
+        gsd_database_path = gsdconfig_data["gsd_database_path"]
+        gsd_tools_path = gsdconfig_data["gsd_tools_path"]
+    else:
+        print("no ~/.gsdconfig file set, please create one, see comments in this script for details")
+        exit()
+
+# Take the command line argument and figure out if it's a GSD/CVE/file path, and convert to a file path
+# Valid arguments are:
+# CVE-YEAR-INTEGER
+# GSD-YEAR-INTEGER
+# ./YEAR/INTxxx/GSD-YEAH-INTEGER.json
+#
+# Output is a global file path or exit if error
+
+def convertArgumentToPath(argv1):
+    if re.match("^CVE-[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]*$", argv1):
+        argv1 = re.sub("^CVE-", "GSD-", argv1)
+    if re.match("^GSD-[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]*$", argv1):
+        gsd_id_data = argv1.split("-")
+        year = gsd_id_data[1]
+        integer = gsd_id_data[2]
+        integerdir = re.sub("[0-9][0-9][0-9]$", "xxx", integer)
+        argv1 = "./" + year + "/" + integerdir + "/" + argv1 + ".json"
+        # Convert to partial path
+    if re.match("^\./[0-9][0-9][0-9][0-9]/[0-9]*xxx/GSD-[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]*.json", argv1):
+        argv1 = re.sub("^\./", gsd_database_path, argv1)
+    global gsd_file_path
+    gsd_file_path = argv1
+
+
+
 #########################################################
 
 def detectFileTypeByName(filename):
@@ -193,34 +239,41 @@ def validateJsonSchema(data):
             for error in errors:
                 print("####################")
                 print(error.message)
-                print("#####")
-                print(error.context)
-                print("#####")
-                print(error.cause)
-                print("#####")
-                print(error.instance)
-                print("#####")
-                print(error.json_path)
-                print("#####")
-                print(error.path)
-                print("#####")
-                print(error.schema)
-                print("#####")
-                print(error.schema_path)
-                print("#####")
-                print(error.validator)
-                print("#####")
-                print(error.validator_value)
+#                print("#####")
+#                print(error.context)
+#                print("#####")
+#                print(error.cause)
+#                print("#####")
+#                print(error.instance)
+#                print("#####")
+#                print(error.json_path)
+#                print("#####")
+#                print(error.path)
+#                print("#####")
+#                print(error.schema)
+#                print("#####")
+#                print(error.schema_path)
+#                print("#####")
+#                print(error.validator)
+#                print("#####")
+#                print(error.validator_value)
 
 if __name__ == "__main__":
-    file_namepath = sys.argv[1]
-    file_name = os.path.basename(file_namepath)
+
+    setgsdconfigGlobals()
+    # gsd_database_path
+    # gsd_tools_path
+
+    convertArgumentToPath(sys.argv[1])
+    # gsd_file_path
+
+    file_name = os.path.basename(gsd_file_path)
 
 
     # GSD or CVE
     file_type = detectFileTypeByName(file_name)
 
-    with open(file_namepath, "r") as f:
+    with open(gsd_file_path, "r") as f:
         file_data = json.load(f)
         f.close()
 
