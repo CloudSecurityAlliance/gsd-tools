@@ -1,19 +1,43 @@
-# Contribution Guide
+# Contributing to GSD
 
-Have questions or don't know where to start? Join the forums and/or mailing list
-and ask away!
+We want to make contributing to this project as easy and transparent as
+possible.
+
+Have questions or don't know where to start? Join the forums, mailing list, or
+Slack and ask away!
 
 - [Circle Community (Forums)](https://csaurl.org/gsd-circle)
 - [Mailing list](https://csaurl.org/gsd-mailing-list)
+- [CSA Public Slack](https://csaurl.org/csa-public-slack) (`#gsd-working-group` channel)
 
-## Contributing to the database itself
+## Our Development Process
 
-Please see the [GSD Tools Contribution Guide](https://github.com/cloudsecurityalliance/gsd-database/blob/main/CONTRIBUTING.md).
+We use GitHub for all development, discussions, and issues. If something
+happens, it needs to be in GitHub.
 
-## Contributing to the tooling and/or interfaces
+## Pull Requests
 
-Please see the [GSD Tools Contribution Guide](https://github.com/cloudsecurityalliance/gsd-tools/blob/main/CONTRIBUTING.md).
+We actively welcome your pull requests.
 
-## Other ways to contribute to the GSD project
+1) Fork the repo and create your branch from `main`.
+1) Optional: Add an upstream remote branch for easy fetching in the future
+    1) `git remote add upstream https://github.com/cloudsecurityalliance/gsd-tools.git`
+1) Commit and push your changes to your branch
+1) Open a pull request against the GSD main branch
+1) Future changes to the gsd main branch can be pulled and merged by running
+    1) `git fetch upstream`
+    1) `git merge upstream/main`
 
-Please see the [GSD Project Contribution Guide](https://github.com/cloudsecurityalliance/gsd-project/blob/main/CONTRIBUTING.md).
+## Issues
+
+We use GitHub issues to track public bugs. Please ensure your description is
+clear and has sufficient instructions to be able to reproduce the issue.
+
+## License
+
+By contributing to Draft.js, you agree that your contributions will be licensed
+under its Apache-2 license.
+
+## References
+
+This document was adapted from the open-source contribution guidelines for [Facebook's Draft](https://github.com/facebook/draft-js/blob/a9316a723f9e918afde44dea68b5f9f39b7d9b00/CONTRIBUTING.md)
