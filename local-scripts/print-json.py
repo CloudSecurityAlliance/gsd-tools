@@ -32,7 +32,7 @@ file_indent = set_file_indent(file)
 
 with open(file, "r") as f:
     data = json.load(f)
-    output = json.dumps(data, indent=file_indent)
+    output = json.dumps(data, indent=file_indent, sort_keys=True)
     f.close()
 
 # open, write the file and close
