@@ -1,0 +1,41 @@
+.DS_Store
+.thumbs.db
+node_modules
+
+# Quasar core related directories
+.quasar
+/dist
+
+# Cordova related directories and files
+/src-cordova/node_modules
+/src-cordova/platforms
+/src-cordova/plugins
+/src-cordova/www
+
+# Capacitor related directories and files
+/src-capacitor/www
+/src-capacitor/node_modules
+
+# BEX related directories and files
+/src-bex/www
+/src-bex/js/core
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Copied from Wrangler gitignore
+worker
+
+# The tutorials indicate putting your account_id in the toml file, which makes
+# me nervous. I'll check this file in after I understand if the account_id is
+# considered public, and what the recommended ways to interpolate secrets are.
+wrangler.toml

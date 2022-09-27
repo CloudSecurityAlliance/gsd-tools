@@ -1,0 +1,137 @@
+{
+    "properties": {
+        "advisories": {
+            "items": {
+                "properties": {
+                    "_git_import_path": {
+                        "type": "string"
+                    },
+                    "affected_range": {
+                        "type": "string"
+                    },
+                    "affected_versions": {
+                        "type": "string"
+                    },
+                    "credit": {
+                        "type": "string"
+                    },
+                    "cvss_v2": {
+                        "type": "string"
+                    },
+                    "cvss_v3": {
+                        "type": "string"
+                    },
+                    "cwe_ids": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "date": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "fixed_versions": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "identifier": {
+                        "type": "string"
+                    },
+                    "identifiers": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "not_impacted": {
+                        "type": "string"
+                    },
+                    "package_slug": {
+                        "type": "string"
+                    },
+                    "pubdate": {
+                        "type": "string"
+                    },
+                    "solution": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "urls": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "uuid": {
+                        "type": "string"
+                    },
+                    "versions": {
+                        "items": {
+                            "properties": {
+                                "commit": {
+                                    "properties": {
+                                        "sha": {
+                                            "type": "string"
+                                        },
+                                        "tags": {
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "type": "array"
+                                        },
+                                        "timestamp": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "sha",
+                                        "tags",
+                                        "timestamp"
+                                    ],
+                                    "type": "object"
+                                },
+                                "number": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "commit",
+                                "number"
+                            ],
+                            "type": "object"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "affected_range",
+                    "affected_versions",
+                    "cwe_ids",
+                    "date",
+                    "description",
+                    "fixed_versions",
+                    "identifier",
+                    "identifiers",
+                    "package_slug",
+                    "pubdate",
+                    "title",
+                    "urls",
+                    "uuid"
+                ],
+                "type": "object"
+            },
+            "type": "array"
+        }
+    },
+    "required": [
+        "advisories"
+    ],
+    "type": "object"
+}

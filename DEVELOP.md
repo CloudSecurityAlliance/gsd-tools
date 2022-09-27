@@ -39,19 +39,10 @@ The username you will auth against github with
 This can be literally anything. It's the key used to encrypt the session
 cookie.
 
-# webform
+## Docker
 
-The webform is a node.js app that uses express to serve all the content.
-For local development run it using `npm run local`
+See [docker-compose README](docker-compose/README.md)
 
-There is also a "vew only" mode that exists to test the html content. You
-can run that with `npm run views-only`. You do not need to set any of the
-environment variables to use this mode.
+## webform
 
-# Docker
-
-If you want to use the docker-compose deployment you will need a certificate
-for nginx to run. This command will create a self signed certificate and put
-things in the right place. Be sure to change the domain to something else.
-
-openssl req -x509 -nodes -days 3650 -subj "/C=CA/ST=QC/O=Company, Inc./CN=example.org" -addext "subjectAltName=DNS:example.org" -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
+See [webform README](webform/README.md)

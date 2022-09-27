@@ -34,4 +34,3 @@ https://schema.org/SoftwareSourceCode
 ### Vendor standards
 
 ### CERTs
-
