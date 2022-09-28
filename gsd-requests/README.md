@@ -2,6 +2,12 @@
 
 - **Live Website:** https://requests.globalsecuritydatabase.org
 
+## How to contribute
+
+We have instructions in [CONTRIBUTING.md](https://github.com/cloudsecurityalliance/gsd-tools/blob/main/CONTRIBUTING.md) on how to work with git and submit a pull request.
+
+## How to develop
+
 The webform is a node.js app that uses express to serve all the content.
 For local development run it using `npm run local`
 
@@ -9,7 +15,7 @@ There is also a "vew only" mode that exists to test the html content. You
 can run that with `npm run views-only`. You do not need to set any of the
 environment variables to use this mode.
 
-## Requirements
+### Requirements
 
 You will need some environment variables to make this work
 
@@ -44,6 +50,6 @@ The username you will auth against github with
 This can be literally anything. It's the key used to encrypt the session
 cookie.
 
-## Tool Code Owner
+### Tool Code Owner
 
 @joshbressers

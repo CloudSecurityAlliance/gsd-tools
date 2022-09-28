@@ -90,6 +90,8 @@ Once you've located your profile file, add the following variables to it at the 
 
 > Be sure to replace the placeholders (e.g. `<any secure random string>`) with the actual value (e.g. `SomeSecureRandomString!@#$1234`). Note that the angle brackets `<>` are not included in the final result.
 
+> Ensure that the file actually saves before continuing, the application will not render without these ENV variables present.
+
 ```bash
 export GSD_SESSION_KEY='<any secure random string>'
 export GSD_GITHUB_KEY='<your oauth app client id>'
@@ -126,3 +128,13 @@ The server can be stopped with `ctrl+c`.
 ### Troubleshooting
 
 The server runs fine, but returns `Cannot GET /`: Make sure you properly setup the ENV variables, and restarted your terminal application to load the new profile.
+
+In general, try ensuring your dependencies are up-to-date if encountering any issues.
+
+For example, on a Debian based linux distro (e.g. Ubuntu):
+
+```bash
+sudo apt update && sudo apt upgrade
+nvm use
+yarn install
+```

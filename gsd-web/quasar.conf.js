@@ -9,6 +9,7 @@
 /* eslint-env node */
 const ESLintPlugin = require('eslint-webpack-plugin')
 const { configure } = require('quasar/wrappers');
+const buildSha = require('./src/build/buildVersion');
 
 module.exports = configure(function (ctx) {
   return {
@@ -65,6 +66,12 @@ module.exports = configure(function (ctx) {
       // Options below are automatically set depending on the env, set them if you want to override
       // extractCSS: false,
 
+      // A note on the embedding of the GSD_CLIENT_ID (aka oauth public key) -
+      // this is used in the login button under src/layouts. Essentially the
+      // process.env is only available during compilation, and if you want to
+      // use it during runtime (e.g. render it out to the dom in a button) you
+      // have to explicitly pass it through in the conf.
+      //
       // Embed client ID to allow login requests
       env: {
         GSD_GITHUB_KEY: process.env.GSD_GITHUB_KEY
@@ -112,6 +119,11 @@ module.exports = configure(function (ctx) {
     // animations: 'all', // --- includes all animations
     // https://quasar.dev/options/animations
     animations: [],
+
+    // https://quasar.dev/quasar-cli-webpack/quasar-config-js#property-htmlvariables
+    htmlVariables: {
+      buildVersion: buildSha.sha,
+    },
 
     // https://quasar.dev/quasar-cli/developing-ssr/configuring-ssr
     ssr: {
