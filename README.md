@@ -6,6 +6,10 @@ The world of vulnerability identifiers has changed drastically in the last 20 ye
 
 For more information please see [csaurl.org/gsd-quick-links](https://csaurl.org/gsd-quick-links).
 
+## Contributing
+
+See the [Contribution Guide](CONTRIBUTING.md).
+
 ## Table of contents
 
 1. [GSD Repos](#gsd-repos)
