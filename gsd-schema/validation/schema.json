@@ -7,7 +7,7 @@
   "properties": {
     "gsd": {
       "description": "The GSD namespace, uses OSV format",
-      "$ref": "https://raw.githubusercontent.com/ossf/osv-schema/main/validation/schema.json"
+      "$ref": "https://raw.githubusercontent.com/ossf/osv-schema/v1.3.1/validation/schema.json"
     },
     "namespaces": {
       "description": "Namespaces for non-GSD data",
