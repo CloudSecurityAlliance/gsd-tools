@@ -12,6 +12,7 @@ class Issue:
         self.comments_url = details['comments_url']
         self.events_url = details['events_url']
         self.url = details['url']
+        self.html_url = details['html_url']
         self.title = details['title']
         self.id = details['number'];    
         self.creator = details['user']['login']

@@ -9,11 +9,31 @@ import re
 import sys
 import logging
 import time
+import GSD
 
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
 
 import argparse
+
+repo_name = os.environ['GH_REPO']
+issues_url = "https://api.github.com/repos/%s/issues" % repo_name
+repo_url = "https://github.com/%s.git" % repo_name
+username = os.environ['GH_USERNAME']
+
+class FakeIssue:
+
+    def __init__(self, json_data):
+        self.json = json_data
+        self.id = "Kernel request"
+        self.html_url = "Kernel request"
+
+    def get_gsd_json(self):
+        return self.json
+
+    def get_reporter(self):
+        return "joshbressers:1692786"
+
 
 def main():
     # TODO: Use a getopt library
@@ -37,6 +57,9 @@ def main():
     s = requests.Session()
     retries = Retry(total=5, backoff_factor=1)
     s.mount('https://', HTTPAdapter(max_retries=retries))
+
+    # If we set this to testing, it doesn't automatically push
+    gsd_repo = GSD.GSDRepo(repo_url, testing=True)
 
     # This data looks like introduced,version,fixed,version
     for i in sys.stdin.readlines():
@@ -134,38 +157,19 @@ def main():
         else:
             json_data["description"] = f"{commit_title}\n\nThis is an automated ID intended to aid in discovery of potential security vulnerabilities. The actual impact and attack plausibility have not yet been proven.\nThis ID is fixed in Linux Kernel version {fixed_version} by commit {fixed_hash}, it was introduced in version {introduced_version} by commit {introduced_hash}. For more details please see the references link."
 
-        json_output = json.dumps(json_data, indent=2)
-
-
-        github_repo = os.environ['GH_REPO']
-        auth = (os.environ['GH_USERNAME'], os.environ['GH_TOKEN'])
-        body = {
-            "title": "GSD Request",
-            "body": f"```\n--- GSD JSON ---\n{json_output}\n--- GSD JSON ---\n```",
-            "labels": ["new", "check"]
-        }
-        headers = {
-                "accept": "application/json",
-                "User-Agent": "request"
-        }
-
         if not args.check:
             # Only do this if we're not checking
 
-            resp = s.post(f"https://api.github.com/repos/{github_repo}/issues",
-        json=body, auth=auth, headers=headers)
-            try:
-                resp.raise_for_status()
-            except:
-                print(resp)
-                print(resp.text)
-                exit(1)
+            fake_issue = FakeIssue(json_data)
+            the_id = gsd_repo.add_gsd(fake_issue)
 
-            issue_id = resp.json()["number"]
-            print(f"Filed issue #{issue_id}")
 
-            # If we don't slow down, we hit the rate limit
-            time.sleep(5)
+            print(f"Filed #{the_id}")
+
+    # Unset the testing flag so we can push
+    gsd_repo.testing = False
+    gsd_repo.commit("Add Kernel IDs")
+    gsd_repo.push()
 
 if __name__ == "__main__":
     main()
