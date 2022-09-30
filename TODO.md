@@ -1,23 +1,34 @@
-# GSD Tools
+# GSD Tools TODO
 
-The gsd-tools repo is the Global Security Database (GSD) tools repo which contains all the GSD tools. For more information please see https://csaurl.org/gsd-quick-links.
+This file is cumbersome and doesn't provide enough guidance. It should be replaced with literally any task tracking software that the group agrees to use (e.g. Github Projects).
 
 ### Todo
-- [ ] Update README.md
-- [ ] https://github.com/cloudsecurityalliance/gsd-tools Please see the CONTRIBUTING and DEVELOP files. They both probably need some clarity. If someone could try to stand up some of these tools and see what instructions are missing.
-- [ ] The webform https://requests.globalsecuritydatabase.org is EXTREMELY ugly. Please make it pretty.
-- [ ] The webform https://requests.globalsecuritydatabase.org can only request simple IDs. It would be nice if there were more "dropdown" type elements to avoid having to type everything in (like vulnerability type for example)
-- [ ] The webform https://requests.globalsecuritydatabase.org The webform could probably stand an API to interact with GSD
-- [ ] The webform https://requests.globalsecuritydatabase.org The webform only captures URLs for references. We should be capturing other types of references (git commit IDs for example)
+
+- [x] Update README.md
+	- Done
+- [x] https://github.com/cloudsecurityalliance/gsd-tools Please see the CONTRIBUTING and DEVELOP files. They both probably need some clarity. If someone could try to stand up some of these tools and see what instructions are missing.
+	- The README for each project should and will contain the necessary instructions to use and contribute to the project. The CONTRIBUTING file at the root level will provide general guidance and instructions on how to do pull requests. There is no need for a DEVELOP file anywhere, as the READMEs will accomplish that goal.
+- [x] The webform https://requests.globalsecuritydatabase.org is EXTREMELY ugly. Please make it pretty.
+	- Obsolete - the webform will be ingested into GSD Web, and _that_ should be made pretty.
+- [x] The webform https://requests.globalsecuritydatabase.org can only request simple IDs. It would be nice if there were more "dropdown" type elements to avoid having to type everything in (like vulnerability type for example)
+	- GSD Web will have a submission form similar in nature to how GitHub does theirs, using the GSD Schema (which is the OSV when doing traditional vuln ids). Said form will also include the auto description generator that Josh Bressers did.
+- [x] The webform https://requests.globalsecuritydatabase.org The webform could probably stand an API to interact with GSD
+	- Obsolete, GSD Web and GSD API fulfill this need.
+- [x] The webform https://requests.globalsecuritydatabase.org The webform only captures URLs for references. We should be capturing other types of references (git commit IDs for example)
+	- Obsolete - GSD Web will provide a form that has an add/remove button for references, and a dropdown for type, along with the URL and a comment field.
 - [ ] https://edit.globalsecuritydatabase.org/ The only way to update an ID today is via a github PR. We should have a nice form to allow editing data.
-- [ ] The tools run via docker-compose today. We should build some helm charts for this probably
+	- This should also open a PR directly instead of generating an issue.
+- [x] The tools run via docker-compose today. We should build some helm charts for this probably
+	- The CI/CD pipeline should use GitHub actions for deployment and cron tasks, or otherwise directly interface with the repo.
 - [ ] The securitylist tool is how we mirror NVD and CVE data. There is ZERO error checking in these scripts. It's also sort of hacked together. Some cleanup and documentation are needed
 - [ ] The gsd-bot directory holds the bot. This bot looks are issues in github and creates files in the database. It has minimal error checking.
 - [ ] The bot only outputs OSV data for kernel entries, it should output OSV format for everything (this will probably require some webform changes also)
 - [ ] The bot has a special kernel mode and a special kernel helper script. The scripts are bad, not documented, and the process is a mystery to everyone except Josh and Oliver
 - [ ] The bot has some tests, it needs more. A bunch of the tests probably fail
-- [ ] What even is the cloudflare-workers directory? - the https://raw.globalsecuritydatabase.org/ e.g. https://raw.globalsecuritydatabase.org/GSD-2022-0821
+- [x] What even is the cloudflare-workers directory? - the https://raw.globalsecuritydatabase.org/ e.g. https://raw.globalsecuritydatabase.org/GSD-2022-0821
+	- Donno, don't care. Deleted it for now, and we can always pull it out of Git history if needed again in the future.
 - [ ] We have some codeql workflows. We could probably use more.
+- [ ] Replace all the scripts and manual processing that we're doing with GitHub actions.
 
 ### In progress
 
