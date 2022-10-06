@@ -33,12 +33,12 @@
               <q-card style="background: #2d2d2d;">
                 <q-card-section style="overflow: auto; max-height: 80vh;">
                   <a
-                    :href="`https://gsd-api-demo.gsd-experiment-1.workers.dev/${identifier}`"
+                    :href="`https://api.gsd.id/${identifier}`"
                     target="_blank"
                     v-if="jsonBlob"
                     style="color: white;"
                   >
-                    https://api.globalsecuritydatabase.io/{{ identifier }}
+                    https://api.gsd.id/{{ identifier }}
                   </a>
                   <pre class="line-numbers" v-if="jsonBlob"><code class="language-json">{{ jsonBlob }}</code></pre>
                   <p v-else style="color: white;">Invalid identifier.</p>

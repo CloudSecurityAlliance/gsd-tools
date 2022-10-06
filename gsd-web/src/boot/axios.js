@@ -14,7 +14,7 @@ if (process.env.DEV) {
   api = axios.create({ baseURL: 'https://gsd.id' });
 }
 
-const gsdApi = axios.create({ baseURL: 'https://gsd-api-demo.gsd-experiment-1.workers.dev' });
+const gsdApi = axios.create({ baseURL: 'https://api.gsd.id' });
 
 export default boot(({ app }) => {
   // for use inside Vue files (Options API) through this.$axios and this.$api
