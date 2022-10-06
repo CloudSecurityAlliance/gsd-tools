@@ -112,7 +112,7 @@ export default defineComponent({
       if (!searchField.value || typeof searchField.value !== 'string') { return }
 
       if (searchField.value.match(/^GSD-\d{4}-\d{4,}$/) || searchField.value.match(/^UVI-\d{4}-\d{4,}$/)) {
-        $router.push({ path: `/${searchField.value}` })
+        $router.push({ path: `/identifier/${searchField.value}` })
       } else {
         window.open(
           `https://github.com/cloudsecurityalliance/gsd-database/search?q=${searchField.value}`,
