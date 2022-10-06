@@ -55,10 +55,10 @@ export default ssrMiddleware(async ({ app, resolve }) => {
 
       req.session.username = userResponse.data['login']
 
-      res.redirect('/')
+      res.redirect('/home')
     } catch(error) {
       console.log(error)
-      res.redirect('/')
+      res.redirect('/home')
     }
   })
 
