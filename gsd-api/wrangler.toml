@@ -1,0 +1,8 @@
+name = "gsd-api"
+type = "webpack"
+route = ''
+zone_id = ''
+usage_model = ''
+compatibility_flags = []
+workers_dev = true
+compatibility_date = "2022-10-06"
