@@ -1,0 +1,265 @@
+<!-- JQuery CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js" integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg==" crossorigin="anonymous"></script>
+
+<!-- Bootstrap CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js" integrity="sha512-wV7Yj1alIZDqZFCUQJy85VN+qvEIly93fIQAN7iqDFCPEucLCeNFz4r35FCo9s6WrpdDQPi80xbljXB8Bjtvcg==" crossorigin="anonymous"></script>
+
+<script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+
+<h1>The Actual Form!</h1>
+
+<p>
+Hello {{username}}
+</p>
+
+<h2>GSD Request</h2>
+
+<div class="container-fluid">
+  <div class="row">
+  <div class="col-6">
+    <form action="/gsdform/formsubmit" name="requestGSD" method="post" class="input-append">
+        <input type="hidden" name="_csrf" value="{{csrfToken}}">
+        <label for="vendorName">Vendor Name</label>
+        <input type="text" class="form-control" data-toggle="tooltip" data-placement="left" title="The name of the vendor or project who release the software affected" name="vendorName" id="vendorName" placeholder="Vendor"/>
+        <label for="productName">Product Name</label>
+        <input type="text" class="form-control" data-toggle="tooltip" data-placement="left" title="The name of the product that contains the vulnerability. This could be the same as the vendor" name="productName" id="productName" placeholder="Product"/>
+        <label for="productVersion">Affected Version(s)</label>
+        <input type="text" class="form-control" data-toggle="tooltip" data-placement="left" title="The vulnerable versions. This is freetext. Exampes: '1.0' 'before 2.7' '1.0.2 to 1.1.8'" name="productVersion" id="productVersion" placeholder="Version"/>
+        <label for="vulnType">Vulnerability Type</label>
+        <input type="text" class="form-control" data-toggle="tooltip" data-placement="left" title="Examples include 'Cross Site Scripting (XSS)' 'buffer overflow' 'information disclosure' - See also CWE" name="vulnType" id="vulnType" placeholder="Vulnerability Type"/>
+        <label for="affectedComponent">Affected Component</label>
+        <input type="text" class="form-control" data-toggle="tooltip" data-placement="left" title="The part of the larger software affected. This could be the same as the product name" name="affectedComponent" id="affectedComponent" placeholder="Affected Component"/>
+        <label for="attackVector">Attack Vector</label>
+        <input type="text" class="form-control" data-toggle="tooltip" data-placement="left" title="How we could attack this. Examples: local access, network access, crafted email, authenticated access" name="attackVector" id="attackVector" placeholder="Attack Vector"/>
+        <label for="impact">Impact of Exploitation</label>
+        <input type="text" class="form-control" data-toggle="tooltip" data-placement="left" data-toggle="tooltip" title="What can an attacker do with this vulnerability? Examples: DoS, RCE, information disclosure" title="Test tooltip text" id="impact" name="impact" placeholder="Impact">
+        <label for="credit">Discoverer/Credit</label>
+        <input type="text" class="form-control" data-toggle="tooltip" data-placement="left" title="Who found this? Leave it blank if you don't know" name="credit" id="credit" placeholder="Credit"/>
+        <input type="hidden" name="count" value="1" />
+            <label for="references">References</label>
+        <div class="row no-gutters" id="refDiv1">
+          <div class="col-4">
+              <input autocomplete="off" class="form-control" data-toggle="tooltip" title="A URL pointed at some important details" id="references1" name="references" type="text" placeholder="URL" />
+          </div>
+          <div class="col-4">
+              <button id="b1" style="width: 2em" class="2em btn add-more btn-success" type="button">+</button>
+          </div>
+        </div>
+        <div>
+          <label for="notes">Notes</label>
+          <textarea class="form-control" data-toggle="tooltip" data-placement="left" title="Any extra details that would be useful to know, can be left blank" id="notes" name="notes" placeholder="Additional notes ..."></textarea>
+        </div>
+
+<p>
+When you hit this button, a public GitHub issue will be opened in the
+<a href="https://github.com/cloudsecurityalliance/gsd-database">gsd-database</a>
+repo that contains your username and everything in these fields. If there is
+any information you want to keep private do not submit it. A bot will then
+assign a candidate ID if you are not on the allowlist, usually in a few
+seconds. A human will be along shortly to approve the request and move it from
+a candidate to assigned.
+</p>
+<p>
+Sometimes GitHub will return a 404 when trying to redirect you. If you
+reload the GitHub URL it'll go the right place. We're just a bit too quick
+on the redirect sometimes.
+</p>
+      <button class="btn btn-primary" type="submit">Get an ID</button>
+  </div>
+  <div class="col-6">
+<p>
+The description below is being generated based on your input values. Please
+try to make it make sense. If you edit this box manually, it will stop
+updating based on the other values entered. Feel free to make any manual
+edits needed.
+</p>
+<p>
+<textarea class="form-control" id="description" name="description"></textarea>
+</p>
+  </div>
+  </div>
+</div>
+
+<p>
+If you are interested in helping approve IDs, or anything at all really, this
+is a community project, please get in
+<a href="https://github.com/cloudsecurityalliance/gsd-tools">touch</a>.
+</p>
+    </form>
+
+<script>
+// Wait for the DOM to be ready
+$(function() {
+
+
+  $("form[name='requestGSD']").validate({
+    rules: {
+      vendorName: "required",
+      productName: "required",
+      productVersion: "required",
+      vulnType: "required",
+      affectedComponent: "required",
+      attackVector: "required",
+      impact: "required",
+      references: "required",
+    },
+    messages: {
+      vendorName: "Please enter a vendor name",
+      productName: "Please enter a product name",
+      productVersion: "Please enter a product version",
+      vulnType: "Please enter a vulnerability type",
+      affectedComponent: "Please enter a component name",
+      attackVector: "Please enter a vector",
+      impact: "Please enter an impact",
+      references: "Please provide at least one reference",
+    },
+    // Make sure the form is submitted to the destination defined
+    // in the "action" attribute of the form when valid
+    submitHandler: function(form) {
+      form.submit();
+    }
+  });
+});
+
+$(document).ready(function(){
+
+    window.description_edited = false;
+
+    $("#description").val(get_description());
+
+    var next = 1;
+    var click_function = function(e) {
+        e.preventDefault();
+
+
+        var currentDiv = "#refDiv" + next;
+        var currentButton = "#b" + next;
+
+        var addto = "#references" + next;
+        var addRemove = "#references" + (next);
+        next = next + 1;
+
+        var nextRef = "#references" + next;
+        var newButton = "#b" + next;
+
+        var newDiv = '<div id="refDiv' + next + '" class="row no-gutters"><div class="col-4">';
+        // Now we add a textbox and a button to the div
+        newDiv = newDiv + '<input autocomplete="off" class="input form-control" id="references' + next + '" name="references" type="text"></div><div class="col-4"><button id="b' + next + '" style="width: 2em" class="2em btn add-more btn-success" type="button">+</button></div></div>';
+        //var newButton = '<button id="b' + next + '" class="btn add-more //btn-success" type="button">+</button>';
+
+        var removeBtn = '<button id="remove' + (next - 1) + '" style="width: 2em" class="2em btn btn-danger remove-me" >-</button>';
+        var removeButton = $(removeBtn);
+        $(currentDiv).after(newDiv);
+        //$(nextRef).after(newButton);
+        $(currentButton).after(removeBtn);
+        $(currentButton).remove();
+        $("#references" + next).attr('data-source',$(addto).attr('data-source'));
+        $("#count").val(next);
+
+        $(".add-more").click(click_function);
+        $('.remove-me').click(function(e){
+            e.preventDefault();
+            var fieldNum = this.id.charAt(this.id.length-1);
+            var fieldID = "#references" + fieldNum;
+            var divID = "#refDiv" + fieldNum;
+            $(this).remove();
+            $(fieldID).remove();
+            $(divID).remove();
+        });
+    };
+
+    $(".add-more").click(click_function);
+
+
+    $("#vendorName").on("input", function(){
+        update_description();
+    });
+
+    $("#productName").on("input", function(){
+        update_description();
+    });
+
+    $("#productVersion").on("input", function(){
+        update_description();
+    });
+
+    $("#vulnType").on("input", function(){
+        update_description();
+    });
+
+    $("#affectedComponent").on("input", function(){
+        update_description();
+    });
+
+    $("#attackVector").on("input", function(){
+        update_description();
+    });
+
+    $("#impact").on("input", function(){
+        update_description();
+    });
+
+    $("#description").on("input", function(){
+        // Print entered value in a div box
+        window.description_edited = true;
+    });
+
+});
+
+function update_description() {
+    if (window.description_edited == false) {
+        $("#description").val(get_description());
+    }
+}
+
+
+function get_description() {
+    // There are clever ways to do this, I'm doing it simple to avoid
+    // making it difficult to read
+    var vendor_name = '[VENDOR NAME]';
+    var product_name = '[PRODUCT NAME]';
+    var product_version = '[PRODUCT VERSION]';
+    var vuln_type = '[VULNERABILITY TYPE]';
+    var affected_component = '[AFFECTED COMPONENT]';
+    var attack_vector = '[ATTACK VECTOR]';
+    var impact = '[IMPACT]';
+
+    if ($("#vendorName").val()) {
+        vendor_name = $("#vendorName").val();
+    }
+
+    if ($("#productName").val()) {
+        product_name = $("#productName").val();
+    }
+
+    if ($("#productVersion").val()) {
+        product_version = $("#productVersion").val();
+    }
+
+    if ($("#vulnType").val()) {
+        vuln_type = $("#vulnType").val();
+    }
+
+    if ($("#affectedComponent").val()) {
+        affected_component = $("#affectedComponent").val();
+    }
+
+    if ($("#attackVector").val()) {
+        attack_vector = $("#attackVector").val();
+    }
+
+    if ($("#impact").val()) {
+        impact = $("#impact").val();
+    }
+
+    var the_desc = `In ${vendor_name} ${product_name} version ${product_version} a ${vuln_type} exists in the ${affected_component} that can be attacked via ${attack_vector} resulting in ${impact}`;
+
+    return the_desc;
+}
+
+</script>

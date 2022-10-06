@@ -146,27 +146,34 @@ def extractDataAndSchema(filetype, data):
                 process_data = data["namespaces"]["cve.org"]
 
             if "nvd.nist.gov" in data["namespaces"]:
+                # need to figure out how to handle all the file includes
                 #
-                # This will actually need multiple entries, e.g. the CVE data, CVSS data and so on
-                # See https://nvd.nist.gov/general/News/JSON-1-1-Vulnerability-Feed-Release for reference
+                #   File "/usr/local/lib/python3.8/dist-packages/jsonschema/validators.py", line 800, in resolve_from_url
+                #   raise exceptions.RefResolutionError(exc)
+                #   jsonschema.exceptions.RefResolutionError: unknown url type: '/CVE_JSON_4.0_min_1.1_beta.schema'  
                 #
-                process_data = data["namespaces"]["nvd.nist.gov"]
+                # https://python-jsonschema.readthedocs.io/en/stable/faq/#how-do-i-configure-a-base-uri-for-ref-resolution-using-local-files
+                # 
+                #
+                schema = "nvd_cve_feed_json_1.1_beta.schema"
+                process_data = {}
+                process_data["CVE_data_type"] = "CVE"
+                process_data["CVE_data_format"] = "MITRE"
+                process_data["CVE_data_version"] = "4.0"
+                process_data["CVE_data_numberOfCVEs"] = "1563"
+                process_data["CVE_data_timestamp"] = "2022-09-29T00:00Z"
+                process_data["CVE_Items"] = []
+                process_data["CVE_Items"].append(data["namespaces"]["nvd.nist.gov"])
 
+                #process_data = data["namespaces"]["nvd.nist.gov"]
                 local_results = {}
-                local_results["key"] = "nvd.nist.gov"
-                schema_type = process_data["cve"]["data_type"]
-                schema_version = process_data["cve"]["data_version"]
-                if schema_version == "4.0":
-                    # NVD doesn't have the state so we need to add a check for PUBLIC / REJECT based on description?
-                    schema_state = "PUBLIC"
-                    schema = schema_type + "_" + schema_version + "_" + schema_state
-                elif schema_version == "5.0":
-                    schema = schema_type + "_" + schema_version
+                local_results["key"] = "nvd.nist.gov-cve"
                 local_results["schema"] = schema
                 local_results["process_data"] = process_data
                 # IGNORE THE NVD DATA FOR NOW SINCE WE NEED MULTIPLE PARSERS
+                #
                 # results.append(local_results)
-                process_data = data["namespaces"]["cve.org"]
+                #
 
     elif filetype == "CVE":
         process_data = data
@@ -230,6 +237,9 @@ def validateJsonSchema(data):
             quit()
 
         instance_data = item["process_data"]
+
+        # TODO: To support NVD we need to add the base URI stuff as per
+        # https://python-jsonschema.readthedocs.io/en/stable/faq/#how-do-i-configure-a-base-uri-for-ref-resolution-using-local-files
 
         v = Draft202012Validator(schema_data)
         errors = sorted(v.iter_errors(instance_data), key=lambda e: e.path)

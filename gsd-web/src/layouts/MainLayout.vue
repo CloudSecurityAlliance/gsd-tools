@@ -14,6 +14,12 @@
           @click="openGithubRepo()"
         />
 
+        <q-btn
+          label="Create GSD"
+          flat
+          @click="openCreateDialog"
+        />
+
         <q-input
           v-model="searchField"
           @keyup.enter="search"
@@ -89,6 +95,9 @@ import { useRoute, useRouter } from 'vue-router'
 import { useQuasar } from 'quasar'
 import { api } from 'boot/axios'
 
+// Create Dialog Component
+import CreateDialog from 'components/CreateDialog.vue'
+
 export default defineComponent({
   name: 'MainLayout',
 
@@ -114,6 +123,12 @@ export default defineComponent({
 
     function openGithubRepo() {
       window.open('https://github.com/cloudsecurityalliance/gsd-tools/tree/main/gsd-web#gsd-web', '_blank')
+    }
+
+    function openCreateDialog() {
+      $q.dialog({
+        component: CreateDialog
+      })
     }
 
     watch(
@@ -151,6 +166,7 @@ export default defineComponent({
       searchField,
       search,
       openGithubRepo,
+      openCreateDialog,
       login,
       loginURL,
       username,
