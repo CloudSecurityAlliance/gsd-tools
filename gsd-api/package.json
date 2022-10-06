@@ -7,7 +7,9 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "format": "prettier --write '**/*.{js,css,json,md}'",
-        "build": "wrangler publish"
+        "dev": "wrangler dev",
+        "build": "wrangler build",
+        "deploy": "wrangler publish"
     },
     "author": "Josh Buker <crypto@joshbuker.com>",
     "license": "ISC",
