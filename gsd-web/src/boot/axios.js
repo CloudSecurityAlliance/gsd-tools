@@ -11,7 +11,7 @@ let api
 if (process.env.DEV) {
   api = axios.create({ baseURL: 'https://localhost:8080' })
 } else {
-  api = axios.create({ baseURL: 'https://edit.globalsecuritydatabase.org' });
+  api = axios.create({ baseURL: 'https://gsd.id' });
 }
 
 const gsdApi = axios.create({ baseURL: 'https://gsd-api-demo.gsd-experiment-1.workers.dev' });

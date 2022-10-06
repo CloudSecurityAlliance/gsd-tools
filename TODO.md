@@ -16,7 +16,7 @@ This file is cumbersome and doesn't provide enough guidance. It should be replac
 	- Obsolete, GSD Web and GSD API fulfill this need.
 - [x] The webform https://requests.globalsecuritydatabase.org The webform only captures URLs for references. We should be capturing other types of references (git commit IDs for example)
 	- Obsolete - GSD Web will provide a form that has an add/remove button for references, and a dropdown for type, along with the URL and a comment field.
-- [ ] https://edit.globalsecuritydatabase.org/ The only way to update an ID today is via a github PR. We should have a nice form to allow editing data.
+- [ ] https://gsd.id/ The only way to update an ID today is via a github PR. We should have a nice form to allow editing data.
 	- This should also open a PR directly instead of generating an issue.
 - [x] The tools run via docker-compose today. We should build some helm charts for this probably
 	- The CI/CD pipeline should use GitHub actions for deployment and cron tasks, or otherwise directly interface with the repo.

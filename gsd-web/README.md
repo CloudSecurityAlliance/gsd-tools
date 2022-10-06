@@ -6,7 +6,7 @@ A web based user interface for the GSD data (gsd-database repo) allowing users t
 
 ## How to use this tool
 
-For the live version of this tool, please visit https://edit.globalsecuritydatabase.org
+For the live version of this tool, please visit https://gsd.id/home
 
 To try the code locally, please see [Running Locally](#running-locally).
 
