@@ -6,7 +6,7 @@ const routes = [
     children: [
       { path: '', component: () => import('pages/Index.vue') },
       { path: 'home', component: () => import('pages/Index.vue') },
-      { path: '/:id(GSD-\\d{4}-\\d{4,})', component: () => import('pages/Identifier.vue') }
+      { path: ':id(GSD-\\d{4}-\\d{4,})', component: () => import('pages/Identifier.vue') }
     ]
   },
 
