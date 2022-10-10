@@ -38,7 +38,7 @@ Each project has its own README and supporting documents. Included below is a sh
 
 ### GSD API
 
-- **Website:** https://api.globalsecuritydatabase.io
+- **Website:** https://api.gsd.id
 - **Location:** `gsd-tools/gsd-api/`
 - **README:** [GSD API README](gsd-api/README.md)
 - **Short Description:** Provides a simple REST API for interfacing with the GSD Database.
@@ -86,7 +86,7 @@ Each project has its own README and supporting documents. Included below is a sh
 
 ### GSD Web
 
-- **Website:** https://edit.globalsecuritydatabase.org
+- **Website:** https://gsd.id/home
 - **Location:** `gsd-tools/gsd-web`
 - **README:** [GSD Web README](gsd-web/README.md)
 - **Short Description:** A human interface for interacting with and updating the GSD data.
