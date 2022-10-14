@@ -4,7 +4,14 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Index.vue') },
+      {
+        path: '',
+        beforeEnter() {
+          if (typeof window !== 'undefined') {
+            window.location.href = 'https://globalsecuritydatabase.org';
+          }
+        },
+      },
       { path: 'home', component: () => import('pages/Index.vue') },
       { path: ':id(GSD-\\d{4}-\\d{4,})', component: () => import('pages/Identifier.vue') }
     ]
