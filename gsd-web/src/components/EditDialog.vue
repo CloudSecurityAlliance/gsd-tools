@@ -262,7 +262,7 @@ export default {
               $q.notify({
                 color: 'negative',
                 position: 'top',
-                message: 'Failed to open issue in a new tab',
+                message: 'Please allow pop-ups to open GitHub Pull Request',
                 icon: 'report_problem'
               })
             }
