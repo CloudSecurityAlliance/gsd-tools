@@ -222,7 +222,7 @@ export default defineComponent({
     )
 
     function isValidIdentifier(value) {
-      return (value.match(/^GSD-\d{4}-\d{4,}$/) || value.match(/^UVI-\d{4}-\d{4,}$/))
+      return (value.match(/^GSD-\d{4}-\d{4,}$/))
     }
 
     function isSimpleString(value) {
