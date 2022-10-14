@@ -260,7 +260,6 @@ export default defineComponent({
         componentProps: {
           gsd_json: JSON.stringify(jsonBlob.value, null, 2),
           identifier: identifier.value
-          // edit_url: editUrl
         }
       })
     }
