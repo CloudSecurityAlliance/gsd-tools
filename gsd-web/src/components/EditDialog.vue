@@ -251,7 +251,7 @@ export default {
         }
         api.patch('/update-gsd', {
           identifier: props.identifier,
-          file_content: fileContent
+          file_content: fileContent + '\n'
         }).then(
           (response) => {
             const redirectWindow = window.open(
