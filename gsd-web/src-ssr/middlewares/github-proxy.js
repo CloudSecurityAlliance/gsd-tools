@@ -5,21 +5,6 @@ import { Octokit } from 'octokit'
 const githubClientID = process.env.GSD_GITHUB_KEY
 const githubClientSecret = process.env.GSD_GITHUB_SECRET
 
-async function createFork(octokit) {
-  return await octokit.rest.forks.create({
-    owner: 'cloudsecurityalliance',
-    repo: 'gsd-database'
-  })
-}
-
-async function createBranch(octokit) {
-  // TODO: Allow multiple edits without overwriting existing edits
-  const branchPrefix = `automated/${identifier}`
-  const editNumber = 1
-  const branchName = `${branchPrefix}/${editNumber}`
-  // octokit.rest.branches.
-}
-
 export default ssrMiddleware(async ({ app, resolve }) => {
   app.get(resolve.urlPath('/oauth/callback/github'), async (req, res) => {
     try {
@@ -77,31 +62,101 @@ export default ssrMiddleware(async ({ app, resolve }) => {
     try {
       const octokit = new Octokit({ auth: req.session.access_token });
 
-      console.log(req.body)
+      // console.log(req.body)
 
       const identifier = req.body.identifier
-      const fileContent = req.body.file_content
+      // Split navigation data from identifier
+      const year = identifier.split('-')[1]
+      const thousands = `${identifier.split('-')[2].slice(0, -3)}xxx`
+      // Resolve file path
+      const filePath = `${year}/${thousands}/${identifier}.json`
 
-      const issueTitle = `Update Request - ${identifier}`
-      const issueBody =
-        '**Automated Edit Request**\n\n' +
-        `For: "${identifier}"\n\n` +
-        `\`\`\`json\n${fileContent}\n\`\`\``
+      // Other meta
+      const title = `Update Request - ${identifier}`
+      const fileContent = btoa(req.body.file_content)
+      const username = req.session.username
+      const branchName = `automated/${identifier}`
+      const branchRef = `refs/heads/${branchName}`
+      const branchHead = `${username}:${branchName}`
 
-      // await createFork(octokit)
-      // await createBranch(octokit)
-      // await updateFile(octokit)
-      // await submitPullRequest(octokit)
-
-      // FIXME: Labels don't appear to work via this method, perhaps have the bot auto add them?
-      const response = await octokit.rest.issues.create({
+      const createForkResponse = await octokit.request('POST /repos/{owner}/{repo}/forks', {
         owner: 'cloudsecurityalliance',
         repo: 'gsd-database',
-        title: issueTitle,
-        body: issueBody
+        name: 'gsd-database',
+        default_branch_only: true
       })
 
-      res.json({ redirect_url: response.data['html_url'] })
+      const syncForkResponse = await octokit.request('POST /repos/{owner}/{repo}/merge-upstream', {
+        owner: username,
+        repo: 'gsd-database',
+        branch: 'main'
+      })
+
+      const getMainBranchResponse = await octokit.request('GET /repos/{owner}/{repo}/branches/{branch}', {
+        owner: username,
+        repo: 'gsd-database',
+        branch: 'main'
+      })
+
+      const mainBranchSha = getMainBranchResponse.data['commit']['sha']
+
+      try {
+        const createBranchResponse = await octokit.request('POST /repos/{owner}/{repo}/git/refs', {
+          owner: username,
+          repo: 'gsd-database',
+          ref: branchRef,
+          sha: mainBranchSha
+        })
+      } catch(error) {
+        console.log(error)
+      }
+
+      const existingContentResponse = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
+        owner: username,
+        repo: 'gsd-database',
+        path: filePath,
+        ref: branchRef
+      })
+
+      const contentSha = existingContentResponse.data['sha']
+
+      const contentResponse = await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
+        owner: username,
+        repo: 'gsd-database',
+        path: filePath,
+        branch: branchName,
+        message: title,
+        content: fileContent,
+        sha: contentSha
+      })
+
+      const existingPullResponse = await octokit.request('GET /repos/{owner}/{repo}/pulls', {
+        owner: 'cloudsecurityalliance',
+        repo: 'gsd-database',
+        head: branchHead,
+        base: 'main'
+      })
+
+      let redirectUrl = null
+      const existingPullRequests = existingPullResponse.data
+
+      if (Array.isArray(existingPullRequests) && existingPullRequests.length > 0) {
+        redirectUrl = existingPullRequests[0]['html_url']
+      } else {
+        const pullResponse = await octokit.request('POST /repos/{owner}/{repo}/pulls', {
+          owner: 'cloudsecurityalliance',
+          repo: 'gsd-database',
+          title: title,
+          body: 'This pull request was created using https://gsd.id',
+          head: branchHead,
+          base: 'main',
+          maintainer_can_modify: true
+        })
+
+        redirectUrl = pullResponse.data['html_url']
+      }
+
+      res.json({ redirect_url: redirectUrl })
     } catch(error) {
       console.log(error)
       res.send('broke')

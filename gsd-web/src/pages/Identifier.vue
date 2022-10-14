@@ -222,7 +222,7 @@ export default defineComponent({
     )
 
     function isValidIdentifier(value) {
-      return (value.match(/^GSD-\d{4}-\d{4,}$/) || value.match(/^UVI-\d{4}-\d{4,}$/))
+      return (value.match(/^GSD-\d{4}-\d{4,}$/))
     }
 
     function isSimpleString(value) {
@@ -260,7 +260,6 @@ export default defineComponent({
         componentProps: {
           gsd_json: JSON.stringify(jsonBlob.value, null, 2),
           identifier: identifier.value
-          // edit_url: editUrl
         }
       })
     }
