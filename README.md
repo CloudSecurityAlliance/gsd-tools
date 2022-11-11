@@ -18,15 +18,15 @@ Each project has its own README and supporting documents. Included below is a sh
 
 ### Table of Contents
 
-- [GSD Analysis](#GSD%20Analysis)
-- [GSD API](#GSD%20API)
-- [GSD Bot](#GSD%20Bot)
-- [GSD GitHub Actions](#GSD%20GitHub%20Actions)
-- [GSD Requests](#GSD%20Requests)
-- [GSD Schema](#GSD%20Schema)
-- [GSD URL Processing](#GSD%20URL%20Processing)
-- [GSD Web](README.md#GSD%20Web)
-- [Local Scripts](#Local%20Scripts)
+- [GSD Analysis](#gsd-analysis)
+- [GSD API](#gsd-api)
+- [GSD Bot](#gsd-bot)
+- [GSD GitHub Actions](#gsd-github-actions)
+- [GSD Requests](#gsd-requests)
+- [GSD Schema](#gsd-schema)
+- [GSD URL Processing](#gsd-url-processing)
+- [GSD Web](#gsd-web)
+- [Local Scripts](#local-scripts)
 
 ### GSD Analysis
 
