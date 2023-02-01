@@ -99,3 +99,11 @@ Each project has its own README and supporting documents. Included below is a sh
 - **README:** [Local Scripts README](local-scripts/README.md)
 - **Short Description:** _TODO_ - Ask @kurtseifried
 - **Depends on:** _None_
+
+### GSD Project Notes
+
+- **Website:** _N/A_
+- **Location:** `gsd-tools/gsd-project/`
+- **README:** [GSD URL Processing README](gsd-project/README.md)
+- **Short Description:** Project Plans which contains all the GSD project plans and related material. 
+- **Depends on:** _None_
