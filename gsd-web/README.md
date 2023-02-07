@@ -1,10 +1,12 @@
 # GSD Web
 
+- **Live Website:** https://gsd.id/home
+
 A web based user interface for the GSD data (gsd-database repo) allowing users to explore and edit the data. *** TODO ***
 
 ## How to use this tool
 
-For the live version of this tool, please visit https://edit.globalsecuritydatabase.org
+For the live version of this tool, please visit https://gsd.id/home
 
 To try the code locally, please see [Running Locally](#running-locally).
 
@@ -35,7 +37,7 @@ For documentation on the other tools used to create this project, please see the
 
 ## Tool Code Owner
 
-@athix
+@joshbuker
 
 ## Running Locally
 

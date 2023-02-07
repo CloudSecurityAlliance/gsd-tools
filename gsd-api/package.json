@@ -7,12 +7,16 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "format": "prettier --write '**/*.{js,css,json,md}'",
-        "build": "wrangler publish"
+        "dev": "npx wrangler dev",
+        "build": "npx wrangler build",
+        "deploy": "npx wrangler publish"
     },
     "author": "Josh Buker <crypto@joshbuker.com>",
     "license": "ISC",
     "devDependencies": {
-        "prettier": "^1.17.0"
+        "jest": "^29.1.2",
+        "prettier": "^1.17.0",
+        "wrangler": "^2.1.10"
     },
     "dependencies": {
         "itty-router": "^2.1.9",

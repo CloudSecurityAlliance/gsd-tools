@@ -1,0 +1,30 @@
+title: gsd.id
+#email: gsd@groups.cloudsecurityalliance.org
+description: >- # this means to ignore newlines until "baseurl:"
+  The Global Security Database (GSD) is a Working Group project from the Cloud
+  Security Alliance with the goal of building an open source community for
+  improving the quality and usabilty of vulnerability databases.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://gsd.id" # the base hostname & protocol for your site, e.g. http://example.com
+#twitter_username: jekyllrb
+#github_username:  cloudsecurityalliance
+
+# Build settings
+theme: minima
+#plugins:
+#  - jekyll-feed
+
+header_pages:
+  - contribute/index.md
+  - consume/index.md
+  - press.md
+  - about.md
+
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - vendor/
+  - README.md

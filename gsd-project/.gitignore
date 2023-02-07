@@ -1,0 +1,6 @@
+# Script generated content
+analysis/cve/allitems.csv
+analysis/cve/nvdcve-1.1-20*.json
+
+# Obsidian.md config
+.obsidian

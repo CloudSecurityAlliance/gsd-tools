@@ -33,12 +33,12 @@
               <q-card style="background: #2d2d2d;">
                 <q-card-section style="overflow: auto; max-height: 80vh;">
                   <a
-                    :href="`https://gsd-api-demo.gsd-experiment-1.workers.dev/${identifier}`"
+                    :href="`https://api.gsd.id/${identifier}`"
                     target="_blank"
                     v-if="jsonBlob"
                     style="color: white;"
                   >
-                    https://api.globalsecuritydatabase.io/{{ identifier }}
+                    https://api.gsd.id/{{ identifier }}
                   </a>
                   <pre class="line-numbers" v-if="jsonBlob"><code class="language-json">{{ jsonBlob }}</code></pre>
                   <p v-else style="color: white;">Invalid identifier.</p>
@@ -222,7 +222,7 @@ export default defineComponent({
     )
 
     function isValidIdentifier(value) {
-      return (value.match(/^GSD-\d{4}-\d{4,}$/) || value.match(/^UVI-\d{4}-\d{4,}$/))
+      return (value.match(/^GSD-\d{4}-\d{4,}$/))
     }
 
     function isSimpleString(value) {
@@ -260,7 +260,6 @@ export default defineComponent({
         componentProps: {
           gsd_json: JSON.stringify(jsonBlob.value, null, 2),
           identifier: identifier.value
-          // edit_url: editUrl
         }
       })
     }

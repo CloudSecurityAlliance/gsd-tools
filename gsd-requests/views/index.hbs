@@ -1,0 +1,32 @@
+<h1>{{title}}</h1>
+
+{{#if username}}
+<p>
+Hello {{username}}
+</p>
+<p>
+Go to the <a href="/gsdform">GSD Form</a> to request an ID
+</p>
+<p>
+As you can no doubt tell, we are very bad designers. GSD is a community, we would love your help
+</p>
+<p>
+<a href="/logout">Logout</a>
+</p>
+{{else}}
+<p>
+This is the GSD ID Request form. This form should be used to request a GSD
+ID for a security vulnerability. For more information please see the GSD <a href="https://github.com/cloudsecurityalliance/gsd-tools">GitHub</a>.
+</p>
+<p>
+GSD uses GitHub as our source of identity. You have to log in with a GitHub account if you want to request an ID.
+</p>
+<p>
+As you can no doubt tell, we are very bad designers. GSD is a community, we
+would love your help. For all feature requests, pull requests, bug reports,
+and any other ideas about this site, please use the <a href="https://github.com/cloudsecurityalliance/gsd-tools">gsd-tools</a> GitHub repo.
+</p>
+<a id="github-button" class="btn btn-dark" href="https://github.com/login/oauth/authorize?client_id={{client_id}}">
+  <img class="fa" src="gh.png"></img> Sign in with GitHub
+</a>
+{{/if}}

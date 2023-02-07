@@ -3,7 +3,7 @@
     <q-header elevated>
       <q-toolbar>
         <q-toolbar-title>
-          <router-link to="/" class="text-white" style="text-decoration: none;">GSD Web</router-link>
+          <router-link to="/home" class="text-white" style="text-decoration: none;">GSD Web</router-link>
         </q-toolbar-title>
 
         <q-space />
@@ -12,6 +12,12 @@
           label="Contribute"
           flat
           @click="openGithubRepo()"
+        />
+
+        <q-btn
+          label="Create GSD"
+          flat
+          @click="openCreateDialog"
         />
 
         <q-input
@@ -89,6 +95,9 @@ import { useRoute, useRouter } from 'vue-router'
 import { useQuasar } from 'quasar'
 import { api } from 'boot/axios'
 
+// Create Dialog Component
+import CreateDialog from 'components/CreateDialog.vue'
+
 export default defineComponent({
   name: 'MainLayout',
 
@@ -103,7 +112,7 @@ export default defineComponent({
       if (!searchField.value || typeof searchField.value !== 'string') { return }
 
       if (searchField.value.match(/^GSD-\d{4}-\d{4,}$/) || searchField.value.match(/^UVI-\d{4}-\d{4,}$/)) {
-        $router.push({ path: `/identifier/${searchField.value}` })
+        $router.push({ path: `/${searchField.value}` })
       } else {
         window.open(
           `https://github.com/cloudsecurityalliance/gsd-database/search?q=${searchField.value}`,
@@ -114,6 +123,12 @@ export default defineComponent({
 
     function openGithubRepo() {
       window.open('https://github.com/cloudsecurityalliance/gsd-tools/tree/main/gsd-web#gsd-web', '_blank')
+    }
+
+    function openCreateDialog() {
+      $q.dialog({
+        component: CreateDialog
+      })
     }
 
     watch(
@@ -151,6 +166,7 @@ export default defineComponent({
       searchField,
       search,
       openGithubRepo,
+      openCreateDialog,
       login,
       loginURL,
       username,
