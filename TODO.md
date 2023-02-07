@@ -1,6 +1,8 @@
 # GSD Tools TODO
 
-This file is cumbersome and doesn't provide enough guidance. It should be replaced with literally any task tracking software that the group agrees to use (e.g. Github Projects).
+NOTICE:
+
+We are migrating these todos to GitHub issues for now this file exists as a bridge while those stories are enhanced. Do not add more items to this file, open an issue instead.
 
 ### Todo
 
