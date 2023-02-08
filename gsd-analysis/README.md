@@ -1,6 +1,8 @@
 # GSD Analysis
 
-The primary goal of this analysis is to understand the data sources, structure, and counts of the Global Security Database ([GSD](https://github.com/cloudsecurityalliance/gsd-database#gsd-repos)). 
+The primary goal of this analysis is to understand the data sources, structure, and counts of the Global Security Database ([GSD](https://github.com/cloudsecurityalliance/gsd-database#gsd-repos)).
+
+- **Depends on:** _None_
 
 ## Replication
 
