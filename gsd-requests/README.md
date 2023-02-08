@@ -1,6 +1,9 @@
-# webform
+# Webform
 
-- **Live Website:** https://requests.globalsecuritydatabase.org
+A webform for submitting new GSD IDs.
+
+- **Website:** https://requests.globalsecuritydatabase.org
+- **Depends on:** GSD Database
 
 ## How to contribute
 
