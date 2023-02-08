@@ -2,7 +2,7 @@
 
 The primary goal of this analysis is to understand the data sources, structure, and counts of the Global Security Database ([GSD](https://github.com/cloudsecurityalliance/gsd-database#gsd-repos)).
 
-- **Depends on:** _None_
+- **Depends on:** [GSD Database][gsd-database-link]
 
 ## Replication
 
@@ -438,3 +438,5 @@ Complete nvd.nist.gov object schema: [./data/schemas/schema_nvd.json](https://gi
   - https://raw.globalsecuritydatabase.org/GSD-2021-1002352
   - https://raw.globalsecuritydatabase.org/GSD-2021-1002353
 
+
+[gsd-database-link]: https://github.com/cloudsecurityalliance/gsd-database#gsd-repos "GSD Database Repos"

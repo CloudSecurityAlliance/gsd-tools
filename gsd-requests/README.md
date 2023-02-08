@@ -3,7 +3,7 @@
 A webform for submitting new GSD IDs.
 
 - **Website:** https://requests.globalsecuritydatabase.org
-- **Depends on:** GSD Database
+- **Depends on:** [GSD Database][gsd-database-link]
 
 ## How to contribute
 
@@ -56,3 +56,5 @@ cookie.
 ### Tool Code Owner
 
 @joshbressers
+
+[gsd-database-link]: https://github.com/cloudsecurityalliance/gsd-database#gsd-repos "GSD Database Repos"
