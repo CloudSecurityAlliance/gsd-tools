@@ -1,6 +1,7 @@
 # GSD Web
 
-- **Live Website:** https://gsd.id/home
+- **Website:** https://gsd.id/home
+- **Depends on:** [GSD API][gsd-api-link], [GSD Schema][gsd-schema-link]
 
 A web based user interface for the GSD data (gsd-database repo) allowing users to explore and edit the data. *** TODO ***
 
@@ -138,3 +139,6 @@ sudo apt update && sudo apt upgrade
 nvm use
 yarn install
 ```
+
+[gsd-api-link]: /gsd-api/ "REST API for interfacing with the GSD Database"
+[gsd-schema-link]: /gsd-schema/  "The JSON schema of a GSD identifier"

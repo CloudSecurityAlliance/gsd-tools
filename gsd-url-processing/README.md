@@ -1,6 +1,8 @@
 # gsd-url-processing
 
-GSD URL Processing scripts. 
+GSD URL Processing scripts.
+
+- **Depends on:** _None_
 
 ## Tool Code Owner
 
