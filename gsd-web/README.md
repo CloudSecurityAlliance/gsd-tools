@@ -1,13 +1,13 @@
 # GSD Web
 
-- **Website:** https://gsd.id/home
+- **Website:** https://data.gsd.id/
 - **Depends on:** [GSD API][gsd-api-link], [GSD Schema][gsd-schema-link]
 
 A web based user interface for the GSD data (gsd-database repo) allowing users to explore and edit the data. *** TODO ***
 
 ## How to use this tool
 
-For the live version of this tool, please visit https://gsd.id/home
+For the live version of this tool, please visit https://data.gsd.id/
 
 To try the code locally, please see [Running Locally](#running-locally).
 

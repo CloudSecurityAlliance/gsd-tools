@@ -13,7 +13,7 @@ if (process.env.DEV) {
   api = axios.create({ baseURL: 'https://localhost:8080' })
   gsdApi = axios.create({ baseURL: 'http://localhost:8787' })
 } else {
-  api = axios.create({ baseURL: 'https://gsd.id' });
+  api = axios.create({ baseURL: 'https://data.gsd.id' });
   gsdApi = axios.create({ baseURL: 'https://api.gsd.id' });
 }
 
