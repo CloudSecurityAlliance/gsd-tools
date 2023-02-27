@@ -8,8 +8,8 @@ We welcome all contributions.
 
 ## Helping with Issues
 
-TODO: add text
+The current issues are at [here](https://github.com/cloudsecurityalliance/gsd-tools/issues)
 
 ## Contributing New Tools
 
-TODO: add text
+The best way to contribute new tools is to file an issue announcing them, or contact us on the mailing list gsd@groups.cloudsecurityalliance.org.
