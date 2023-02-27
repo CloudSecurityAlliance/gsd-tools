@@ -2,6 +2,9 @@
 .thumbs.db
 node_modules
 
+# Don't commit secrets
+.env
+
 # Quasar core related directories
 .quasar
 /dist
