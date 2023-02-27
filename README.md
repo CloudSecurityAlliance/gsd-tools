@@ -2,11 +2,11 @@
 
 This repository (repo) is a part of the [Global Security Database (GSD)](https://globalsecuritydatabase.org), an open source project by the [Cloud Security Alliance (CSA)](https://cloudsecurityalliance.org) to address gaps within the current vulnerability identifier space.
 
-If you are unfamiliar with the GSD and the vulnerability identifier space, please read the following document: **TODO: Create a tl;dr of what GSD & vuln ids are within gsd-project**
+If you are unfamiliar with the GSD and the vulnerability identifier space, please read the following document: **TODO: Create a tl;dr of what GSD & vuln ids are within gsd-tools**
 
-If you're looking to contribute or file a bug, please see the following guide: **TODO: Extract the repo descriptions & issue guide to a doc within gsd-project**
+If you're looking to contribute or file a bug, please see the following guide: **TODO: Extract the repo descriptions & issue guide to a doc within gsd-tools**
 
-The `gsd-tools` repo contains any tools, parsers, applications, and other code related to the GSD. The data for the identifiers themselves live within the [gsd-database](https://github.com/cloudsecurityalliance/gsd-database) repo, and any non-data, non-code related documentation (such as meeting times and policies) live within the [gsd-project](https://github.com/cloudsecurityalliance/gsd-project) repo.
+The `gsd-tools` repo contains any tools, parsers, applications, and other code related to the GSD, it also contains documents, strategy, analysis and other data related to the GSD project. The data for the identifiers themselves live within the [gsd-database](https://github.com/cloudsecurityalliance/gsd-database) repo.
 
 ## Licensing
 
