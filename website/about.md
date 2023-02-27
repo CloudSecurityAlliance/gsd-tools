@@ -11,9 +11,7 @@ vulnerability databases.
 
 ## Joining
 
-There is a mailing list at
-[https://csaurl.org/list-gsd](https://csaurl.org/list-gsd) for general and
-technical discussion.
+Sign up at: [https://csaurl.org/gsd-signup](https://csaurl.org/gsd-signup)
 
 The CSA Circle Community is available at 
 [https://csaurl.org/circle-gsd](https://csaurl.org/circle-gsd).
