@@ -1,15 +1,18 @@
 # A Code Owner is someone who is automatically requested for review when a
 # particular piece of code is updated.
 
+/data-analysis @kurtseifried
+/data-sources @kurtseifried
 /docker-compose @joshbressers
-# FIXME: Github doesn't allow codeowners without granting write access
-# /gsd-analysis @tdunlap607
+/gsd-analysis @tdunlap607
 /gsd-api @joshbuker
 /gsd-bot @joshbressers
 /gsd-github-actions @joshbressers
 /gsd-requests @joshbressers
 /gsd-schema @joshbuker
+/gsd-strategy @kurtseifried
 /gsd-url-processing @kurtseifried
 /gsd-web @joshbuker
 /local-scripts @kurtseifried
 /securitylist @joshbressers
+/website @enck
