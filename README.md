@@ -19,11 +19,12 @@ Each project has its own README and supporting documents. Included below is a sh
 ### Project Directory
 
 - [GSD Analysis](/gsd-analysis#gsd-analysis "A review of the GSD data using a python parser")
-- [GSD API](/gsd-api#gsd-api "REST API for interfacing with the GSD Database")
+- [GSD API](/gsd-api#gsd-api "REST API for interfacing with the GSD Database") - https://api.gsd.id
 - [GSD Bot](/gsd-bot#gsd-bot "Automation around specifically formatted issues within the gsd-database repo")
 - [GSD GitHub Actions](/gsd-github-actions#github-actions "GSD Github Actions")
 - [GSD Requests](/gsd-requests#webform "Webform for submitting new GSD IDs")
 - [GSD Schema](/gsd-schema#gsd-schema "JSON schema of a GSD identifier")
 - [GSD URL Processing](/gsd-url-processing#gsd-url-processing)
-- [GSD Web](/gsd-web#gsd-web "A web based user interface for the GSD data")
+- [GSD Web](/gsd-web#gsd-web "A web based user interface for the GSD data") - https://data.gsd.id
 - [Local Scripts](/local-scripts#local-scripts)
+- [Website](/website#website) - https://gsd.id
