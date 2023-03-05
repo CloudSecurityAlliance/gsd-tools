@@ -1,5 +1,4 @@
 ---
-layout: page
 title: Contributing Tools to GSD
 ---
 

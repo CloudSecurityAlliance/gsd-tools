@@ -33,7 +33,7 @@ async function gatherResponse(response) {
 Our index route, a simple hello world.
 */
 router.get("/", () => {
-  return Response.redirect('https://gsd.id', 307);
+  return Response.redirect('https://gsd.id/api', 307);
 })
 
 /*

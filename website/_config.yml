@@ -1,33 +1,51 @@
-title: gsd.id
-#email: gsd@groups.cloudsecurityalliance.org
+title: GSD
 description: >- # this means to ignore newlines until "baseurl:"
   The Global Security Database (GSD) is a Working Group project from the Cloud
   Security Alliance with the goal of building an open source community for
   improving the quality and usabilty of vulnerability databases.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://gsd.id" # the base hostname & protocol for your site, e.g. http://example.com
-#twitter_username: jekyllrb
-#github_username:  cloudsecurityalliance
+# email: gsd@groups.cloudsecurityalliance.org
+# twitter_username: cloudsa
+# github_username:  cloudsecurityalliance
 
 # Build settings
 theme: minima
-#plugins:
-#  - jekyll-feed
+plugins:
+  - jekyll-seo-tag
+  - jekyll-feed
 
+# FIXME: This currently does not work
 minima:
   skin: dark
 
+# Set sane defaults
+defaults:
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+
+# This controls the navigation bar on the top of the website
 header_pages:
-  - contribute/index.md
-  - consume/index.md
-  - press.md
+  - getting_started.md
+  - quick_links.md
   - about.md
+  # - contribute/index.md
+  # - consume/index.md
 
 exclude:
   - .sass-cache/
   - .jekyll-cache/
+  - .obsidian/
   - gemfiles/
   - Gemfile
   - Gemfile.lock
   - vendor/
   - README.md
+
+# See: https://github.com/jekyll/minima/issues/709
+sass:
+  quiet_deps: true
