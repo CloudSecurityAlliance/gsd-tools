@@ -12,7 +12,8 @@ url: "https://gsd.id" # the base hostname & protocol for your site, e.g. http://
 # Build settings
 theme: minima
 plugins:
- - jekyll-seo-tag
+  - jekyll-seo-tag
+  - jekyll-feed
 
 minima:
   skin: dark
