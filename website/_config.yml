@@ -6,13 +6,13 @@ description: >- # this means to ignore newlines until "baseurl:"
   improving the quality and usabilty of vulnerability databases.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://gsd.id" # the base hostname & protocol for your site, e.g. http://example.com
-#twitter_username: jekyllrb
-#github_username:  cloudsecurityalliance
+# twitter_username: cloudsa
+# github_username:  cloudsecurityalliance
 
 # Build settings
 theme: minima
-#plugins:
-#  - jekyll-feed
+plugins:
+ - jekyll-seo-tag
 
 minima:
   skin: dark
@@ -31,3 +31,6 @@ exclude:
   - Gemfile.lock
   - vendor/
   - README.md
+
+sass:
+  quiet_deps: true
