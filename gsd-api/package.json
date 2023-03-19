@@ -7,7 +7,7 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "format": "prettier --write '**/*.{js,css,json,md}'",
-        "dev": "npx wrangler dev",
+        "dev": "npx wrangler dev --local",
         "build": "npx wrangler build",
         "deploy": "npx wrangler publish"
     },
