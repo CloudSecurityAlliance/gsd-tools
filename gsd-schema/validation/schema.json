@@ -6,8 +6,44 @@
   "type": "object",
   "properties": {
     "gsd": {
-      "description": "The GSD namespace, uses OSV format",
-      "$ref": "https://raw.githubusercontent.com/ossf/osv-schema/v1.3.1/validation/schema.json"
+      "description": "GSD data",
+      "type": "object",
+      "properties": {
+        "metadata": {
+          "description": "Optional metadata",
+          "type": "object",
+          "properties": {
+            "type": {
+              "description": "The type of ID this is (allow for easier filtering)",
+              "enum": ["vulnerability", "concern", "documentation"]
+            },
+            "exploitCode": {
+              "description": "What level of exploit code is available for the related vulnerability",
+              "enum": ["unknown", "proof-of-concept", "functional"]
+            },
+            "remediation": {
+              "description": "What level of remediation is available for the related vulnerability",
+              "enum": ["unknown", "temporary", "workaround", "official"]
+            },
+            "reportConfidence": {
+              "description": "What level of confidence is there in the validity of this report",
+              "enum": ["unknown", "reasonable", "confirmed"]
+            }
+          }
+        },
+        "osvSchema": {
+          "description": "The first-class citizen for GSD data",
+          "$ref": "https://raw.githubusercontent.com/ossf/osv-schema/v1.4.0/validation/schema.json"
+        },
+        "cve4Schema": {
+          "type": "object"
+        },
+        "cve5Schema": {
+          "description": "Allows for including CVE schema data where OSV does not provide an equivalent field",
+          "$ref": "https://raw.githubusercontent.com/CVEProject/cve-schema/master/schema/v5.0/CVE_JSON_5.0_schema.json"
+        }
+      },
+      "required": ["osvSchema"]
     },
     "namespaces": {
       "description": "Namespaces for non-GSD data",
@@ -17,5 +53,6 @@
       },
       "uniqueItems": true
     }
-  }
+  },
+  "required": ["gsd"]
 }
