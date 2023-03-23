@@ -168,7 +168,6 @@ class GSDRepo:
                 break
 
             else:
-
                 files = os.listdir(block_path)
                 files.sort()
                 last_file = files[-1]
