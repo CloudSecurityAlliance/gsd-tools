@@ -6,6 +6,10 @@ import unittest
 
 import GSD
 
+username = os.environ['GH_USERNAME']
+user_id = os.environ['GH_USER_ID']
+reporter = username + ':' + user_id
+
 class FakeIssue:
 
     def __init__(self):
@@ -23,8 +27,8 @@ class FakeIssue:
             "references": [
                 "http://example.com"
             ],
-            "reporter": "joshbressers",
-            "reporter_id": 1692786,
+            "reporter": username,
+            "reporter_id": user_id,
             "notes": "test note",
             "description": "test description"
         }
@@ -40,7 +44,7 @@ class FakeIssue:
 
     def ugly_json(self):
         # I'm not even sorry
-        return {'gsd': {'vendor_name': 'test vendor', 'product_name': 'test product', 'product_version': 'test version', 'vulnerability_type': 'test type', 'affected_component': 'test component', 'attack_vector': 'test vector', 'impact': 'test impact', 'credit': 'test credit', 'references': ['http://example.com'], 'reporter': 'joshbressers', 'reporter_id': 1692786, 'notes': 'test note', 'description': 'test description'}, 'data_type': 'GSD', 'data_format': 'MITRE', 'data_version': '4.0', 'CVE_data_meta': {'ASSIGNER': 'gsd', 'ID': 'GSD-1900-0001', 'STATE': 'PUBLIC'}, 'affects': {'vendor': {'vendor_data': [{'vendor_name': 'test vendor', 'product': {'product_data': [{'product_name': 'test product', 'version': {'version_data': [{'version_value': 'test version'}]}}]}}]}}, 'problemtype': {'problemtype_data': [{'description': [{'lang': 'eng', 'value': 'test type'}]}]}, 'references': {'reference_data': [{'url': 'http://example.com', 'refsource': 'MISC', 'name': 'http://example.com'}]}, 'description': {'description_data': [{'lang': 'eng', 'value': 'test description'}]}}
+        return {'gsd': {'vendor_name': 'test vendor', 'product_name': 'test product', 'product_version': 'test version', 'vulnerability_type': 'test type', 'affected_component': 'test component', 'attack_vector': 'test vector', 'impact': 'test impact', 'credit': 'test credit', 'references': ['http://example.com'], 'reporter': username, 'reporter_id': user_id, 'notes': 'test note', 'description': 'test description'}, 'data_type': 'GSD', 'data_format': 'MITRE', 'data_version': '4.0', 'CVE_data_meta': {'ASSIGNER': 'gsd', 'ID': 'GSD-1900-0001', 'STATE': 'PUBLIC'}, 'affects': {'vendor': {'vendor_data': [{'vendor_name': 'test vendor', 'product': {'product_data': [{'product_name': 'test product', 'version': {'version_data': [{'version_value': 'test version'}]}}]}}]}}, 'problemtype': {'problemtype_data': [{'description': [{'lang': 'eng', 'value': 'test type'}]}]}, 'references': {'reference_data': [{'url': 'http://example.com', 'refsource': 'MISC', 'name': 'http://example.com'}]}, 'description': {'description_data': [{'lang': 'eng', 'value': 'test description'}]}}
         # Maybe a little sorry
 
 class TestGSDRepo(unittest.TestCase):
@@ -52,7 +56,7 @@ class TestGSDRepo(unittest.TestCase):
         self.repo.close()
 
     def testApprovedUser(self):
-        self.assertTrue(self.repo.approved_user("joshbressers:1692786"))
+        self.assertTrue(self.repo.approved_user(reporter))
         self.assertFalse(self.repo.approved_user("baduser"))
 
     def testAddGSD(self):

@@ -51,7 +51,7 @@ class GSDRepo:
 
         can_file = os.path.join(year, namespace, filename)
         git_file = os.path.join(self.repo.working_dir, can_file)
-        
+
         # Open the file
         with open(git_file) as json_file:
                 # Read the json
@@ -168,7 +168,7 @@ class GSDRepo:
                 break
 
             else:
-                
+
                 files = os.listdir(block_path)
                 files.sort()
                 last_file = files[-1]
@@ -198,6 +198,16 @@ class GSDRepo:
         c["modified"] = the_time
         c["published"] = the_time
 
+        # Format & Version hints
+        c["schema_format"] = "OSV"
+        c["schema_version"] = "1.4.0"
+
+        c["credits"] = [{
+            "name": issue_data["reporter"] + ':' + issue_data["reporter_id"],
+            "contact": ["https://github.com/%s" % issue_data["reporter"]],
+            "type": "REPORTER"
+        }]
+
         vuln_type = issue_data["vulnerability_type"]
         name = issue_data["product_name"]
         version = issue_data["product_version"]
@@ -219,7 +229,6 @@ class GSDRepo:
             }],
             "versions": []
         }]
-
 
         # XXX: This needs to be done in a better way long term
         if issue_data["product_name"] == "Kernel" and \
@@ -254,6 +263,21 @@ class GSDRepo:
                 else:
                     raise Exception("Unknown kernel note")
 
+            c["references"] = []
+            for i in issue_data["references"]:
+                c["references"].append({"type": "WEB", "url": i})
+
+            c["affected"].append({
+                "package": {
+                    "name": "Kernel",
+                    "ecosystem": "Linux"
+                },
+                "ranges": [{
+                    "type": "SEMVER",
+                    "repo": "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/",
+                    "events": [{"introduced": issue_data["introduced_version"]}, {"fixed": issue_data["fixed_version"]}]
+                }]
+            })
         else:
             # We're not looking at kernel issues
             del(c["affected"][0]["ranges"])
@@ -268,11 +292,14 @@ class GSDRepo:
 
     def get_gsd_json_format(self, gsd_id, issue_data):
 
-        # We made a mistake of not properly namespacing this at the
-        # beginning. It will be fixed someday
         c = {}
-        c["GSD"] = issue_data
-        # Consider this the first proper namespace
-        c["OSV"] = self.get_osv_json_format(gsd_id, issue_data)
+        c["gsd"] = {}
+        c["gsd"]["metadata"] = {
+            "type": "concern",
+            "exploitCode": "unknown",
+            "remediation": "official",
+            "reportConfidence": "unknown"
+        }
+        c["gsd"]["osvSchema"] = self.get_osv_json_format(gsd_id, issue_data)
         return c
 

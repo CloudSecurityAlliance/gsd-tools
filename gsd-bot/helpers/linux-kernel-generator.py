@@ -20,6 +20,8 @@ repo_name = os.environ['GH_REPO']
 issues_url = "https://api.github.com/repos/%s/issues" % repo_name
 repo_url = "https://github.com/%s.git" % repo_name
 username = os.environ['GH_USERNAME']
+user_id = os.environ['GH_USER_ID']
+reporter = username + ':' + user_id
 
 class FakeIssue:
 
@@ -32,7 +34,7 @@ class FakeIssue:
         return self.json
 
     def get_reporter(self):
-        return "joshbressers:1692786"
+        return reporter
 
 
 def main():
@@ -116,11 +118,14 @@ def main():
                 if not args.check:
                     sys.exit(1)
 
+        # FIXME: I added introduced version and fixed version as a dumb hack. Please fix it :)
         # Open the issue
         json_data = {
             "vendor_name": "Linux",
             "product_name": "Kernel",
             "product_version": f"versions from {introduced_version} to before {fixed_version}",
+            "introduced_version": introduced_version.strip('v') if introduced_version else "0",
+            "fixed_version": fixed_version.strip('v'),
             "vulnerability_type": "unspecified",
             "affected_component": "unspecified",
             "attack_vector": "unspecified",
@@ -142,8 +147,8 @@ def main():
                     "note": "fixed"
                 }
             ],
-            "reporter": "joshbressers",
-            "reporter_id": 1692786,
+            "reporter": username,
+            "reporter_id": user_id,
             "notes": "",
         }
 
