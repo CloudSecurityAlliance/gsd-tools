@@ -47,7 +47,7 @@ def update_gsd_file(filename, json_blob):
       #Key Does not Exist
       json_data['namespaces'][namespace] = json_blob
     with open(filename, 'w+') as fh:
-      json.dump(json_data, fh, sort_keys=True, indent=4)
+      json.dump(json_data, fh, sort_keys=True, indent=2)
     return
 
 def main():

@@ -3,6 +3,7 @@
 
 import json
 import os
+import datetime
 from pathlib import Path
 
 class CVE:
@@ -26,18 +27,42 @@ class CVE:
 
         # If the namespace is cve.org and there's no description, add one
         if namespace == 'cve.org':
-            if 'GSD' not in self.json:
-                self.json['GSD'] = {}
+            if 'gsd' not in self.json:
+                self.json['gsd'] = {}
 
-            if 'id' not in self.json['GSD']:
-                    self.json['GSD']['id'] = self.gsd_id
-            if 'alias' not in self.json['GSD']:
-                self.json['GSD']['alias'] = self.id
+            # If metadata doesn't exist, prepopulate with sane defaults for a CVE
+            if 'metadata' not in self.json['gsd']:
+                self.json['gsd']['metadata'] = {
+                    "type": "vulnerability",
+                    "exploitCode": "unknown",
+                    "remediation": "unknown",
+                    "reportConfidence": "unknown"
+                }
+
+            if 'osvSchema' not in self.json['gsd']:
+                self.json['gsd']['osvSchema'] = {}
+
+            # Add the GSD ID if it doesn't exist
+            if 'id' not in self.json['gsd']['osvSchema']:
+                self.json['gsd']['osvSchema']['id'] = self.gsd_id
+            # Add aliases if it doesn't exist, prepopulated with CVE ID
+            if 'aliases' not in self.json['gsd']['osvSchema']:
+                self.json['gsd']['osvSchema']['aliases'] = [self.id]
+            # If aliases exists, but CVE is not in array, append it
+            if self.id not in self.json['gsd']['osvSchema']['aliases']:
+                self.json['gsd']['osvSchema']['aliases'].append(self.id)
+            # FIXME: Always update modified when any values are changed, not just if it's missing
+            if 'modified' not in self.json['gsd']['osvSchema']:
+                self.json['gsd']['osvSchema']['modified'] = datetime.datetime.utcnow().isoformat() + "Z"
+            if 'schema_format' not in self.json['gsd']['osvSchema']:
+                self.json['gsd']['osvSchema']['schema_format'] = "OSV"
+            if 'schema_version' not in self.json['gsd']['osvSchema']:
+                self.json['gsd']['osvSchema']['schema_version'] = "1.4.0"
 
             # Check for a description
-            if 'description' not in self.json['GSD']:
+            if 'details' not in self.json['gsd']['osvSchema']:
                 if '** RESERVED **' not in self.json['namespaces']['cve.org']['description']['description_data'][0]['value']:
-                    self.json['GSD']['description'] = self.json['namespaces']['cve.org']['description']['description_data'][0]['value']
+                    self.json['gsd']['osvSchema']['details'] = self.json['namespaces']['cve.org']['description']['description_data'][0]['value']
 
 
     def write(self):
@@ -47,19 +72,19 @@ class CVE:
         filename = self.get_filename(create=True)
 
         old_data = ""
-        new_data = json.dumps(self.json, sort_keys=True, indent=4)
+        new_data = json.dumps(self.json, sort_keys=True, indent=2)
 
         if os.path.exists(filename):
             with open(filename) as fh:
                 # We load and re-encode the json, because something weird
                 # things happen if we just try to read it directly
                 old_json = json.load(fh)
-                old_data = json.dumps(old_json, sort_keys=True, indent=4)
+                old_data = json.dumps(old_json, sort_keys=True, indent=2)
 
         # Only update the file if something changed
         if old_data != new_data:
             with open(filename, 'w') as fh:
-                fh.write(json.dumps(self.json, sort_keys=True, indent=4))
+                fh.write(json.dumps(self.json, sort_keys=True, indent=2))
             return True
         return False
 
