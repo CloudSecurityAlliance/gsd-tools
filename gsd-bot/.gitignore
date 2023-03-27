@@ -4,3 +4,5 @@ build/
 dist/
 dwf_bot.egg-info/
 .venv/
+kernel-request.txt
+.env
