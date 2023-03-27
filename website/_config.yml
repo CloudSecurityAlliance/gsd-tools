@@ -15,9 +15,9 @@ plugins:
   - jekyll-seo-tag
   - jekyll-feed
 
-# FIXME: This currently does not work
-minima:
-  skin: dark
+# NOTE: Minima themes are to be released in v3.0 (not yet supported)
+# minima:
+#   skin: dark
 
 # Set sane defaults
 defaults:
