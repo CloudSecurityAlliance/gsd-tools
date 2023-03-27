@@ -197,15 +197,15 @@ class GSDRepo:
         c["modified"] = the_time
         c["published"] = the_time
 
-        # Format & Version hints
-        c["schema_format"] = "OSV"
+        # Schema version hint
         c["schema_version"] = "1.4.0"
 
-        c["credits"] = [{
-            "name": issue_data["reporter"] + ':' + issue_data["reporter_id"],
-            "contact": ["https://github.com/%s" % issue_data["reporter"]],
-            "type": "REPORTER"
-        }]
+        # Per discussion with @kurtsefried, moving this to gsd->metadata
+        # c["credits"] = [{
+        #     "name": issue_data["reporter"] + ':' + issue_data["reporter_id"],
+        #     "contact": ["https://github.com/%s" % issue_data["reporter"]],
+        #     "type": "REPORTER"
+        # }]
 
         vuln_type = issue_data["vulnerability_type"]
         name = issue_data["product_name"]
@@ -297,7 +297,9 @@ class GSDRepo:
             "type": "concern",
             "exploitCode": "unknown",
             "remediation": "official",
-            "reportConfidence": "unknown"
+            "reportConfidence": "confirmed",
+            "reporter": issue_data["reporter"],
+            "reporter_id": issue_data["reporter_id"]
         }
         c["gsd"]["osvSchema"] = self.get_osv_json_format(gsd_id, issue_data)
         return c
