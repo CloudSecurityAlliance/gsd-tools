@@ -36,7 +36,7 @@ class CVE:
                     "type": "vulnerability",
                     "exploitCode": "unknown",
                     "remediation": "unknown",
-                    "reportConfidence": "unknown"
+                    "reportConfidence": "confirmed"
                 }
 
             if 'osvSchema' not in self.json['gsd']:
@@ -54,8 +54,6 @@ class CVE:
             # FIXME: Always update modified when any values are changed, not just if it's missing
             if 'modified' not in self.json['gsd']['osvSchema']:
                 self.json['gsd']['osvSchema']['modified'] = datetime.datetime.utcnow().isoformat() + "Z"
-            if 'schema_format' not in self.json['gsd']['osvSchema']:
-                self.json['gsd']['osvSchema']['schema_format'] = "OSV"
             if 'schema_version' not in self.json['gsd']['osvSchema']:
                 self.json['gsd']['osvSchema']['schema_version'] = "1.4.0"
 
