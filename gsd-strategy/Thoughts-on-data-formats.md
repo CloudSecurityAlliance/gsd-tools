@@ -1,6 +1,6 @@
 # Thoughts on data formats
 
-This is not a final document nor an official statement on the data format(s) used by the GSD. This is designed to help structure and encourage discussion around vulnerbaility identifer data formats.
+This is not a final document nor an official statement on the data format(s) used by the GSD. This is designed to help structure and encourage discussion around vulnerability identifer data formats.
 
 The GSD can use other peoples data formats, especially if we clearly label them as such. We can also provide mappings, e.g. OSV:affected:package:name maps to CVE:product:product_name to translate the data and make it easier to consume.
 
@@ -23,7 +23,7 @@ Essentially we need some path of discoverability and some data with a degree of 
 ## a GSD Identifier SHOULD have
 
 * Affected / Fixed / Vulnerable / Not Vulnerable products/services (CPE? JSON? Purl?)
-* Vulnerbaility information/type (e.g. CWE)
+* Vulnerability information/type (e.g. CWE)
 * An overall confidence score between 0 and 10 based on sources, confirmation, etc.
 
 And ideally we want some information to make the security identifier directly useful for systems and humans beings that consume the data.
