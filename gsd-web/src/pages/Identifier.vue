@@ -209,7 +209,6 @@ export default defineComponent({
     )
     const detailsHtml = computed(
       () => {
-        console.log(osvData.value.details)
         if(osvData.value.details) {
           const html = DOMPurify.sanitize(marked.parse(osvData.value.details))
           return html
