@@ -1,6 +1,6 @@
 <template>
   <!-- notice dialogRef here -->
-  <q-dialog ref="dialogRef" @hide="onDialogHide" :persistent="unsavedChanges">
+  <q-dialog ref="dialogRef" @hide="onDialogHide" :persistent="unsavedChanges" full-width>
     <q-card class="q-dialog-plugin">
       <q-card-section class="bg-primary text-white text-center">
         <div class="text-h6">Edit GSD</div>
@@ -8,19 +8,22 @@
 
       <q-separator />
 
-      <q-card-section style="overflow: auto; max-height: 80vh;">
+      <q-card-section class="text-center">
         <q-toggle
           v-model="jsonEditMode"
           label="JSON Edit Mode"
+          class="q-mr-md"
         />
         <q-btn
           @click="resetValues"
           :disabled="!unsavedChanges"
-          class="float-right"
           color="secondary"
           label="Undo Changes"
+          class="q-ml-md"
         />
+      </q-card-section>
 
+      <q-card-section style="overflow: auto; max-height: 70vh;">
         <template v-if="jsonEditMode">
           <q-input
             v-model="gsdJson"
@@ -31,48 +34,74 @@
         </template>
 
         <template v-else>
-          <q-input
-            v-model="gsdDescription"
-            filled
-            autogrow
-            label="Description"
-          />
-          <hr>
-          <template v-for="(reference, index) in gsdReferences" :key="reference.id">
-            <q-select
-              v-model="reference.type"
-              :options="referenceOptions"
-              filled
-              label="Type"
-            />
-            <q-input
-              v-model="reference.other_type"
-              filled
-              class="q-mt-sm"
-              label="Other Type"
-              v-if="reference.type === 'OTHER'"
-            />
-            <br>
-            <q-input
-              v-model="reference.url"
-              filled
-              label="URL"
-            />
-            <br>
-            <q-btn
-              color="negative"
-              icon="fa fa-minus"
-              label="Remove Reference"
-              @click="removeReference(index)"
-            />
-            <hr>
-          </template>
-          <q-btn
-            color="positive"
-            icon="fa fa-plus"
-            label="Add Reference"
-            @click="addReference"
-          />
+          <div class="q-pa-md row items-start q-col-gutter-md">
+            <div class="col-12 col-md-6">
+              <div class="text-h6">Summary</div>
+              <q-input
+                v-model="gsdSummary"
+                filled
+                label="Summary"
+                class="q-mb-md"
+              />
+              <div class="text-h6">Details</div>
+              <q-input
+                v-model="gsdDetails"
+                filled
+                autogrow
+                label="Details"
+              />
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="text-h6">References</div>
+              <hr>
+              <template v-for="(reference, index) in gsdReferences" :key="reference.id">
+                <div class="row">
+                  <div class="col-auto">
+                    <q-select
+                      v-model="reference.type"
+                      :options="referenceOptions"
+                      filled
+                      label="Type"
+                    />
+                  </div>
+                  <div class="col-grow">
+                    <q-input
+                      v-model="reference.url"
+                      filled
+                      class="q-ml-xs flex-grow"
+                      label="URL"
+                    />
+                  </div>
+                  <div class="col-auto">
+                    <q-btn
+                      color="negative"
+                      icon="fa fa-trash"
+                      class="q-ml-xs full-height"
+                      @click="removeReference(index)"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <q-input
+                      v-model="reference.other_type"
+                      filled
+                      class="q-mt-xs"
+                      label="Other Type"
+                      v-if="reference.type === 'OTHER'"
+                    />
+                  </div>
+                </div>
+                <hr>
+              </template>
+              <q-btn
+                color="positive"
+                icon="fa fa-plus"
+                label="Add Reference"
+                @click="addReference"
+              />
+            </div>
+          </div>
         </template>
       </q-card-section>
 
@@ -129,36 +158,20 @@ export default {
     const jsonEditMode = ref(false)
 
     let gsdJsonObject = JSON.parse(gsdJson.value)
-    const gsdOriginalDescription = ref('')
+    const gsdOriginalSummary = ref('')
+    const gsdOriginalDetails = ref('')
     const gsdOriginalReferences = ref([])
 
-    if(gsdJsonObject.GSD !== undefined) {
-      gsdOriginalDescription.value = gsdJsonObject.GSD.description
-
-      if(isArrayOfStrings(gsdJsonObject.GSD.references)) {
-        for(const reference of gsdJsonObject.GSD.references) {
-          gsdOriginalReferences.value.push({ type: 'WEB', url: reference });
-        }
-      } else {
-        for(const reference of gsdJsonObject.GSD.references) {
-          gsdOriginalReferences.value.push({ type: reference.type, url: reference.url });
-        }
-      }
-    } else if(gsdJsonObject.gsd !== undefined) {
-      gsdOriginalDescription.value = gsdJsonObject.gsd.description
-
-      if(isArrayOfStrings(gsdJsonObject.gsd.references)) {
-        for(const reference of gsdJsonObject.gsd.references) {
-          gsdOriginalReferences.value.push({ type: 'WEB', url: reference });
-        }
-      } else {
-        for(const reference of gsdJsonObject.gsd.references) {
-          gsdOriginalReferences.value.push({ type: reference.type, url: reference.url });
-        }
+    if(gsdJsonObject.gsd !== undefined && gsdJsonObject.gsd.osvSchema !== undefined) {
+      gsdOriginalSummary.value = gsdJsonObject.gsd.osvSchema.summary
+      gsdOriginalDetails.value = gsdJsonObject.gsd.osvSchema.details
+      for(const reference of gsdJsonObject.gsd.osvSchema.references) {
+        gsdOriginalReferences.value.push({ type: reference.type, url: reference.url });
       }
     }
 
-    const gsdDescription = ref(gsdOriginalDescription.value)
+    const gsdSummary = ref(gsdOriginalSummary.value)
+    const gsdDetails = ref(gsdOriginalDetails.value)
     // NOTE: Have I mentioned I HATE JavaScript with a FIERY PASSION?
     // (Needing to use JSON to pass an array by value is so incredibly dumb)
     const gsdReferences = ref(JSON.parse(JSON.stringify(gsdOriginalReferences.value)))
@@ -180,7 +193,8 @@ export default {
           return (props.gsd_json !== gsdJson.value)
         } else {
           return (
-            (gsdOriginalDescription.value !== gsdDescription.value) ||
+            (gsdOriginalSummary.value !== gsdSummary.value) ||
+            (gsdOriginalDetails.value !== gsdDetails.value) ||
             (!(_.isEqual(gsdOriginalReferences.value, gsdReferences.value)))
           )
         }
@@ -197,7 +211,8 @@ export default {
 
     function resetValues() {
       gsdJson.value = props.gsd_json
-      gsdDescription.value = gsdOriginalDescription.value
+      gsdSummary.value = gsdOriginalSummary.value
+      gsdDetails.value = gsdOriginalDetails.value
       gsdReferences.value = JSON.parse(JSON.stringify(gsdOriginalReferences.value))
     }
 
@@ -227,7 +242,6 @@ export default {
           fileContent = JSON.stringify(JSON.parse(gsdJson.value), null, 2);
         } else {
           let tempGsdJson = JSON.parse(props.gsd_json);
-          let gsdLowercase = (tempGsdJson.gsd !== undefined);
           let tempReferences = JSON.parse(JSON.stringify(gsdReferences.value))
 
           tempReferences.forEach(
@@ -239,13 +253,9 @@ export default {
             }
           )
 
-          if(gsdLowercase) {
-            tempGsdJson.gsd.description = gsdDescription.value;
-            tempGsdJson.gsd.references = JSON.parse(JSON.stringify(tempReferences))
-          } else {
-            tempGsdJson.GSD.description = gsdDescription.value;
-            tempGsdJson.GSD.references = JSON.parse(JSON.stringify(tempReferences))
-          }
+          tempGsdJson.gsd.osvSchema.summary = gsdSummary.value;
+          tempGsdJson.gsd.osvSchema.details = gsdDetails.value;
+          tempGsdJson.gsd.osvSchema.references = JSON.parse(JSON.stringify(tempReferences))
 
           fileContent = JSON.stringify(tempGsdJson, null, 2);
         }
@@ -289,7 +299,8 @@ export default {
       saveChanges,
       unsavedChanges,
       jsonEditMode,
-      gsdDescription,
+      gsdSummary,
+      gsdDetails,
       gsdReferences,
       referenceOptions,
       removeReference,
