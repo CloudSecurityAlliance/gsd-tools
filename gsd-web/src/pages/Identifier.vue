@@ -79,10 +79,41 @@
               </template>
               <div class="text-h5 q-mt-sm">References</div>
               <template v-if="osvData.references">
-                <ul>
-                  <li v-for="reference, index in osvData.references" :key="index">
-                    <div class="text-bold" style="display:contents;">{{ reference.type }}</div> - <a :href="reference.url" target="_blank">{{ reference.url }}</a></li>
-                </ul>
+                <q-list bordered separator>
+                  <q-item clickable v-ripple v-for="reference, index in osvData.references" :key="index" :href="reference.url" target="_blank">
+                    <q-item-section avatar>
+                      <template v-if="reference.type == 'ADVISORY'">
+                        <q-icon name="gpp_maybe" />
+                      </template>
+                      <template v-else-if="reference.type == 'ARTICLE'">
+                        <q-icon name="newspaper" />
+                      </template>
+                      <template v-else-if="reference.type == 'REPORT'">
+                        <q-icon name="bug_report" />
+                      </template>
+                      <template v-else-if="reference.type == 'FIX'">
+                        <q-icon name="healing" />
+                      </template>
+                      <template v-else-if="reference.type == 'PACKAGE'">
+                        <q-icon name="code" />
+                      </template>
+                      <template v-else-if="reference.type == 'EVIDENCE'">
+                        <q-icon name="find_in_page" />
+                      </template>
+                      <template v-else>
+                        <q-icon name="public" />
+                      </template>
+                    </q-item-section>
+
+                    <q-item-section>
+                      {{ reference.url }}
+                    </q-item-section>
+
+                    <q-item-section side>
+                      <span class="text-bold">{{ reference.type }}</span>
+                    </q-item-section>
+                  </q-item>
+                </q-list>
               </template>
               <template v-else>
                 <p class="text-italic">No references available for {{ identifier }}</p>
