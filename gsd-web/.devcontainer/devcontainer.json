@@ -12,7 +12,8 @@
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
 				"dbaeumer.vscode-eslint",
-				"octref.vetur"
+				"Vue.volar",
+				"Syler.sass-indented"
 			]
 		}
 	},
