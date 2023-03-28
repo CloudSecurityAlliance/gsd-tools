@@ -106,8 +106,8 @@
       </q-card-section>
 
       <q-card-actions align="right">
-        <q-btn flat label="Cancel" color="grey" v-close-popup />
-        <q-btn flat label="Save Changes" color="primary" @click="saveChanges" :disabled="!unsavedChanges" />
+        <q-btn flat label="Cancel" color="grey" v-close-popup :disabled="saving" />
+        <q-btn flat label="Save Changes" color="primary" @click="saveChanges" :disabled="!unsavedChanges" :loading="saving" />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -161,6 +161,8 @@ export default {
     const gsdOriginalSummary = ref('')
     const gsdOriginalDetails = ref('')
     const gsdOriginalReferences = ref([])
+
+    const saving = ref(false)
 
     if(gsdJsonObject.gsd !== undefined && gsdJsonObject.gsd.osvSchema !== undefined) {
       gsdOriginalSummary.value = gsdJsonObject.gsd.osvSchema.summary
@@ -235,6 +237,7 @@ export default {
     }
 
     function saveChanges() {
+      saving.value = true;
       let fileContent = '';
       try {
         // Force reformatting of the JSON string, as well as check validity.
@@ -282,13 +285,16 @@ export default {
               message: 'Changes saved!',
               icon: 'published_with_changes'
             })
+            saving.value = false
             onCancelClick()
           },
           (error) => {
+            saving.value = false
             errorNotification(error, 'Failed to update GSD')
           }
         )
       } catch(error) {
+        saving.value = false
         errorNotification(error, 'Failed to save changes')
       }
     }
@@ -306,6 +312,7 @@ export default {
       removeReference,
       addReference,
       resetValues,
+      saving,
 
       // This is REQUIRED;
       // Need to inject these (from useDialogPluginComponent() call)
