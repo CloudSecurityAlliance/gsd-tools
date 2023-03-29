@@ -124,9 +124,10 @@
                 "type": {
                   "type": "string",
                   "enum": [
+                    "ECOSYSTEM",
                     "GIT",
                     "SEMVER",
-                    "ECOSYSTEM"
+                    "TIMESTAMP"
                   ]
                 },
                 "repo": {
