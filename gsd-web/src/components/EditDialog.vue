@@ -49,68 +49,76 @@
                 autogrow
                 label="Details"
               />
-              <div class="text-h6 q-mt-md">Published</div>
-              <q-input
-                v-model="gsdPublished"
-                filled
-                clearable
-                label="ID Published At"
-              >
-              <template v-slot:prepend>
-                <q-icon name="event" class="cursor-pointer">
-                  <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-                    <q-date today-btn v-model="gsdPublished" mask="YYYY-MM-DDTHH:mm:ss.sssZ">
-                      <div class="row items-center justify-end">
-                        <q-btn v-close-popup label="Close" color="primary" flat />
-                      </div>
-                    </q-date>
-                  </q-popup-proxy>
-                </q-icon>
-              </template>
+              <div class="row items-start q-col-gutter-md">
+                <div class="col-12 col-md-6">
+                  <div class="text-h6 q-mt-md">Published</div>
+                  <q-input
+                    v-model="gsdPublished"
+                    filled
+                    clearable
+                    placeholder="ISO8601 String"
+                    label="ID Published At"
+                  >
+                  <template v-slot:prepend>
+                    <q-icon name="event" class="cursor-pointer">
+                      <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                        <q-date today-btn v-model="gsdPublished" mask="YYYY-MM-DDTHH:mm:ss.sssZ">
+                          <div class="row items-center justify-end">
+                            <q-btn v-close-popup label="Close" color="primary" flat />
+                          </div>
+                        </q-date>
+                      </q-popup-proxy>
+                    </q-icon>
+                  </template>
 
-              <template v-slot:append>
-                <q-icon name="access_time" class="cursor-pointer">
-                  <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-                    <q-time now-btn v-model="gsdPublished" mask="YYYY-MM-DDTHH:mm:ss.sssZ">
-                      <div class="row items-center justify-end">
-                        <q-btn v-close-popup label="Close" color="primary" flat />
-                      </div>
-                    </q-time>
-                  </q-popup-proxy>
-                </q-icon>
-              </template>
-              </q-input>
-              <div class="text-h6 q-mt-md">Withdrawn</div>
-              <q-input
-                v-model="gsdWithdrawn"
-                filled
-                clearable
-                label="ID Withdrawn At"
-              >
-              <template v-slot:prepend>
-                <q-icon name="event" class="cursor-pointer">
-                  <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-                    <q-date today-btn v-model="gsdWithdrawn" mask="YYYY-MM-DDTHH:mm:ss.sssZ">
-                      <div class="row items-center justify-end">
-                        <q-btn v-close-popup label="Close" color="primary" flat />
-                      </div>
-                    </q-date>
-                  </q-popup-proxy>
-                </q-icon>
-              </template>
+                  <template v-slot:append>
+                    <q-icon name="access_time" class="cursor-pointer">
+                      <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                        <q-time now-btn v-model="gsdPublished" mask="YYYY-MM-DDTHH:mm:ss.sssZ">
+                          <div class="row items-center justify-end">
+                            <q-btn v-close-popup label="Close" color="primary" flat />
+                          </div>
+                        </q-time>
+                      </q-popup-proxy>
+                    </q-icon>
+                  </template>
+                  </q-input>
+                </div>
+                <div class="col-12 col-md-6">
+                  <div class="text-h6 q-mt-md">Withdrawn</div>
+                  <q-input
+                    v-model="gsdWithdrawn"
+                    filled
+                    clearable
+                    placeholder="ISO8601 String"
+                    label="ID Withdrawn At"
+                  >
+                  <template v-slot:prepend>
+                    <q-icon name="event" class="cursor-pointer">
+                      <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                        <q-date today-btn v-model="gsdWithdrawn" mask="YYYY-MM-DDTHH:mm:ss.sssZ">
+                          <div class="row items-center justify-end">
+                            <q-btn v-close-popup label="Close" color="primary" flat />
+                          </div>
+                        </q-date>
+                      </q-popup-proxy>
+                    </q-icon>
+                  </template>
 
-              <template v-slot:append>
-                <q-icon name="access_time" class="cursor-pointer">
-                  <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-                    <q-time now-btn v-model="gsdWithdrawn" mask="YYYY-MM-DDTHH:mm:ss.sssZ">
-                      <div class="row items-center justify-end">
-                        <q-btn v-close-popup label="Close" color="primary" flat />
-                      </div>
-                    </q-time>
-                  </q-popup-proxy>
-                </q-icon>
-              </template>
-              </q-input>
+                  <template v-slot:append>
+                    <q-icon name="access_time" class="cursor-pointer">
+                      <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                        <q-time now-btn v-model="gsdWithdrawn" mask="YYYY-MM-DDTHH:mm:ss.sssZ">
+                          <div class="row items-center justify-end">
+                            <q-btn v-close-popup label="Close" color="primary" flat />
+                          </div>
+                        </q-time>
+                      </q-popup-proxy>
+                    </q-icon>
+                  </template>
+                  </q-input>
+                </div>
+              </div>
             </div>
             <div class="col-12 col-md-6">
               <div class="text-h6">References</div>
