@@ -20,7 +20,7 @@
 
     <template v-if="validIdentifier">
       <div class="q-pa-md row items-start q-col-gutter-md">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-7">
           <q-card class="full-width">
             <q-card-section class="bg-primary text-white">
               <div class="text-subtitle2">Summary</div>
@@ -118,7 +118,14 @@
               <div class="text-h5 q-mt-sm">References</div>
               <template v-if="osvData.references">
                 <q-list bordered separator>
-                  <q-item clickable v-ripple v-for="reference, index in osvData.references" :key="index" :href="reference.url" target="_blank">
+                  <q-item
+                    clickable
+                    v-ripple
+                    v-for="reference, index in osvData.references"
+                    :key="index"
+                    :href="reference.url"
+                    target="_blank"
+                  >
                     <q-item-section avatar>
                       <template v-if="reference.type == 'ADVISORY'">
                         <q-icon name="gpp_maybe" />
@@ -159,7 +166,7 @@
             </q-card-section>
           </q-card>
         </div>
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-5">
           <div class="q-pa-md" style="max-width: 100vw;">
             <q-expansion-item
               class="shadow-1 overflow-hidden"
