@@ -41,15 +41,76 @@
                 v-model="gsdSummary"
                 filled
                 label="Summary"
-                class="q-mb-md"
               />
-              <div class="text-h6">Details</div>
+              <div class="text-h6 q-mt-md">Details</div>
               <q-input
                 v-model="gsdDetails"
                 filled
                 autogrow
                 label="Details"
               />
+              <div class="text-h6 q-mt-md">Published</div>
+              <q-input
+                v-model="gsdPublished"
+                filled
+                clearable
+                label="ID Published At"
+              >
+              <template v-slot:prepend>
+                <q-icon name="event" class="cursor-pointer">
+                  <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                    <q-date today-btn v-model="gsdPublished" mask="YYYY-MM-DDTHH:mm:ss.sssZ">
+                      <div class="row items-center justify-end">
+                        <q-btn v-close-popup label="Close" color="primary" flat />
+                      </div>
+                    </q-date>
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+
+              <template v-slot:append>
+                <q-icon name="access_time" class="cursor-pointer">
+                  <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                    <q-time now-btn v-model="gsdPublished" mask="YYYY-MM-DDTHH:mm:ss.sssZ">
+                      <div class="row items-center justify-end">
+                        <q-btn v-close-popup label="Close" color="primary" flat />
+                      </div>
+                    </q-time>
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+              </q-input>
+              <div class="text-h6 q-mt-md">Withdrawn</div>
+              <q-input
+                v-model="gsdWithdrawn"
+                filled
+                clearable
+                label="ID Withdrawn At"
+              >
+              <template v-slot:prepend>
+                <q-icon name="event" class="cursor-pointer">
+                  <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                    <q-date today-btn v-model="gsdWithdrawn" mask="YYYY-MM-DDTHH:mm:ss.sssZ">
+                      <div class="row items-center justify-end">
+                        <q-btn v-close-popup label="Close" color="primary" flat />
+                      </div>
+                    </q-date>
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+
+              <template v-slot:append>
+                <q-icon name="access_time" class="cursor-pointer">
+                  <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                    <q-time now-btn v-model="gsdWithdrawn" mask="YYYY-MM-DDTHH:mm:ss.sssZ">
+                      <div class="row items-center justify-end">
+                        <q-btn v-close-popup label="Close" color="primary" flat />
+                      </div>
+                    </q-time>
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+              </q-input>
             </div>
             <div class="col-12 col-md-6">
               <div class="text-h6">References</div>
@@ -161,12 +222,20 @@ export default {
     const gsdOriginalSummary = ref('')
     const gsdOriginalDetails = ref('')
     const gsdOriginalReferences = ref([])
+    const gsdOriginalPublished = ref('')
+    const gsdOriginalWithdrawn = ref('')
 
     const saving = ref(false)
 
     if(gsdJsonObject.gsd !== undefined && gsdJsonObject.gsd.osvSchema !== undefined) {
       gsdOriginalSummary.value = gsdJsonObject.gsd.osvSchema.summary
       gsdOriginalDetails.value = gsdJsonObject.gsd.osvSchema.details
+      if(gsdJsonObject.gsd.osvSchema.published) {
+        gsdOriginalPublished.value = new Date(gsdJsonObject.gsd.osvSchema.published).toISOString()
+      }
+      if(gsdJsonObject.gsd.osvSchema.withdrawn) {
+        gsdOriginalWithdrawn.value = new Date(gsdJsonObject.gsd.osvSchema.withdrawn).toISOString()
+      }
       for(const reference of gsdJsonObject.gsd.osvSchema.references) {
         gsdOriginalReferences.value.push({ type: reference.type, url: reference.url });
       }
@@ -177,6 +246,8 @@ export default {
     // NOTE: Have I mentioned I HATE JavaScript with a FIERY PASSION?
     // (Needing to use JSON to pass an array by value is so incredibly dumb)
     const gsdReferences = ref(JSON.parse(JSON.stringify(gsdOriginalReferences.value)))
+    const gsdPublished = ref(gsdOriginalPublished.value)
+    const gsdWithdrawn = ref(gsdOriginalWithdrawn.value)
     const referenceOptions = [
       'ADVISORY',
       'ARTICLE',
@@ -197,7 +268,9 @@ export default {
           return (
             (gsdOriginalSummary.value !== gsdSummary.value) ||
             (gsdOriginalDetails.value !== gsdDetails.value) ||
-            (!(_.isEqual(gsdOriginalReferences.value, gsdReferences.value)))
+            (!(_.isEqual(gsdOriginalReferences.value, gsdReferences.value))) ||
+            (gsdPublished.value !== gsdOriginalPublished.value) ||
+            (gsdWithdrawn.value !== gsdOriginalWithdrawn.value)
           )
         }
       }
@@ -216,6 +289,8 @@ export default {
       gsdSummary.value = gsdOriginalSummary.value
       gsdDetails.value = gsdOriginalDetails.value
       gsdReferences.value = JSON.parse(JSON.stringify(gsdOriginalReferences.value))
+      gsdPublished.value = gsdOriginalPublished.value
+      gsdWithdrawn.value = gsdOriginalWithdrawn.value
     }
 
     // console.log(unsavedChanges.value)
@@ -262,6 +337,16 @@ export default {
           tempGsdJson.gsd.osvSchema.summary = gsdSummary.value
           tempGsdJson.gsd.osvSchema.details = gsdDetails.value
           tempGsdJson.gsd.osvSchema.references = JSON.parse(JSON.stringify(tempReferences))
+          if(gsdPublished.value) {
+            tempGsdJson.gsd.osvSchema.published = new Date(gsdPublished.value).toISOString()
+          } else if(tempGsdJson.gsd.osvSchema.published) {
+            delete(tempGsdJson.gsd.osvSchema.published)
+          }
+          if(gsdWithdrawn.value) {
+            tempGsdJson.gsd.osvSchema.withdrawn = new Date(gsdWithdrawn.value).toISOString()
+          } else if(tempGsdJson.gsd.osvSchema.withdrawn) {
+            delete(tempGsdJson.gsd.osvSchema.withdrawn)
+          }
 
           fileContent = JSON.stringify(tempGsdJson, null, 2);
         }
@@ -311,6 +396,8 @@ export default {
       gsdSummary,
       gsdDetails,
       gsdReferences,
+      gsdPublished,
+      gsdWithdrawn,
       referenceOptions,
       removeReference,
       addReference,
