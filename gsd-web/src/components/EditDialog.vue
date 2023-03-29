@@ -223,7 +223,7 @@ export default {
     watch(
       () => gsdReferences.value,
       (newValue) => {
-        console.log(unsavedChanges.value)
+        // console.log(unsavedChanges.value)
       }
     )
 
@@ -286,7 +286,7 @@ export default {
               icon: 'published_with_changes'
             })
             saving.value = false
-            onCancelClick()
+            onDialogOK()
           },
           (error) => {
             saving.value = false

@@ -44,39 +44,77 @@
               <template v-else>
                 <p class="text-italic">No details available for {{ identifier }}</p>
               </template>
-              <div class="text-h5 q-mt-sm">Identifiers</div>
-              <ul>
-                <li><a :href="`https://gsd.id/${identifier}`" target="_blank">{{ identifier }}</a></li>
-              </ul>
-              <div class="text-h5 q-mt-sm">Affected</div>
-              <template v-if="osvData.affected">
-                <ul>
-                  <li v-for="affected, index in osvData.affected" :key="index">
-                    <div class="text-bold" style="display:contents;">Ecosystem:</div> {{ affected.package.ecosystem }}
-                    <br>
-                    <div class="text-bold" style="display:contents;">Name:</div> {{ affected.package.name }}
-                    <br>
-                    <div class="text-bold" style="display:contents;">Ranges:</div>
+              <div class="row items-start q-col-gutter-md">
+                <div class="col-12 col-md-6">
+                  <div class="text-h5 q-mt-sm">Affected</div>
+                  <template v-if="osvData.affected">
                     <ul>
-                      <li v-for="range, index in affected.ranges" :key="index">
-                        <div class="text-bold" style="display:contents;">Type: </div>{{ range.type }}
+                      <li v-for="affected, index in osvData.affected" :key="index">
+                        <div class="text-bold" style="display:contents;">Ecosystem:</div> {{ affected.package.ecosystem }}
                         <br>
-                        <div class="text-bold" style="display:contents;">Repo: </div><a :href="range.repo" target="_blank">{{ range.repo }}</a>
+                        <div class="text-bold" style="display:contents;">Name:</div> {{ affected.package.name }}
                         <br>
-                        <div class="text-bold" style="display:contents;">Events:</div>
+                        <div class="text-bold" style="display:contents;">Ranges:</div>
                         <ul>
-                          <li v-for="event, index in range.events" :key="index">
-                            <div class="text-bold text-capitalize" style="display:contents;">{{ Object.keys(event)[0] }}:</div> {{ event[Object.keys(event)[0]] }}
+                          <li v-for="range, index in affected.ranges" :key="index">
+                            <div class="text-bold" style="display:contents;">Type: </div>{{ range.type }}
+                            <br>
+                            <div class="text-bold" style="display:contents;">Repo: </div><a :href="range.repo" target="_blank">{{ range.repo }}</a>
+                            <br>
+                            <div class="text-bold" style="display:contents;">Events:</div>
+                            <ul>
+                              <li v-for="event, index in range.events" :key="index">
+                                <div class="text-bold text-capitalize" style="display:contents;">{{ Object.keys(event)[0] }}:</div> {{ event[Object.keys(event)[0]] }}
+                              </li>
+                            </ul>
                           </li>
                         </ul>
                       </li>
                     </ul>
-                  </li>
-                </ul>
-              </template>
-              <template v-else>
-                <p class="text-italic">No affected versions available for {{ identifier }}</p>
-              </template>
+                  </template>
+                  <template v-else>
+                    <p class="text-italic">No affected versions available for {{ identifier }}</p>
+                  </template>
+                </div>
+                <div class="col-12 col-md-6">
+                  <div class="text-h5 q-mt-sm">Identifiers</div>
+                  <q-list bordered separator>
+                    <q-item clickable v-ripple :href="`https://gsd.id/${identifier}`" target="_blank">
+                      <q-item-section avatar>
+                        <q-icon name="gpp_maybe" />
+                      </q-item-section>
+
+                      <q-item-section>
+                        {{ identifier }}
+                      </q-item-section>
+                    </q-item>
+                    <template v-for="alias, index in osvData.aliases" :key="index">
+                      <template v-if="isGHSA(alias)">
+                        <q-item clickable v-ripple :href="`https://github.com/advisories/${alias}`" target="_blank">
+                          <q-item-section avatar>
+                            <q-icon name="gpp_maybe" />
+                          </q-item-section>
+
+                          <q-item-section>
+                            {{ alias }}
+                          </q-item-section>
+                        </q-item>
+                      </template>
+                      <template v-else>
+                        <q-item>
+                          <q-item-section avatar>
+                            <q-icon name="gpp_maybe" />
+                          </q-item-section>
+
+                          <q-item-section>
+                            {{ alias }}
+                          </q-item-section>
+                        </q-item>
+                      </template>
+                    </template>
+                  </q-list>
+                </div>
+              </div>
               <div class="text-h5 q-mt-sm">References</div>
               <template v-if="osvData.references">
                 <q-list bordered separator>
@@ -271,6 +309,10 @@ export default defineComponent({
       return (value.match(/^GSD-\d{4}-\d{4,}$/))
     }
 
+    function isGHSA(value) {
+      return (value.match(/^GHSA-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}$/))
+    }
+
     function isSimpleString(value) {
       return typeof value === 'string'
     }
@@ -322,13 +364,11 @@ export default defineComponent({
       isSimpleString,
       isSimpleNumber,
       isArrayOfStrings,
+      isGHSA,
     }
   }
 })
 </script>
 
 <style lang="sass">
-// FIXME: I hate css, and it hates me. Please make this look prettier.
-.my-card
-  width: 100%
 </style>
