@@ -256,8 +256,11 @@ export default {
             }
           )
 
-          tempGsdJson.gsd.osvSchema.summary = gsdSummary.value;
-          tempGsdJson.gsd.osvSchema.details = gsdDetails.value;
+          // Set modified to current datetime, as we're modifying the entry...
+          tempGsdJson.gsd.osvSchema.modified = new Date().toISOString()
+
+          tempGsdJson.gsd.osvSchema.summary = gsdSummary.value
+          tempGsdJson.gsd.osvSchema.details = gsdDetails.value
           tempGsdJson.gsd.osvSchema.references = JSON.parse(JSON.stringify(tempReferences))
 
           fileContent = JSON.stringify(tempGsdJson, null, 2);
