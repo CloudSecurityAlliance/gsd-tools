@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/cloudsecurityalliance/gsd-tools/main/gsd-schema/validation/schema.json",
+  "$id": "https://raw.githubusercontent.com/cloudsecurityalliance/gsd-tools/schema-v1.1.0/gsd-schema/validation/schema.json",
   "title": "GSD Identifier",
   "description": "A schema for describing a GSD identifier.",
   "type": "object",
@@ -32,8 +32,8 @@
           }
         },
         "osvSchema": {
-          "description": "The first-class citizen for GSD data",
-          "$ref": "https://raw.githubusercontent.com/ossf/osv-schema/v1.4.0/validation/schema.json"
+          "description": "The first-class citizen for GSD data, extended version of OSV",
+          "$ref": "https://raw.githubusercontent.com/cloudsecurityalliance/gsd-tools/osv-gsd-v1.0.0/gsd-schema/validation/osv-gsd.json"
         },
         "cve4Schema": {
           "type": "object"
