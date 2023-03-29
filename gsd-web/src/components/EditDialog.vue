@@ -121,7 +121,36 @@
               </div>
             </div>
             <div class="col-12 col-md-6">
-              <div class="text-h6">References</div>
+              <div class="text-h6">Aliases</div>
+              <hr>
+              <template v-for="(alias, index) in gsdAliases" :key="index">
+                <div class="row">
+                  <div class="col-grow">
+                    <q-input
+                      v-model="gsdAliases[index]"
+                      filled
+                      class="flex-grow"
+                      label="ID Alias"
+                    />
+                  </div>
+                  <div class="col-auto">
+                    <q-btn
+                      color="negative"
+                      icon="fa fa-trash"
+                      class="q-ml-xs full-height"
+                      @click="removeAlias(index)"
+                    />
+                  </div>
+                </div>
+                <hr>
+              </template>
+              <q-btn
+                color="positive"
+                icon="fa fa-plus"
+                label="Add Alias"
+                @click="addAlias"
+              />
+              <div class="text-h6 q-mt-md">References</div>
               <hr>
               <template v-for="(reference, index) in gsdReferences" :key="reference.id">
                 <div class="row">
@@ -230,6 +259,7 @@ export default {
     const gsdOriginalSummary = ref('')
     const gsdOriginalDetails = ref('')
     const gsdOriginalReferences = ref([])
+    const gsdOriginalAliases = ref([])
     const gsdOriginalPublished = ref('')
     const gsdOriginalWithdrawn = ref('')
 
@@ -245,7 +275,10 @@ export default {
         gsdOriginalWithdrawn.value = new Date(gsdJsonObject.gsd.osvSchema.withdrawn).toISOString()
       }
       for(const reference of gsdJsonObject.gsd.osvSchema.references) {
-        gsdOriginalReferences.value.push({ type: reference.type, url: reference.url });
+        gsdOriginalReferences.value.push({ type: reference.type, url: reference.url })
+      }
+      for(const alias in gsdJsonObject.gsd.osvSchema.aliases) {
+        gsdOriginalAliases.value.push(alias)
       }
     }
 
@@ -254,6 +287,7 @@ export default {
     // NOTE: Have I mentioned I HATE JavaScript with a FIERY PASSION?
     // (Needing to use JSON to pass an array by value is so incredibly dumb)
     const gsdReferences = ref(JSON.parse(JSON.stringify(gsdOriginalReferences.value)))
+    const gsdAliases = ref(JSON.parse(JSON.stringify(gsdOriginalAliases.value)))
     const gsdPublished = ref(gsdOriginalPublished.value)
     const gsdWithdrawn = ref(gsdOriginalWithdrawn.value)
     const referenceOptions = [
@@ -277,6 +311,7 @@ export default {
             (gsdOriginalSummary.value !== gsdSummary.value) ||
             (gsdOriginalDetails.value !== gsdDetails.value) ||
             (!(_.isEqual(gsdOriginalReferences.value, gsdReferences.value))) ||
+            (!(_.isEqual(gsdOriginalAliases.value, gsdAliases.value))) ||
             (gsdPublished.value !== gsdOriginalPublished.value) ||
             (gsdWithdrawn.value !== gsdOriginalWithdrawn.value)
           )
@@ -292,11 +327,20 @@ export default {
       gsdReferences.value.push({ type: 'WEB', url: '' })
     }
 
+    function removeAlias(index) {
+      gsdAliases.value.splice(index, 1)
+    }
+
+    function addAlias() {
+      gsdAliases.value.push('')
+    }
+
     function resetValues() {
       gsdJson.value = props.gsd_json
       gsdSummary.value = gsdOriginalSummary.value
       gsdDetails.value = gsdOriginalDetails.value
       gsdReferences.value = JSON.parse(JSON.stringify(gsdOriginalReferences.value))
+      gsdAliases.value = JSON.parse(JSON.stringify(gsdOriginalAliases.value))
       gsdPublished.value = gsdOriginalPublished.value
       gsdWithdrawn.value = gsdOriginalWithdrawn.value
     }
@@ -345,6 +389,7 @@ export default {
           tempGsdJson.gsd.osvSchema.summary = gsdSummary.value
           tempGsdJson.gsd.osvSchema.details = gsdDetails.value
           tempGsdJson.gsd.osvSchema.references = JSON.parse(JSON.stringify(tempReferences))
+          tempGsdJson.gsd.osvSchema.aliases = JSON.parse(JSON.stringify(gsdAliases.value))
           if(gsdPublished.value) {
             tempGsdJson.gsd.osvSchema.published = new Date(gsdPublished.value).toISOString()
           } else if(tempGsdJson.gsd.osvSchema.published) {
@@ -404,11 +449,14 @@ export default {
       gsdSummary,
       gsdDetails,
       gsdReferences,
+      gsdAliases,
       gsdPublished,
       gsdWithdrawn,
       referenceOptions,
       removeReference,
       addReference,
+      removeAlias,
+      addAlias,
       resetValues,
       saving,
 
