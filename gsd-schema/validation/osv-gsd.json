@@ -6,8 +6,15 @@
   "description": "A schema for describing a vulnerability in an open source package. OSV-GSD includes extended options and requirements compared to OSV proper.",
   "type": "object",
   "properties": {
+    "schema_type": {
+      "type": "string",
+      "enum": [
+        "OSV-GSD"
+      ]
+    },
     "schema_version": {
-      "type": "string"
+      "type": "string",
+      "enum": ["1.0.0"]
     },
     "id": {
       "type": "string"
@@ -316,6 +323,10 @@
   },
   "required": [
     "id",
-    "modified"
+    "modified",
+    "schema_type",
+    "schema_version",
+    "summary",
+    "details"
   ]
 }
