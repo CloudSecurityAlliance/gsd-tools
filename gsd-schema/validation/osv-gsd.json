@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/cloudsecurityalliance/gsd-tools/osv-gsd-v1.0.0/gsd-schema/validation/osv-gsd.json",
-  "$extends": "https://raw.githubusercontent.com/ossf/osv-schema/v1.4.0/validation/schema.json",
+  "$extends": "https://raw.githubusercontent.com/ossf/osv-schema/v1.4.1/validation/schema.json",
   "title": "Open Source Vulnerability (GSD extended version)",
   "description": "A schema for describing a vulnerability in an open source package. OSV-GSD includes extended options and requirements compared to OSV proper.",
   "type": "object",
@@ -263,11 +263,14 @@
             "enum": [
               "ADVISORY",
               "ARTICLE",
-              "REPORT",
+              "DETECTION",
+              "DISCUSSION",
+              "EVIDENCE",
               "FIX",
               "GIT",
+              "INTRODUCED",
               "PACKAGE",
-              "EVIDENCE",
+              "REPORT",
               "WEB"
             ]
           },
