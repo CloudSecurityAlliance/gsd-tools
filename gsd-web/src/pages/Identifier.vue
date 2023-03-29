@@ -19,8 +19,147 @@
     </div>
 
     <template v-if="validIdentifier">
-      <div class="row items-start justify-evenly q-col-gutter-md q-ma-md">
-        <div class="col-grow">
+      <div class="q-pa-md row items-start q-col-gutter-md">
+        <div class="col-12 col-md-6">
+          <q-card class="full-width">
+            <q-card-section class="bg-primary text-white">
+              <div class="text-subtitle2">Summary</div>
+              <template v-if="osvData.summary">
+                <div class="text-h6">{{ osvData.summary }}</div>
+              </template>
+              <template v-else>
+                <div class="text-h6 text-italic">No summary available for {{ identifier }}</div>
+              </template>
+            </q-card-section>
+
+            <q-separator />
+
+            <q-card-section>
+              <div class="text-h5">Details</div>
+              <template v-if="osvData.details">
+                <q-card class="q-my-md">
+                  <q-card-section><div v-html="detailsHtml"></div></q-card-section>
+                </q-card>
+              </template>
+              <template v-else>
+                <p class="text-italic">No details available for {{ identifier }}</p>
+              </template>
+              <div class="row items-start q-col-gutter-md">
+                <div class="col-12 col-md-6">
+                  <div class="text-h5 q-mt-sm">Affected</div>
+                  <template v-if="osvData.affected">
+                    <ul>
+                      <li v-for="affected, index in osvData.affected" :key="index">
+                        <div class="text-bold" style="display:contents;">Ecosystem:</div> {{ affected.package.ecosystem }}
+                        <br>
+                        <div class="text-bold" style="display:contents;">Name:</div> {{ affected.package.name }}
+                        <br>
+                        <div class="text-bold" style="display:contents;">Ranges:</div>
+                        <ul>
+                          <li v-for="range, index in affected.ranges" :key="index">
+                            <div class="text-bold" style="display:contents;">Type: </div>{{ range.type }}
+                            <br>
+                            <div class="text-bold" style="display:contents;">Repo: </div><a :href="range.repo" target="_blank">{{ range.repo }}</a>
+                            <br>
+                            <div class="text-bold" style="display:contents;">Events:</div>
+                            <ul>
+                              <li v-for="event, index in range.events" :key="index">
+                                <div class="text-bold text-capitalize" style="display:contents;">{{ Object.keys(event)[0] }}:</div> {{ event[Object.keys(event)[0]] }}
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </template>
+                  <template v-else>
+                    <p class="text-italic">No affected versions available for {{ identifier }}</p>
+                  </template>
+                </div>
+                <div class="col-12 col-md-6">
+                  <div class="text-h5 q-mt-sm">Identifiers</div>
+                  <q-list bordered separator>
+                    <q-item clickable v-ripple :href="`https://gsd.id/${identifier}`" target="_blank">
+                      <q-item-section avatar>
+                        <q-icon name="gpp_maybe" />
+                      </q-item-section>
+
+                      <q-item-section>
+                        {{ identifier }}
+                      </q-item-section>
+                    </q-item>
+                    <template v-for="alias, index in osvData.aliases" :key="index">
+                      <template v-if="isGHSA(alias)">
+                        <q-item clickable v-ripple :href="`https://github.com/advisories/${alias}`" target="_blank">
+                          <q-item-section avatar>
+                            <q-icon name="gpp_maybe" />
+                          </q-item-section>
+
+                          <q-item-section>
+                            {{ alias }}
+                          </q-item-section>
+                        </q-item>
+                      </template>
+                      <template v-else>
+                        <q-item>
+                          <q-item-section avatar>
+                            <q-icon name="gpp_maybe" />
+                          </q-item-section>
+
+                          <q-item-section>
+                            {{ alias }}
+                          </q-item-section>
+                        </q-item>
+                      </template>
+                    </template>
+                  </q-list>
+                </div>
+              </div>
+              <div class="text-h5 q-mt-sm">References</div>
+              <template v-if="osvData.references">
+                <q-list bordered separator>
+                  <q-item clickable v-ripple v-for="reference, index in osvData.references" :key="index" :href="reference.url" target="_blank">
+                    <q-item-section avatar>
+                      <template v-if="reference.type == 'ADVISORY'">
+                        <q-icon name="gpp_maybe" />
+                      </template>
+                      <template v-else-if="reference.type == 'ARTICLE'">
+                        <q-icon name="newspaper" />
+                      </template>
+                      <template v-else-if="reference.type == 'REPORT'">
+                        <q-icon name="bug_report" />
+                      </template>
+                      <template v-else-if="reference.type == 'FIX'">
+                        <q-icon name="healing" />
+                      </template>
+                      <template v-else-if="reference.type == 'PACKAGE'">
+                        <q-icon name="code" />
+                      </template>
+                      <template v-else-if="reference.type == 'EVIDENCE'">
+                        <q-icon name="find_in_page" />
+                      </template>
+                      <template v-else>
+                        <q-icon name="public" />
+                      </template>
+                    </q-item-section>
+
+                    <q-item-section>
+                      {{ reference.url }}
+                    </q-item-section>
+
+                    <q-item-section side>
+                      <span class="text-bold">{{ reference.type }}</span>
+                    </q-item-section>
+                  </q-item>
+                </q-list>
+              </template>
+              <template v-else>
+                <p class="text-italic">No references available for {{ identifier }}</p>
+              </template>
+            </q-card-section>
+          </q-card>
+        </div>
+        <div class="col-12 col-md-6">
           <div class="q-pa-md" style="max-width: 100vw;">
             <q-expansion-item
               class="shadow-1 overflow-hidden"
@@ -46,65 +185,6 @@
               </q-card>
             </q-expansion-item>
           </div>
-        </div>
-      </div>
-
-      <div class="row items-start justify-evenly q-col-gutter-md q-ma-md" v-for="namespace in namespaces" :key="namespace">
-        <div class="col-grow">
-          <q-card bordered>
-            <q-card-section class="bg-primary text-white">
-              <div class="text-h5">{{ namespace }}</div>
-            </q-card-section>
-
-            <q-separator />
-
-            <q-card-section horizontal class="bg-primary">
-              <q-markup-table
-                class="bg-primary full-width text-center"
-                dark
-                flat
-                separator="cell"
-              >
-                <thead class="bg-dark">
-                  <tr>
-                    <th>Key</th>
-                    <th>Value</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="key in Object.keys(jsonBlob[namespace])" :key="key">
-                    <td class="text-right">{{ key }}</td>
-                    <td class="text-left">
-                      <div style="max-height: 50vh; max-width: 80vw; overflow: auto;">
-                        <template v-if="isSimpleString(jsonBlob[namespace][key])">
-                          <div style="white-space: pre-line;">
-                            {{ jsonBlob[namespace][key] }}
-                          </div>
-                        </template>
-
-                        <template v-else-if="isArrayOfStrings(jsonBlob[namespace][key])">
-                          <ul>
-                            <li v-for="element in jsonBlob[namespace][key]" :key="element">
-                              {{ element }}
-                            </li>
-                          </ul>
-                        </template>
-
-                        <template v-else-if="isSimpleNumber(jsonBlob[namespace][key])">
-                          {{ jsonBlob[namespace][key] }}
-                        </template>
-
-                        <!-- Fallback to rendering JSON -->
-                        <template v-else>
-                          <pre class="line-numbers" v-if="jsonBlob"><code class="language-json">{{ jsonBlob[namespace][key] }}</code></pre>
-                        </template>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </q-markup-table>
-            </q-card-section>
-          </q-card>
         </div>
       </div>
     </template>
@@ -138,6 +218,10 @@ import { gsdApi } from 'boot/axios'
 // Syntax highlighting for JSON
 import Prism from 'prismjs'
 
+// Sanitize and render markdown
+import DOMPurify from 'dompurify'
+import { marked } from 'marked'
+
 // Edit Dialog Component
 import EditDialog from 'components/EditDialog.vue'
 
@@ -152,6 +236,25 @@ export default defineComponent({
     const identifier = ref(decodeURIComponent($route.params.id))
     const jsonBlob = ref('')
     const validIdentifier = ref(true)
+    const osvData = computed(
+      () => {
+        if(jsonBlob.value && jsonBlob.value.gsd !== undefined && jsonBlob.value.gsd.osvSchema !== undefined) {
+          return jsonBlob.value.gsd.osvSchema
+        } else {
+          return {}
+        }
+      }
+    )
+    const detailsHtml = computed(
+      () => {
+        if(osvData.value.details) {
+          const html = DOMPurify.sanitize(marked.parse(osvData.value.details))
+          return html
+        } else {
+          return "<!-- No Content -->"
+        }
+      }
+    )
 
     function updateJsonBlob() {
       validIdentifier.value = true
@@ -182,25 +285,6 @@ export default defineComponent({
     // Update on mount
     updateJsonBlob()
 
-    const namespaces = computed(
-      () => {
-        if (typeof jsonBlob.value != 'object') { return [] }
-
-        if(jsonBlob.value.hasOwnProperty('namespaces') && typeof jsonBlob.value.namespaces == 'object') {
-          const rootLevelKeys = Object.keys(jsonBlob.value).filter(
-            (key) => {
-              return key !== 'namespaces'
-            }
-          )
-          const namespacedKeys = Object.keys(jsonBlob.value.namespaces)
-
-          return [...rootLevelKeys, ...namespacedKeys]
-        } else {
-          return Object.keys(jsonBlob.value)
-        }
-      }
-    )
-
     watch(
       () => jsonBlob.value,
       (newValue) => {
@@ -223,6 +307,10 @@ export default defineComponent({
 
     function isValidIdentifier(value) {
       return (value.match(/^GSD-\d{4}-\d{4,}$/))
+    }
+
+    function isGHSA(value) {
+      return (value.match(/^GHSA-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}$/))
     }
 
     function isSimpleString(value) {
@@ -267,34 +355,20 @@ export default defineComponent({
     return {
       jsonBlob,
       identifier,
-      namespaces,
       validIdentifier,
+      osvData,
+      detailsHtml,
       //
       editGSD,
       //
       isSimpleString,
       isSimpleNumber,
       isArrayOfStrings,
+      isGHSA,
     }
   }
 })
 </script>
 
 <style lang="sass">
-// FIXME: I hate css, and it hates me. Please make this look prettier.
-.fancy-table
-  width: 100%
-  border: 1px solid
-  border-collapse: collapse
-  td
-    border: 1px solid #ddd
-    padding: 8px
-  tr:nth-child(even)
-    background-color: #f2f2f2
-  td:hover // I'm very tempted to remove this hover effect, tbh.
-    background-color: #ddd
-  td:nth-child(odd)
-    background-color: #0b2f5e
-    color: white
-    font-weight: bold
 </style>

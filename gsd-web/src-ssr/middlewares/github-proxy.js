@@ -147,7 +147,7 @@ export default ssrMiddleware(async ({ app, resolve }) => {
           owner: 'cloudsecurityalliance',
           repo: 'gsd-database',
           title: title,
-          body: 'This pull request was created using https://data.gsd.id',
+          body: `This pull request was created using https://data.gsd.id/${identifier}`,
           head: branchHead,
           base: 'main',
           maintainer_can_modify: true
