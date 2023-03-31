@@ -46,7 +46,7 @@ module GSD
           raw_json: raw_json_data,
           gsd_id: new_gsd_entry['gsd']['osvSchema']['id']
         )
-        contents = JSON.pretty_generate(new_gsd_entry, indent: indent) + "\n"
+        contents = json_string(input: new_gsd_entry, indent: indent) + "\n"
         File.write(file_path, contents)
         add_file(file_path)
         puts "Staged changes!"
@@ -74,6 +74,10 @@ module GSD
     end
 
     private
+
+    def json_string(input:, indent:, ascii_only: false)
+      JSON.pretty_generate(input, indent: indent, ascii_only: ascii_only).gsub(/\[\s*\]/, '[]')
+    end
 
     def exists?
       File.directory?(@repo_path) &&
@@ -103,11 +107,17 @@ module GSD
     end
 
     def json_indent_value(parsed_json:, raw_json:, gsd_id:)
-      two_spaces = JSON.pretty_generate(parsed_json, indent: '  ')
-      four_spaces = JSON.pretty_generate(parsed_json, indent: '    ')
-      if raw_json == two_spaces
+      two_spaces = json_string(input: parsed_json, indent: '  ')
+      four_spaces = json_string(input: parsed_json, indent: '    ')
+      two_spaces_with_newline = two_spaces + "\n"
+      four_spaces_with_newline = four_spaces + "\n"
+      two_spaces_ascii_only = json_string(input: parsed_json, indent: '  ', ascii_only: true)
+      four_spaces_ascii_only = json_string(input: parsed_json, indent: '    ', ascii_only: true)
+      variations_of_two_spaces = [two_spaces, two_spaces_with_newline, two_spaces_ascii_only]
+      variations_of_four_spaces = [four_spaces, four_spaces_with_newline, four_spaces_ascii_only]
+      if variations_of_two_spaces.include?(raw_json)
         '  '
-      elsif raw_json == four_spaces
+      elsif variations_of_four_spaces.include?(raw_json)
         '    '
       else
         puts 'Failed to auto-detect spacing, falling back to ID range assumptions'
