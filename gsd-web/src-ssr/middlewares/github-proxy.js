@@ -75,7 +75,7 @@ export default ssrMiddleware(async ({ app, resolve }) => {
       const title = `Update Request - ${identifier}`
       const fileContent = btoa(req.body.file_content)
       const username = req.session.username
-      const branchName = `automated/${identifier}`
+      const branchName = `automated/data.gsd.id/${identifier}`
       const branchRef = `refs/heads/${branchName}`
       const branchHead = `${username}:${branchName}`
 
