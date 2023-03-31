@@ -46,7 +46,8 @@ module GSD
           raw_json: raw_json_data,
           gsd_id: new_gsd_entry['gsd']['osvSchema']['id']
         )
-        contents = json_string(input: new_gsd_entry, indent: indent) + "\n"
+        # Sort by key and include a trailing newline
+        contents = json_string(input: new_gsd_entry.sort.to_h, indent: indent) + "\n"
         File.write(file_path, contents)
         add_file(file_path)
         puts "Staged changes!"
