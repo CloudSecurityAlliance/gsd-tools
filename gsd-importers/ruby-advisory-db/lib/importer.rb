@@ -32,8 +32,6 @@ gsd_database = GSD::Database.new(
 )
 gsd_database.sync!
 
-count = 0
-MAX_FILES_PER_COMMIT = 500
 NAMESPACE = 'github.com/rubysec/ruby-advisory-db'
 
 puts "Parsing advisories..."
@@ -58,9 +56,6 @@ rubysec_database.send(:each_advisory_path) do |path|
     gsd_entry['gsd'] = {} if gsd_entry['gsd'].nil?
     gsd_entry['gsd']['osvSchema'] = advisory.to_osv if gsd_entry['gsd']['osvSchema'].nil?
   end
-
-  count += 1
-  break if (count >= MAX_FILES_PER_COMMIT)
 end
 
 puts "Saving changes to branch"
