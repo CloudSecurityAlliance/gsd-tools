@@ -3,8 +3,8 @@ require 'byebug'
 require 'diffy'
 
 require_relative 'advisory'
-require_relative 'database'
 require 'bundler/audit/database'
+require 'gsd-database'
 
 puts "Checking if RubySec Database exists..."
 
@@ -16,8 +16,20 @@ else
   Bundler::Audit::Database.download
 end
 
+GIT_REPO = 'https://github.com/cloudsecurityalliance/gsd-database.git'
+GIT_FORK = ENV.fetch('GSD_DATABASE_FORK', GIT_REPO)
+GSD_DATABASE_PATH = ENV.fetch(
+  'GSD_DATABASE_PATH',
+  File.expand_path(File.join(Gem.user_home,'.local','share','gsd-database'))
+)
+
 puts "Syncing GSD Database (this may take a while)..."
-gsd_database = GSD::Database.new(work_branch: 'automated/ruby-advisory-db')
+gsd_database = GSD::Database.new(
+  work_branch: 'automated/ruby-advisory-db',
+  git_repo: GIT_REPO,
+  git_fork: GIT_FORK,
+  repo_path: GSD_DATABASE_PATH
+)
 gsd_database.sync!
 
 count = 0
