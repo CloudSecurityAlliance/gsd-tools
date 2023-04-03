@@ -3,7 +3,8 @@
     <img
       alt="Atlas GSD Mascot"
       src="~assets/atlas.png"
-      style="width: 75vw; max-width: 600px;"
+      class="q-pa-lg"
+      style="width: 75vw; max-width: 300px;"
     >
   </q-page>
 </template>
