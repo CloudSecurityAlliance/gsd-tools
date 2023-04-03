@@ -13,14 +13,14 @@
         </div>
 
         <div class="text-center" v-if="validIdentifier">
-          <q-btn class="q-ma-md" color="positive" label="Edit" @click="editGSD" />
+          <q-btn class="q-ma-md" color="positive" label="Edit" @click="editGSD" :loading="!jsonBlob" />
         </div>
       </div>
     </div>
 
     <template v-if="validIdentifier">
       <div class="q-pa-md row items-start q-col-gutter-md">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-7">
           <q-card class="full-width">
             <q-card-section class="bg-primary text-white">
               <div class="text-subtitle2">Summary</div>
@@ -118,7 +118,14 @@
               <div class="text-h5 q-mt-sm">References</div>
               <template v-if="osvData.references">
                 <q-list bordered separator>
-                  <q-item clickable v-ripple v-for="reference, index in osvData.references" :key="index" :href="reference.url" target="_blank">
+                  <q-item
+                    clickable
+                    v-ripple
+                    v-for="reference, index in osvData.references"
+                    :key="index"
+                    :href="reference.url"
+                    target="_blank"
+                  >
                     <q-item-section avatar>
                       <template v-if="reference.type == 'ADVISORY'">
                         <q-icon name="gpp_maybe" />
@@ -159,7 +166,7 @@
             </q-card-section>
           </q-card>
         </div>
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-5">
           <div class="q-pa-md" style="max-width: 100vw;">
             <q-expansion-item
               class="shadow-1 overflow-hidden"
@@ -330,6 +337,11 @@ export default defineComponent({
       )
     }
 
+    const username = ref('')
+    username.value = $q.cookies.get('GSD-USERNAME')
+
+    const loginURL = `https://github.com/login/oauth/authorize?client_id=${process.env.GSD_GITHUB_KEY}&scope=public_repo`
+
     function editGSD() {
       // TODO: Raise error or something?
       if (!isValidIdentifier(identifier.value)) { return }
@@ -342,14 +354,33 @@ export default defineComponent({
 
       // const editUrl = `${repo}/edit/${branch}/${year}/${thousands}/${identifier.value}.json`
 
-      $q.dialog({
-        component: EditDialog,
+      if(username.value) {
+        $q.dialog({
+          component: EditDialog,
 
-        componentProps: {
-          gsd_json: JSON.stringify(jsonBlob.value, null, 2),
-          identifier: identifier.value
-        }
-      })
+          componentProps: {
+            gsd_json: JSON.stringify(jsonBlob.value, null, 2),
+            identifier: identifier.value
+          }
+        })
+      } else {
+        $q.dialog({
+          title: 'Currently Signed Out',
+          message: 'To edit a GSD entry, you must first login to GitHub.',
+          ok: {
+            label: 'Sign in with GitHub',
+            icon: 'fab fa-github',
+            color: 'black'
+          },
+          cancel: true
+        }).onOk(
+          () => {
+            const currentPath = encodeURI($route.path)
+            $q.cookies.set('returnTo', currentPath)
+            window.open(loginURL, '_self')
+          }
+        )
+      }
     }
 
     return {
