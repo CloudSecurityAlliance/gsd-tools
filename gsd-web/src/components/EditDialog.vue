@@ -121,7 +121,7 @@
               </div>
               <div class="text-h6 q-mt-md">Severity</div>
               <hr>
-              <template v-for="(severity, index) in gsdSeverity" :key="severity.id">
+              <template v-for="(severity, index) in gsdSeverity" :key="index">
                 <div class="row">
                   <div class="col-auto">
                     <q-select
@@ -311,7 +311,6 @@
                 <q-btn
                   color="negative"
                   icon="fa fa-trash"
-                  class="full-height"
                   label="Remove Affected"
                   @click="removeAffected(index)"
                 />
@@ -328,8 +327,15 @@
                     <q-input
                       v-model="affected.package.name"
                       filled
-                      class="flex-grow q-ml-xs"
+                      class="flex-grow q-mx-xs"
                       label="Package Name"
+                    />
+                  </div>
+                  <div class="col-auto">
+                    <q-input
+                      v-model="affected.package.purl"
+                      filled
+                      label="Package URL"
                     />
                   </div>
                 </div>
@@ -341,6 +347,146 @@
                       class="q-mt-xs"
                       label="Other Ecosystem"
                       v-if="affected.package.ecosystem === 'OTHER'"
+                    />
+                  </div>
+                </div>
+                <hr>
+                <div class="row q-mt-xs">
+                  <div class="col-6">
+                    <template v-for="(range, index) in affected.ranges" :key="index">
+                      <q-btn
+                        color="negative"
+                        icon="fa fa-trash"
+                        label="Remove Range"
+                        @click="removeAffectedRange(affected, index)"
+                      />
+                      <div class="q-mt-xs">
+                        <span class="text-bold">Range</span>
+                      </div>
+                      <div class="row">
+                        <div class="col-auto">
+                          <q-select
+                            v-model="range.type"
+                            :options="rangeOptions"
+                            filled
+                            label="Type"
+                          />
+                        </div>
+                        <div class="col-grow">
+                          <q-input
+                            v-model="range.repo"
+                            filled
+                            class="q-mx-xs"
+                            label="Repo"
+                          />
+                        </div>
+                      </div>
+                      <div class="q-mt-xs">
+                        <span class="text-bold">Range Events</span>
+                      </div>
+                      <template v-for="(event, index) in range.events" :key="index">
+                        <div class="row q-mt-xs">
+                          <div class="col-auto">
+                            <q-select
+                              v-model="event.type"
+                              :options="eventOptions"
+                              filled
+                              label="Type"
+                            />
+                          </div>
+                          <div class="col-grow">
+                            <q-input
+                              v-model="event.value"
+                              filled
+                              class="q-mx-xs"
+                              label="Value"
+                            />
+                          </div>
+                          <div class="col-auto">
+                            <q-btn
+                              color="negative"
+                              icon="fa fa-trash"
+                              class="q-mr-xs full-height"
+                              @click="removeRangeEvent(range, index)"
+                            />
+                          </div>
+                        </div>
+                      </template>
+                      <q-btn
+                        color="positive"
+                        icon="fa fa-plus"
+                        label="Add Event"
+                        class="q-mt-xs"
+                        @click="addRangeEvent(range)"
+                      />
+                      <hr>
+                    </template>
+                    <q-btn
+                      color="positive"
+                      icon="fa fa-plus"
+                      label="Add Range"
+                      @click="addAffectedRange(affected)"
+                    />
+                  </div>
+                  <div class="col-6">
+                    <q-select
+                      label="Versions"
+                      filled
+                      v-model="affected.package.versions"
+                      use-input
+                      use-chips
+                      multiple
+                      hide-dropdown-icon
+                      clearable
+                      input-debounce="0"
+                      new-value-mode="add-unique"
+                      class="q-mb-xs"
+                    />
+                    <hr>
+                    <template v-for="(severity, index) in affected.severity" :key="index">
+                      <div class="row">
+                        <div class="col-auto">
+                          <q-select
+                            v-model="severity.type"
+                            :options="severityOptions"
+                            filled
+                            label="Type"
+                          />
+                        </div>
+                        <div class="col-grow">
+                          <q-input
+                            v-model="severity.score"
+                            filled
+                            class="q-ml-xs flex-grow"
+                            label="Score"
+                          />
+                        </div>
+                        <div class="col-auto">
+                          <q-btn
+                            color="negative"
+                            icon="fa fa-trash"
+                            class="q-ml-xs full-height"
+                            @click="removeAffectedSeverity(affected, index)"
+                          />
+                        </div>
+                      </div>
+                      <div class="row q-mt-xs">
+                        <div class="col-12">
+                          <q-input
+                            v-model="severity.other_type"
+                            filled
+                            label="Other Type"
+                            v-if="severity.type === 'OTHER'"
+                          />
+                        </div>
+                      </div>
+                      <hr>
+                    </template>
+                    <q-btn
+                      color="positive"
+                      icon="fa fa-plus"
+                      label="Add Severity"
+                      @click="addAffectedSeverity(affected)"
                     />
                   </div>
                 </div>
@@ -668,14 +814,18 @@ export default {
     }
 
     function addAffectedSeverity(affected) {
+      if(affected.severity === undefined) affected.severity = [];
+
       affected.severity.push({ type: 'CVSS_V2', score: '' })
     }
 
-    function removeAffectedRanges(affected, index) {
+    function removeAffectedRange(affected, index) {
       affected.ranges.splice(index, 1)
     }
 
-    function addAffectedRanges(affected) {
+    function addAffectedRange(affected) {
+      if(affected.ranges === undefined) affected.ranges = [];
+
       affected.ranges.push({
         type: 'SEMVER',
         repo: '',
@@ -688,6 +838,8 @@ export default {
     }
 
     function addRangeEvent(range) {
+      if(range.events === undefined) range.events = [];
+
       range.events.push({
         type: 'introduced',
         value: ''
@@ -766,6 +918,7 @@ export default {
         } else {
           let tempGsdJson = JSON.parse(props.gsd_json);
           let tempCredits = JSON.parse(JSON.stringify(gsdCredits.value))
+          let tempAffected = JSON.parse(JSON.stringify(gsdAffected.value))
           let tempReferences = JSON.parse(JSON.stringify(gsdReferences.value))
           let tempSeverity = JSON.parse(JSON.stringify(gsdSeverity.value))
 
@@ -775,6 +928,56 @@ export default {
                 credit.type = credit.other_type
               }
               delete(credit.other_type)
+            }
+          )
+
+          // It's turtles all the way down
+          tempAffected.forEach(
+            (affected) => {
+              if(affected.package.ecosystem === 'OTHER' && affected.package.other_ecosystem !== undefined) {
+                affected.package.ecosystem = affected.package.other_ecosystem
+              }
+              delete(affected.package.other_type)
+
+              if(affected.severity) {
+                affected.severity.forEach(
+                  (severity) => {
+                    if(severity.type === 'OTHER' && severity.other_type !== undefined) {
+                      severity.type = severity.other_type
+                    }
+                    delete(severity.other_type)
+                  }
+                )
+              }
+
+              if(affected.ranges) {
+                affected.ranges.forEach(
+                  (range) => {
+                    if(range.type === 'OTHER' && range.other_type !== undefined) {
+                      range.type = range.other_type
+                    }
+                    delete(range.other_type)
+
+                    if(range.events) {
+                      let events = []
+                      range.events.forEach(
+                        (event) => {
+                          if(event.type === 'introduced') {
+                            events.push({ introduced: event.value })
+                          } else if(event.type === 'fixed') {
+                            events.push({ fixed: event.value })
+                          } else if(event.type === 'last_affected') {
+                            events.push({ last_affected: event.value })
+                          } else if(event.type === 'limit') {
+                            events.push({ limit: event.value })
+                          }
+                        }
+                      )
+                      range.events = events
+                    }
+                  }
+                )
+              }
             }
           )
 
@@ -804,6 +1007,7 @@ export default {
           tempGsdJson.gsd.osvSchema.summary = gsdSummary.value
           tempGsdJson.gsd.osvSchema.details = gsdDetails.value
           tempGsdJson.gsd.osvSchema.credits = JSON.parse(JSON.stringify(tempCredits))
+          tempGsdJson.gsd.osvSchema.affected = JSON.parse(JSON.stringify(tempAffected))
           tempGsdJson.gsd.osvSchema.references = JSON.parse(JSON.stringify(tempReferences))
           tempGsdJson.gsd.osvSchema.severity = JSON.parse(JSON.stringify(tempSeverity))
           tempGsdJson.gsd.osvSchema.aliases = JSON.parse(JSON.stringify(gsdAliases.value))
@@ -886,8 +1090,8 @@ export default {
       addAffected,
       removeAffectedSeverity,
       addAffectedSeverity,
-      removeAffectedRanges,
-      addAffectedRanges,
+      removeAffectedRange,
+      addAffectedRange,
       removeRangeEvent,
       addRangeEvent,
       removeAffectedVersions,
