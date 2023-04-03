@@ -703,6 +703,8 @@ export default {
     const referenceOptions = [
       'ADVISORY',
       'ARTICLE',
+      'DISCUSSION',
+      'DETECTION',
       'REPORT',
       'FIX',
       'GIT',
