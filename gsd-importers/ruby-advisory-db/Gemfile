@@ -1,0 +1,14 @@
+source 'https://rubygems.org'
+
+# Hello, I'm a ruby on rails addict, and I've been clean for 0 days.
+gem 'activesupport'
+# Used to simplify pulling down the ruby-advisory-db
+gem 'bundler-audit'
+# Used to pull down gsd-database and create commits
+gem 'git'
+# Used for debugging
+gem 'byebug'
+# Used for debugging output differences
+gem 'diffy'
+# Used to access and manipulate the GSD Database
+gem 'gsd-database'
