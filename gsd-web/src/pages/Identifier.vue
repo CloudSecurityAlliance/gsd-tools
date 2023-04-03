@@ -89,8 +89,8 @@
                       </q-item-section>
                     </q-item>
                     <template v-for="alias, index in osvData.aliases" :key="index">
-                      <template v-if="isGHSA(alias)">
-                        <q-item clickable v-ripple :href="`https://github.com/advisories/${alias}`" target="_blank">
+                      <template v-if="hasAliasLink(alias)">
+                        <q-item clickable v-ripple :href="aliasLink(alias)" target="_blank">
                           <q-item-section avatar>
                             <q-icon name="gpp_maybe" />
                           </q-item-section>
@@ -312,12 +312,83 @@ export default defineComponent({
       }
     )
 
+    function hasAliasLink(alias) {
+      return (
+        isAndroid(alias) ||
+        isGo(alias) ||
+        isOSV(alias) ||
+        // isPYSEC(alias) || // Broken due to unpredictable canonical URL
+        isRUSTSEC(alias) ||
+        isGSD(alias) ||
+        isGHSA(alias) ||
+        // isLBSEC(alias) || // Abandoned?
+        // isDSA(alias) || // Broken due to unpredictable canonical URL
+        isCVE(alias)
+      )
+    }
+
+    function aliasLink(alias) {
+      if(isAndroid(alias)) {
+        return `https://storage.googleapis.com/android-osv/${alias}.json`
+      } else if(isGo(alias)) {
+        return `https://pkg.go.dev/vuln/${alias}`
+      } else if(isOSV(alias)) {
+        return `https://osv.dev/vulnerability/${alias}`
+      } else if(isRUSTSEC(alias)) {
+        return `https://rustsec.org/advisories/${alias}`
+      } else if(isGSD(alias)) {
+        return `https://gsd.id/${alias}`
+      } else if(isGHSA(alias)) {
+        return `https://github.com/advisories/${alias}`
+      } else if(isCVE(alias)) {
+        return `https://www.cve.org/CVERecord?id=${alias}`
+      } else {
+        return '#'
+      }
+    }
+
     function isValidIdentifier(value) {
+      return isGSD(value)
+    }
+
+    function isAndroid(value) {
+      return (value.match(/^(ASB-A|A)-\d{4,}$/))
+    }
+
+    function isGo(value) {
+      return (value.match(/^GO-\d{4}-\d{4,}$/))
+    }
+
+    function isOSV(value) {
+      return (value.match(/^OSV-\d{4}-\d{1,}$/))
+    }
+
+    // function isPYSEC(value) {
+    //   return (value.match(/^PYSEC-\d{4}-\d{1,}$/))
+    // }
+
+    function isRUSTSEC(value) {
+      return (value.match(/^RUSTSEC-\d{4}-\d{4,}$/))
+    }
+
+    function isGSD(value) {
       return (value.match(/^GSD-\d{4}-\d{4,}$/))
     }
 
     function isGHSA(value) {
       return (value.match(/^GHSA-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}$/))
+    }
+
+    // function isLBSEC(value) {
+    //   return (value.match(/^lbsa-\d{8}$/))
+    // }
+
+    // function isDSA(value) {
+    //   return (value.match(/^DSA-\d{4}$/))
+    // }
+
+    function isCVE(value) {
+      return (value.match(/^CVE-\d{4}-\d{4,}$/))
     }
 
     function isSimpleString(value) {
@@ -389,6 +460,8 @@ export default defineComponent({
       validIdentifier,
       osvData,
       detailsHtml,
+      hasAliasLink,
+      aliasLink,
       //
       editGSD,
       //
