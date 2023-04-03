@@ -40,10 +40,19 @@ export default ssrMiddleware(async ({ app, resolve }) => {
 
       req.session.username = userResponse.data['login']
 
-      res.redirect('/home')
+      // FIXME: This is probably hilariously insecure.
+      const returnTo = req.cookies.returnTo ? req.cookies.returnTo : '/home'
+      res.clearCookie('returnTo')
+
+      res.redirect(returnTo)
     } catch(error) {
       console.log(error)
-      res.redirect('/home')
+
+      // FIXME: This is probably hilariously insecure.
+      const returnTo = req.cookies.returnTo ? req.cookies.returnTo : '/home'
+      res.clearCookie('returnTo')
+
+      res.redirect(returnTo)
     }
   })
 
