@@ -263,8 +263,11 @@ class GSDRepo:
                     raise Exception("Unknown kernel note")
 
             c["references"] = []
-            for i in issue_data["references"]:
-                c["references"].append({"type": "WEB", "url": i})
+            for i in issue_data["extended_references"]:
+                c["references"].append({
+                    "type": i["note"].upper(),
+                    "url": f"https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id={i['value']}"
+                })
 
             c["affected"][0]["ranges"].append({
                 "type": "SEMVER",
