@@ -263,19 +263,16 @@ class GSDRepo:
                     raise Exception("Unknown kernel note")
 
             c["references"] = []
-            for i in issue_data["references"]:
-                c["references"].append({"type": "WEB", "url": i})
+            for i in issue_data["extended_references"]:
+                c["references"].append({
+                    "type": i["note"].upper(),
+                    "url": f"https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id={i['value']}"
+                })
 
-            c["affected"].append({
-                "package": {
-                    "name": "Kernel",
-                    "ecosystem": "Linux"
-                },
-                "ranges": [{
-                    "type": "SEMVER",
-                    "repo": "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/",
-                    "events": [{"introduced": issue_data["introduced_version"]}, {"fixed": issue_data["fixed_version"]}]
-                }]
+            c["affected"][0]["ranges"].append({
+                "type": "SEMVER",
+                "repo": "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/",
+                "events": [{"introduced": issue_data["introduced_version"]}, {"fixed": issue_data["fixed_version"]}]
             })
         else:
             # We're not looking at kernel issues
