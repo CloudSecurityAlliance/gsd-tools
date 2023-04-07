@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "gsd-database"
+version = "0.0.0"
+authors = [
+  { name="Josh Buker", email="crypto@joshbuker.com" },
+]
+description = "Provides an easy way to interact with the GSD Database via Python."
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/cloudsecurityalliance/gsd-tools"
+"Bug Tracker" = "https://github.com/cloudsecurityalliance/gsd-tools/issues"
