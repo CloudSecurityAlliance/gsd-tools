@@ -6,8 +6,10 @@
 /docker-compose @joshbressers
 /gsd-analysis @tdunlap607
 /gsd-api @joshbuker
-/gsd-bot @joshbressers
 /gsd-github-actions @joshbressers
+/gsd-importers/linux-kernel @joshbressers
+/gsd-importers/ruby-advisory-db @joshbuker
+/gsd-libraries @joshbuker
 /gsd-requests @joshbressers
 /gsd-schema @joshbuker
 /gsd-strategy @kurtseifried

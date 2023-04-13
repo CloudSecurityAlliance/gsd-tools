@@ -14,6 +14,7 @@ theme: minima
 plugins:
   - jekyll-seo-tag
   - jekyll-feed
+  - jekyll-redirect-from
 
 # NOTE: Minima themes are to be released in v3.0 (not yet supported)
 # minima:
