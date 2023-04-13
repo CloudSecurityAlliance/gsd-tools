@@ -1,10 +1,14 @@
 ---
 title: Contributing Data to GSD
+permalink: /contribute/database
+redirect_from:
+  - /contribute/data
+  - /contribute/gsd-database
 ---
 
-There are several ways to contribute or modify GSD data: 
+There are several ways to contribute or modify GSD data:
 (1) via the website, and
-(2) via pull requests, and 
+(2) via pull requests, and
 (3) by filing issues
 For small updates, we recommend using the website.
 For larger bulk additions, we recommend a pull request (and a heads up).
@@ -15,7 +19,7 @@ This is currently partially implemented, the edit button will generate an issue 
 
 ## Contributing via Pull Requests
 
-The GSD database uses a standard fork and PR request model for making contributions. 
+The GSD database uses a standard fork and PR request model for making contributions.
 
 ## Helping with Issues
 

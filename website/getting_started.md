@@ -28,7 +28,7 @@ View the calendar: [https://csaurl.org/gsd-calendar](https://csaurl.org/gsd-cale
 ### Contribute
 
 How would you like to contribute to GSD?
-* I want to contribute to or modify the [database]({% link contribute/data.md %}).
+* I want to contribute to or modify the [database]({% link contribute/database.md %}).
 * I want to contribute to or modify the [tools]({% link contribute/tools.md %}).
 
 ## Stay Informed
