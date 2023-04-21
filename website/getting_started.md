@@ -5,6 +5,10 @@ permalink: /getting-started
 
 ## Using GSD IDs
 
+How would you like to use the GSD Database?
+* I want to use the data to [secure my systems]({% link consume/end-user.md %}).
+* I want to use the data and [publish it]({% link consume/publisher.md %}).
+
 Currently, all the data is provided via Git. In the future, we plan to provide an API. [If you want to contribute to the API work, click here.](https://github.com/cloudsecurityalliance/gsd-tools/labels/api)
 
 View the database: <a href="https://github.com/cloudsecurityalliance/gsd-database" target="_blank">https://github.com/cloudsecurityalliance/gsd-database</a>
