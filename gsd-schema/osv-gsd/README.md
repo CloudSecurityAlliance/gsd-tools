@@ -30,7 +30,7 @@ We need to explicitly know what type of data this is, as do downstream consumers
 Upstream: https://github.com/ossf/osv-schema/pull/147
 Released in OSV schema: 1.5.0
 
-We need to explicitly set what the last affected version is for software like the Linux Kernel.
+For situations like the Linux Kernel, there may be a known last affected version, but no fixed version (e.g. the functionality with the vulnerability was completely removed).
 
 ## {"references": [ {"DETECTION": string,}]}
 
