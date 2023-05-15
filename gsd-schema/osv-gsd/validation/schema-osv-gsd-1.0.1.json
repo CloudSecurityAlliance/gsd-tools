@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://schema.gsd.id/gsd.id/osv-gsd/schema-osv-gsd-1.0.0.json",
+  "$id": "https://schema.gsd.id/gsd.id/osv-gsd/schema-osv-gsd-1.0.1.json",
   "title": "Open Source Vulnerability",
   "description": "A schema for describing a vulnerability in an open source package.",
   "type": "object",
@@ -311,7 +311,9 @@
   },
   "required": [
     "id",
-    "modified"
+    "modified",
+    "schema_type",
+    "osv_gsd_schema_version"
   ],
   "$defs": {
     "severity": {

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/cloudsecurityalliance/gsd-tools/main/gsd-schema/validation/schema.json",
+  "$id": "https://schema.gsd.id/gsd.id/gsd/schema.json",
   "title": "GSD Identifier",
   "description": "A schema for describing a GSD identifier.",
   "type": "object",
