@@ -33,7 +33,7 @@
         },
         "osvSchema": {
           "description": "The first-class citizen for GSD data",
-          "$ref": "https://schema.gsd.id/osv.dev/osv/schema.json"
+          "$ref": "https://schema.gsd.id/gsd.id/osv-gsd/schema.json"
         },
         "cve4Schema": {
           "type": "object"
