@@ -70,19 +70,19 @@ class CVE:
         filename = self.get_filename(create=True)
 
         old_data = ""
-        new_data = json.dumps(self.json, sort_keys=True, indent=2)
+        new_data = json.dumps(self.json, sort_keys=True, indent=4)
 
         if os.path.exists(filename):
             with open(filename) as fh:
                 # We load and re-encode the json, because something weird
                 # things happen if we just try to read it directly
                 old_json = json.load(fh)
-                old_data = json.dumps(old_json, sort_keys=True, indent=2)
+                old_data = json.dumps(old_json, sort_keys=True, indent=4)
 
         # Only update the file if something changed
         if old_data != new_data:
             with open(filename, 'w') as fh:
-                fh.write(json.dumps(self.json, sort_keys=True, indent=2))
+                fh.write(json.dumps(self.json, sort_keys=True, indent=4))
             return True
         return False
 
