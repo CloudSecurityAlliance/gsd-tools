@@ -23,7 +23,7 @@ def main():
     print("Getting %d IDs" % nvd.total)
 
     for i in nvd:
-        the_id = i['cve']['CVE_data_meta']['ID']
+        the_id = i['cve']['id']
         # We need to put these in the NVD namespace
         c = securitylist.CVE(the_id)
         c.add_data('nvd.nist.gov', i)

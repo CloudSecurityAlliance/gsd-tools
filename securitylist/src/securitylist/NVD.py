@@ -4,6 +4,7 @@
 import requests
 import datetime
 import time
+import json
 
 class UnexpectedResults(Exception):
     pass
@@ -14,7 +15,7 @@ class NVD:
         self.now = datetime.datetime.utcnow()
         self.total = 0
         self.index = 0
-        self.nvd_url = "https://services.nvd.nist.gov/rest/json/cves/1.0"
+        self.nvd_url = "https://services.nvd.nist.gov/rest/json/cves/2.0"
         self.payload = {}
         self.last_update = self.now
 
@@ -28,8 +29,8 @@ class NVD:
         mi = ts.minute
         s = ts.second
 
-        return f"{y}-{m:02}-{d:02}T{h:02}:{mi:02}:{s:02}:000 UTC-00:00"
-        #return f"{y}-{m:02}-{d:02}T{h:02}:{mi:02}:{s:02}:000+00:00"
+        return f"{y}-{m:02}-{d:02}T{h:02}:{mi:02}:{s:02}.000"
+        #return f"{y}-{m:02}-{d:02}T{h:02}:{mi:02}:{s:02}.000"
 
     def get_end_time_str(self):
 
@@ -42,12 +43,12 @@ class NVD:
         mi = ts.minute
         s = ts.second
 
-        return f"{y}-{m:02}-{d:02}T{h:02}:{mi:02}:{s:02}:000"
+        return f"{y}-{m:02}-{d:02}T{h:02}:{mi:02}:{s:02}.000"
 
     def get_range(self, start, end):
 
         if start is None:
-            self.start_time = datetime.datetime.fromisoformat("1990-01-01T00:00:00:000")
+            self.start_time = datetime.datetime.fromisoformat("1990-01-01T00:00:00.000")
         else:
             self.start_time = datetime.datetime.fromisoformat(start)
 
@@ -82,8 +83,8 @@ class NVD:
         self.payload = {
             "startIndex": self.index,
             "resultsPerPage": 500,
-            "modStartDate": self.__get_time__(self.start_time),
-            "modEndDate": self.__get_time__(self.end_time)
+            "lastModStartDate": self.__get_time__(self.start_time),
+            "lastModEndDate": self.__get_time__(self.end_time)
         }
 
         response = requests.get(self.nvd_url, params=self.payload)
@@ -100,13 +101,13 @@ class NVD:
         if self.iter_n == self.total:
                 raise StopIteration
 
-        if self.iter_current == len(self.data["result"]["CVE_Items"]):
+        if self.iter_current == len(self.data["vulnerabilities"]):
             # Time to paginate
             self.iter_current = 0
             self.page = self.page + 1
             self.get_page(self.page)
 
-        to_return = self.data["result"]["CVE_Items"][self.iter_current]
+        to_return = self.data["vulnerabilities"][self.iter_current]
         self.iter_n = self.iter_n + 1
         self.iter_current = self.iter_current + 1
         return to_return

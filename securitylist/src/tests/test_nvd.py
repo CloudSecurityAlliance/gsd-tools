@@ -26,9 +26,9 @@ def mocked_requests_get(*args, **kwargs):
         def raise_for_status(self):
             pass
 
-    if args[0] == 'https://services.nvd.nist.gov/rest/json/cve/1.0/CVE-1000-0001':
+    if args[0] == 'https://services.nvd.nist.gov/rest/json/cve/2.0/CVE-1000-0001':
         return MockResponse(200)
-    elif args[0] == 'https://services.nvd.nist.gov/rest/json/cve/1.0/CVE-1000-0002':
+    elif args[0] == 'https://services.nvd.nist.gov/rest/json/cve/2.0/CVE-1000-0002':
         return MockResponse(200)
 
     return MockResponse(404)
